@@ -178,6 +178,8 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+# Но сохраняем структуру папок для GitHub Actions
+!publish/.gitkeep
 
 # Publish Web Output
 *.[Pp]ublish.xml

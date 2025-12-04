@@ -71,8 +71,48 @@ dotnet test
 
 ### Публикация
 
+#### Быстрая сборка одной версии
+
+```powershell
+# Windows x64 (self-contained)
+.\build.ps1 -Platform win-x64 -SelfContained
+
+# Windows x64 (framework-dependent, требует установленный .NET 9.0)
+.\build.ps1 -Platform win-x64 -FrameworkDependent
+
+# Windows x86 (32-bit)
+.\build.ps1 -Platform win-x86 -SelfContained
+
+# Windows ARM64
+.\build.ps1 -Platform win-arm64 -SelfContained
+```
+
+#### Сборка всех версий
+
+```powershell
+.\build-all.ps1
+# или
+.\build.ps1 -All
+```
+
+**Примечание**: Если выполнение PowerShell скриптов запрещено, используйте `build.bat win-x64` или см. [BUILD.md](BUILD.md) для подробных инструкций.
+
+Это создаст сборки для всех поддерживаемых платформ:
+- **win-x64-self-contained** - Windows x64 (включает .NET Runtime, ~70-100 MB)
+- **win-x64-framework-dependent** - Windows x64 (требует установленный .NET 9.0, ~5-10 MB)
+- **win-x86-self-contained** - Windows x86 32-bit (включает .NET Runtime)
+- **win-arm64-self-contained** - Windows ARM64 (включает .NET Runtime)
+
+Все сборки будут сохранены в папку `publish/`.
+
+#### Ручная публикация
+
 ```bash
+# Self-contained (включает .NET Runtime)
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+
+# Framework-dependent (требует установленный .NET 9.0)
+dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true
 ```
 
 ## 📦 Структура проекта
@@ -195,6 +235,39 @@ dotnet test --verbosity normal
 - **Конвертация**: Используется десятичная система (1 Mbps = 1,000,000 бит/с = 125,000 байт/с)
 
 Все настройки автоматически сохраняются при изменении и загружаются при запуске приложения.
+
+## 🚀 Релизы
+
+### Автоматическая сборка через GitHub Actions
+
+При создании тега версии (например, `v1.0.0`) автоматически запускается сборка для всех платформ:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+GitHub Actions автоматически:
+1. Запустит все тесты
+2. Соберёт версии для всех платформ
+3. Создаст релиз с артефактами
+
+### Ручной запуск сборки
+
+Также можно запустить сборку вручную через GitHub Actions:
+1. Перейдите в раздел "Actions"
+2. Выберите workflow "Build and Release"
+3. Нажмите "Run workflow"
+4. Укажите версию релиза
+
+### Доступные версии
+
+В каждом релизе доступны следующие сборки:
+
+- **TorrentClient-{version}-win-x64-self-contained.zip** - Windows x64 (включает .NET Runtime)
+- **TorrentClient-{version}-win-x64-framework-dependent.zip** - Windows x64 (требует .NET 9.0)
+- **TorrentClient-{version}-win-x86-self-contained.zip** - Windows x86 32-bit
+- **TorrentClient-{version}-win-arm64-self-contained.zip** - Windows ARM64
 
 ## 🔧 Разработка
 
