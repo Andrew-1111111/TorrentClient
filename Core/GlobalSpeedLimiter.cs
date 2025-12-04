@@ -1,8 +1,9 @@
 namespace TorrentClient.Core
 {
     /// <summary>
-    /// Глобальный ограничитель скорости для всех торрентов
+    /// Глобальный ограничитель скорости для всех торрентов (общее ограничение скорости)
     /// Использует алгоритм Token Bucket
+    /// Применяется ко всем торрентам одновременно
     /// </summary>
     public sealed class GlobalSpeedLimiter : IDisposable
     {
@@ -42,16 +43,16 @@ namespace TorrentClient.Core
         
         #region Свойства
         
-        /// <summary>Максимальная скорость загрузки (байт/сек, null = без ограничений)</summary>
+        /// <summary>Максимальная общая скорость загрузки для всех торрентов (байт/сек, null = без ограничений)</summary>
         public long? MaxDownloadSpeed { get; set; }
         
-        /// <summary>Максимальная скорость отдачи (байт/сек, null = без ограничений)</summary>
+        /// <summary>Максимальная общая скорость отдачи для всех торрентов (байт/сек, null = без ограничений)</summary>
         public long? MaxUploadSpeed { get; set; }
         
-        /// <summary>Текущая общая скорость загрузки</summary>
+        /// <summary>Текущая общая скорость загрузки всех торрентов</summary>
         public long CurrentDownloadSpeed { get; private set; }
         
-        /// <summary>Текущая общая скорость отдачи</summary>
+        /// <summary>Текущая общая скорость отдачи всех торрентов</summary>
         public long CurrentUploadSpeed { get; private set; }
         
         #endregion
@@ -66,9 +67,9 @@ namespace TorrentClient.Core
         
         #region Публичные методы
         
-        /// <summary>Обновляет лимиты скорости</summary>
-        /// <param name="maxDownload">Максимальная скорость загрузки в байтах в секунду (null = без ограничений)</param>
-        /// <param name="maxUpload">Максимальная скорость отдачи в байтах в секунду (null = без ограничений)</param>
+        /// <summary>Обновляет общие лимиты скорости для всех торрентов</summary>
+        /// <param name="maxDownload">Максимальная общая скорость загрузки в байтах в секунду (null = без ограничений)</param>
+        /// <param name="maxUpload">Максимальная общая скорость отдачи в байтах в секунду (null = без ограничений)</param>
         public void UpdateLimits(long? maxDownload, long? maxUpload)
         {
             _lock.Wait();
@@ -86,9 +87,9 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Запрашивает токены для загрузки</summary>
+        /// <summary>Запрашивает токены для загрузки (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для загрузки</param>
-        /// <returns>true если токены доступны и загрузка может продолжаться, false если лимит превышен</returns>
+        /// <returns>true если токены доступны и загрузка может продолжаться, false если общий лимит превышен</returns>
         public bool TryConsumeDownload(int bytes)
         {
             if (MaxDownloadSpeed == null || MaxDownloadSpeed.Value <= 0)
@@ -112,10 +113,10 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Асинхронно запрашивает токены для загрузки</summary>
+        /// <summary>Асинхронно запрашивает токены для загрузки (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для загрузки</param>
         /// <param name="ct">Токен отмены операции</param>
-        /// <returns>true если токены доступны и загрузка может продолжаться, false если лимит превышен</returns>
+        /// <returns>true если токены доступны и загрузка может продолжаться, false если общий лимит превышен</returns>
         public async Task<bool> TryConsumeDownloadAsync(int bytes, CancellationToken ct = default)
         {
             if (MaxDownloadSpeed == null || MaxDownloadSpeed.Value <= 0)
@@ -139,9 +140,9 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Запрашивает токены для отдачи</summary>
+        /// <summary>Запрашивает токены для отдачи (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для отдачи</param>
-        /// <returns>true если токены доступны и отдача может продолжаться, false если лимит превышен</returns>
+        /// <returns>true если токены доступны и отдача может продолжаться, false если общий лимит превышен</returns>
         public bool TryConsumeUpload(int bytes)
         {
             if (MaxUploadSpeed == null || MaxUploadSpeed.Value <= 0)
@@ -165,10 +166,10 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Асинхронно запрашивает токены для отдачи</summary>
+        /// <summary>Асинхронно запрашивает токены для отдачи (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для отдачи</param>
         /// <param name="ct">Токен отмены операции</param>
-        /// <returns>true если токены доступны и отдача может продолжаться, false если лимит превышен</returns>
+        /// <returns>true если токены доступны и отдача может продолжаться, false если общий лимит превышен</returns>
         public async Task<bool> TryConsumeUploadAsync(int bytes, CancellationToken ct = default)
         {
             if (MaxUploadSpeed == null || MaxUploadSpeed.Value <= 0)
@@ -192,7 +193,7 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Ожидает доступность токенов для загрузки</summary>
+        /// <summary>Ожидает доступность токенов для загрузки (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для загрузки</param>
         /// <param name="ct">Токен отмены операции</param>
         public async Task WaitForDownloadTokensAsync(int bytes, CancellationToken ct = default)
@@ -208,7 +209,7 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Ожидает доступность токенов для отдачи</summary>
+        /// <summary>Ожидает доступность токенов для отдачи (общее ограничение для всех торрентов)</summary>
         /// <param name="bytes">Количество байт для отдачи</param>
         /// <param name="ct">Токен отмены операции</param>
         public async Task WaitForUploadTokensAsync(int bytes, CancellationToken ct = default)
@@ -224,9 +225,9 @@ namespace TorrentClient.Core
             }
         }
         
-        /// <summary>Обновляет текущую скорость (вызывается из UI)</summary>
-        /// <param name="downloadSpeed">Текущая скорость загрузки в байтах в секунду</param>
-        /// <param name="uploadSpeed">Текущая скорость отдачи в байтах в секунду</param>
+        /// <summary>Обновляет текущую общую скорость всех торрентов (вызывается из UI)</summary>
+        /// <param name="downloadSpeed">Текущая общая скорость загрузки всех торрентов в байтах в секунду</param>
+        /// <param name="uploadSpeed">Текущая общая скорость отдачи всех торрентов в байтах в секунду</param>
         public void UpdateCurrentSpeeds(long downloadSpeed, long uploadSpeed)
         {
             CurrentDownloadSpeed = downloadSpeed;

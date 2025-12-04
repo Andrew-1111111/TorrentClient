@@ -5,7 +5,7 @@ namespace TorrentClient.Utilities
 {
     /// <summary>
     /// Утилита для безопасного запуска fire-and-forget задач
-    /// Предотвращает утечки памяти через накопление необработанных исключений
+    /// Обрабатывает задачи с безопасной обработкой исключений
     /// </summary>
     public static class SafeTaskRunner
     {
@@ -25,7 +25,6 @@ namespace TorrentClient.Utilities
                 }
                 catch (Exception ex)
                 {
-                    // КРИТИЧНО: Обрабатываем все исключения, чтобы предотвратить утечку памяти
                     // через накопление необработанных исключений в TaskScheduler
                     Logger.LogError("[SafeTaskRunner] Необработанное исключение в fire-and-forget задаче", ex);
                 }
@@ -48,7 +47,6 @@ namespace TorrentClient.Utilities
                 }
                 catch (Exception ex)
                 {
-                    // КРИТИЧНО: Обрабатываем все исключения, чтобы предотвратить утечку памяти
                     Logger.LogError("[SafeTaskRunner] Необработанное исключение в fire-and-forget задаче", ex);
                 }
             });

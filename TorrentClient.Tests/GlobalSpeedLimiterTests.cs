@@ -291,5 +291,107 @@ public class GlobalSpeedLimiterTests : IDisposable
         
         Assert.NotNull(exception);
     }
+
+    /// <summary>
+    /// Проверяет, что UpdateLimits с очень большими значениями работает корректно
+    /// </summary>
+    [Fact]
+    public void UpdateLimits_VeryLargeValues_WorksCorrectly()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        
+        // Действие
+        limiter.UpdateLimits(100_000_000, 50_000_000); // 100 MB/s и 50 MB/s
+        
+        // Проверка
+        Assert.Equal(100_000_000, limiter.MaxDownloadSpeed);
+        Assert.Equal(50_000_000, limiter.MaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что UpdateLimits с нулевыми значениями отключает лимиты
+    /// </summary>
+    [Fact]
+    public void UpdateLimits_ZeroValues_DisablesLimits()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        
+        // Действие
+        limiter.UpdateLimits(0, 0);
+        
+        // Проверка
+        Assert.Equal(0, limiter.MaxDownloadSpeed);
+        Assert.Equal(0, limiter.MaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что TryConsumeDownload с нулевым лимитом возвращает true
+    /// </summary>
+    [Fact]
+    public void TryConsumeDownload_ZeroLimit_ReturnsTrue()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        limiter.UpdateLimits(0, null);
+        
+        // Действие
+        var result = limiter.TryConsumeDownload(1000);
+        
+        // Проверка
+        Assert.True(result);
+    }
+
+    /// <summary>
+    /// Проверяет, что TryConsumeUpload с нулевым лимитом возвращает true
+    /// </summary>
+    [Fact]
+    public void TryConsumeUpload_ZeroLimit_ReturnsTrue()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        limiter.UpdateLimits(null, 0);
+        
+        // Действие
+        var result = limiter.TryConsumeUpload(1000);
+        
+        // Проверка
+        Assert.True(result);
+    }
+
+    /// <summary>
+    /// Проверяет, что UpdateCurrentSpeeds с нулевыми значениями работает корректно
+    /// </summary>
+    [Fact]
+    public void UpdateCurrentSpeeds_ZeroValues_WorksCorrectly()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        
+        // Действие
+        limiter.UpdateCurrentSpeeds(0, 0);
+        
+        // Проверка
+        Assert.Equal(0, limiter.CurrentDownloadSpeed);
+        Assert.Equal(0, limiter.CurrentUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что UpdateCurrentSpeeds с очень большими значениями работает корректно
+    /// </summary>
+    [Fact]
+    public void UpdateCurrentSpeeds_VeryLargeValues_WorksCorrectly()
+    {
+        // Подготовка
+        var limiter = GlobalSpeedLimiter.Instance;
+        
+        // Действие
+        limiter.UpdateCurrentSpeeds(100_000_000, 50_000_000);
+        
+        // Проверка
+        Assert.Equal(100_000_000, limiter.CurrentDownloadSpeed);
+        Assert.Equal(50_000_000, limiter.CurrentUploadSpeed);
+    }
 }
 

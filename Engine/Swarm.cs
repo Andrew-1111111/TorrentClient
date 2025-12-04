@@ -24,7 +24,7 @@ namespace TorrentClient.Engine
         private readonly SemaphoreSlim _pendingLock = new(1, 1);
         private readonly HashSet<string> _localIPs = [];
         
-        // КРИТИЧНО: Храним обработчики событий для отписки и предотвращения утечек памяти
+        // Храним обработчики событий для отписки
         private readonly ConcurrentDictionary<Wire, WireEventHandlers> _wireHandlers = new();
         
         /// <summary>Хранит обёртки колбэков Wire для корректной очистки</summary>
@@ -102,7 +102,7 @@ namespace TorrentClient.Engine
             }
         }
 
-        /// <summary>Максимальная скорость отдачи (байт/сек, null = без ограничений)</summary>
+        /// <summary>Максимальная скорость отдачи для этого торрента (индивидуальное ограничение, байт/сек, null = без ограничений)</summary>
         public long? MaxUploadSpeed
         {
             get => _maxUploadSpeed;
@@ -169,7 +169,7 @@ namespace TorrentClient.Engine
         private readonly ConcurrentDictionary<Wire, int> _pendingRequestsPerWire = new();
         private const int BlockSize = 16384; // 16 КБ
         
-        /// <summary>Флаг для предотвращения параллельных вызовов RequestPieces (защита от утечки памяти)</summary>
+        /// <summary>Флаг для предотвращения параллельных вызовов RequestPieces</summary>
         private volatile bool _isRequestingPieces = false;
         
         /// <summary>Словарь для отслеживания обрабатываемых кусков (защита от параллельной обработки одного куска)</summary>
@@ -202,11 +202,11 @@ namespace TorrentClient.Engine
             public int TotalBlocks { get; set; }
             public DateTime StartTime { get; set; }
             
-            /// <summary>Максимальный размер словаря RequestTimes для предотвращения утечки памяти</summary>
+            /// <summary>Максимальный размер словаря RequestTimes</summary>
             private const int MaxRequestTimesSize = 2000; // Уменьшено для более агрессивной очистки
-            /// <summary>Максимальный размер ReceivedBlocks для предотвращения утечки памяти</summary>
+            /// <summary>Максимальный размер ReceivedBlocks</summary>
             private const int MaxReceivedBlocksSize = 5000; // Уменьшено для более агрессивной очистки
-            /// <summary>Максимальный размер RequestedBlocks для предотвращения утечки памяти</summary>
+            /// <summary>Максимальный размер RequestedBlocks</summary>
             private const int MaxRequestedBlocksSize = 500; // Уменьшено для более агрессивной очистки
             
             /// <summary>Очищает запросы старше указанного времени</summary>
@@ -231,7 +231,6 @@ namespace TorrentClient.Engine
                     RequestTimes.Remove(block);
                 }
                 
-                // КРИТИЧНО: Ограничение размера словаря для предотвращения утечки памяти
                 // ОПТИМИЗАЦИЯ: Используем более эффективный алгоритм частичной сортировки
                 if (RequestTimes.Count > MaxRequestTimesSize)
                 {
@@ -263,7 +262,7 @@ namespace TorrentClient.Engine
                 }
             }
             
-            /// <summary>Очищает старые ReceivedBlocks для предотвращения утечки памяти</summary>
+            /// <summary>Очищает старые ReceivedBlocks</summary>
             public void TrimReceivedBlocks()
             {
                 // Если ReceivedBlocks слишком большой, оставляем только последние
@@ -281,7 +280,6 @@ namespace TorrentClient.Engine
             /// <summary>Добавляет блок в ReceivedBlocks с проверкой лимита</summary>
             public bool TryAddReceivedBlock(int blockIndex)
             {
-                // КРИТИЧНО: Проверяем лимит перед добавлением для предотвращения утечки
                 if (ReceivedBlocks.Count >= MaxReceivedBlocksSize)
                 {
                     // Если достигнут лимит, очищаем старые блоки перед добавлением нового
@@ -702,7 +700,6 @@ namespace TorrentClient.Engine
             try
             {
                 if (_disposed) return;
-                // КРИТИЧНО: Ограничиваем размер коллекции для предотвращения утечки памяти
                 if (_knownPeers.Count >= MaxKnownPeers && !_knownPeers.Contains(key))
                 {
                     // Удаляем самые старые записи (FIFO - удаляем первые добавленные)
@@ -787,7 +784,6 @@ namespace TorrentClient.Engine
                 }
                 else
                 {
-                    // КРИТИЧНО: Ограничиваем размер коллекции для предотвращения утечки памяти
                     if (_failedPeers.Count >= MaxFailedPeers && !_failedPeers.ContainsKey(key))
                     {
                         // Удаляем самые старые записи
@@ -808,7 +804,6 @@ namespace TorrentClient.Engine
             }
             catch
             {
-                // КРИТИЧНО: Ограничиваем размер коллекции для предотвращения утечки памяти
                 if (_failedPeers.Count >= MaxFailedPeers && !_failedPeers.ContainsKey(key))
                 {
                     // Удаляем самые старые записи
@@ -992,7 +987,6 @@ namespace TorrentClient.Engine
             {
                 pieceIndex = data.Index;
                 
-                // КРИТИЧНО: Защита от параллельной обработки одного куска (может вызывать утечку памяти)
                 // Если кусок уже обрабатывается, пропускаем этот вызов
                 if (!_processingPieces.TryAdd(pieceIndex, true))
                 {
@@ -1053,11 +1047,13 @@ namespace TorrentClient.Engine
                 // Получаем или создаём буфер куска из ArrayPool
                 var pooledBuffer = _pieceBuffers.GetOrAdd(pieceIndex, _ => new PooledBuffer(pieceLength));
 
+                // Применяем ограничение скорости ПЕРЕД обработкой данных
+                await WaitForDownloadTokensAsync(data.Data.Length, _cts?.Token ?? default);
+                
                 // Копируем данные блока
                 if (begin >= 0 && begin + data.Data.Length <= pooledBuffer.Length)
                 {
                     Array.Copy(data.Data, 0, pooledBuffer.Array, begin, data.Data.Length);
-                    // КРИТИЧНО: Используем TryAddReceivedBlock для предотвращения утечки памяти
                     state.TryAddReceivedBlock(blockIndex);
                     
                     // Удаляем из списка запрошенных (блок получен)
@@ -1066,9 +1062,6 @@ namespace TorrentClient.Engine
 
                     // Учитываем полученные байты для расчёта скорости
                     DownloadedBytes += data.Data.Length;
-                    
-                    // Потребляем токены для ограничения скорости
-                    ConsumeDownloadTokens(data.Data.Length);
 
                     // Логируем реже для уменьшения спама
                     if (state.ReceivedBlocks.Count % 50 == 0 || state.ReceivedBlocks.Count == totalBlocks)
@@ -1104,7 +1097,6 @@ namespace TorrentClient.Engine
                             _ = w.SendHaveAsync(pieceIndex);
                         }
 
-                        // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                         // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
                         var callbacks = _callbacks;
                         if (callbacks != null)
@@ -1116,7 +1108,6 @@ namespace TorrentClient.Engine
                         if (Bitfield.IsComplete)
                         {
                             Logger.LogInfo("[Swarm] Загрузка завершена!");
-                            // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                             // Используем уже захваченную ссылку callbacks
                             if (callbacks != null)
                             {
@@ -1144,7 +1135,6 @@ namespace TorrentClient.Engine
             {
                 Logger.LogWarning($"[Swarm] Ошибка в OnPieceReceived: {ex.Message}");
                 
-                // КРИТИЧНО: При любой ошибке возвращаем буфер в пул, чтобы предотвратить утечку памяти
                 if (pieceIndex >= 0)
                 {
                     // Сбрасываем состояние куска
@@ -1201,7 +1191,6 @@ namespace TorrentClient.Engine
 
             Logger.LogInfo($"[Swarm] Отключён от {key} (осталось: {_wires.Count})");
             
-            // КРИТИЧНО: Отписываемся от событий перед освобождением для предотвращения утечек памяти
             UnsubscribeWireEvents(wire);
             
             // Освобождаем ресурсы Wire
@@ -1246,7 +1235,6 @@ namespace TorrentClient.Engine
                     // Отправляем статистику каждые 250мс для более плавного отображения
                     if ((now - lastStats).TotalMilliseconds >= 250)
                     {
-                        // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                         // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
                         var callbacks = _callbacks;
                         if (callbacks != null)
@@ -1412,7 +1400,6 @@ namespace TorrentClient.Engine
                         state.Downloading = false;
                         state.StartTime = DateTime.UtcNow;
                         
-                        // КРИТИЧНО: Возвращаем буфер в пул для предотвращения утечки памяти
                         if (_pieceBuffers.TryRemove(pieceIndex, out var staleBuffer))
                         {
                             try
@@ -1475,7 +1462,6 @@ namespace TorrentClient.Engine
                     // Отправляем статистику каждые 500мс
                     if ((now - lastStats).TotalMilliseconds >= 500)
                     {
-                        // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                         // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
                         var callbacks = _callbacks;
                         if (callbacks != null)
@@ -1521,16 +1507,16 @@ namespace TorrentClient.Engine
         /// <summary>Проверяет наличие токенов для загрузки (локальный + глобальный лимит)</summary>
         private bool HasDownloadTokens()
         {
-            // Проверяем глобальный лимит (без потребления токенов)
+            // Проверяем общее ограничение скорости (для всех торрентов)
             if (GlobalSpeedLimiter.Instance.MaxDownloadSpeed.HasValue && 
                 GlobalSpeedLimiter.Instance.MaxDownloadSpeed.Value > 0)
             {
-                // Проверяем глобальный лимит без блокировки для производительности
+                // Проверяем общий лимит без блокировки для производительности
                 if (!GlobalSpeedLimiter.Instance.TryConsumeDownload(0))
                     return false;
             }
             
-            // Проверяем локальный лимит
+            // Проверяем индивидуальное ограничение скорости для этого торрента
             if (MaxDownloadSpeed == null || MaxDownloadSpeed.Value <= 0)
                 return true;
 
@@ -1542,27 +1528,6 @@ namespace TorrentClient.Engine
             {
                 RefillTokens();
                 return _downloadTokens >= BlockSize;
-            }
-            finally
-            {
-                _speedLimitLock.Release();
-            }
-        }
-
-        /// <summary>Потребляет токены загрузки (локальный + глобальный)</summary>
-        public void ConsumeDownloadTokens(int bytes)
-        {
-            // Потребляем глобальные токены
-            GlobalSpeedLimiter.Instance.TryConsumeDownload(bytes);
-            
-            // Потребляем локальные токены
-            if (MaxDownloadSpeed == null || MaxDownloadSpeed.Value <= 0)
-                return;
-
-            _speedLimitLock.Wait();
-            try
-            {
-                _downloadTokens -= bytes;
             }
             finally
             {
@@ -1743,7 +1708,6 @@ namespace TorrentClient.Engine
                     if (requestedBlocks.Contains(blockIndex)) continue;
                     if (totalRequestsSent >= maxRequestsPerIteration) break;
                     
-                    // КРИТИЧНО: Проверяем лимиты перед добавлением для предотвращения утечки
                     if (requestedBlocks.Count >= 500 || requestTimes.Count >= 2000)
                     {
                         // Если достигнут лимит, очищаем старые запросы
@@ -1777,7 +1741,6 @@ namespace TorrentClient.Engine
             }
             
             // КРИТИЧНО: Отправляем все запросы параллельно с обработкой ошибок
-            // Используем fire-and-forget паттерн для предотвращения утечки памяти
             if (requestTasks.Count > 0)
             {
                 // КРИТИЧНО: Защита от накопления задач - если предыдущая задача еще выполняется, пропускаем
@@ -1814,7 +1777,6 @@ namespace TorrentClient.Engine
                         }
                         finally
                         {
-                            // КРИТИЧНО: Явно очищаем ссылку на AggregateException для предотвращения утечки памяти
                             aggEx = null!;
                         }
                     }
@@ -1827,7 +1789,6 @@ namespace TorrentClient.Engine
                     }
                     finally
                     {
-                        // КРИТИЧНО: Очищаем ссылки на задачи для предотвращения утечки памяти
                         requestTasks.Clear();
                         _isRequestingPieces = false;
                     }
@@ -1871,6 +1832,10 @@ namespace TorrentClient.Engine
         /// <summary>Ожидает токены для загрузки</summary>
         private async Task WaitForDownloadTokensAsync(int bytes, CancellationToken ct)
         {
+            // Сначала применяем общее ограничение скорости загрузки (для всех торрентов)
+            await GlobalSpeedLimiter.Instance.WaitForDownloadTokensAsync(bytes, ct).ConfigureAwait(false);
+            
+            // Затем применяем индивидуальное ограничение скорости загрузки для этого торрента
             if (MaxDownloadSpeed == null || MaxDownloadSpeed.Value <= 0)
                 return;
 
@@ -1897,13 +1862,13 @@ namespace TorrentClient.Engine
             }
         }
 
-        /// <summary>Ожидает токены для отдачи (локальный + глобальный лимит)</summary>
+        /// <summary>Ожидает токены для отдачи (общее ограничение + индивидуальное ограничение)</summary>
         private async Task WaitForUploadTokensAsync(int bytes, CancellationToken ct)
         {
-            // Сначала проверяем глобальный лимит
+            // Сначала применяем общее ограничение скорости отдачи (для всех торрентов)
             await GlobalSpeedLimiter.Instance.WaitForUploadTokensAsync(bytes, ct).ConfigureAwait(false);
             
-            // Затем локальный лимит торрента
+            // Затем применяем индивидуальное ограничение скорости отдачи для этого торрента
             if (MaxUploadSpeed == null || MaxUploadSpeed.Value <= 0)
                 return;
 

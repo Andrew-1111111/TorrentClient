@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpeedSettingsForm));
             _downloadLabel = new Label();
             _downloadSpeedComboBox = new ComboBox();
             _downloadUnitComboBox = new ComboBox();
@@ -182,13 +183,14 @@
             Controls.Add(_downloadSpeedComboBox);
             Controls.Add(_downloadLabel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(5, 6, 5, 6);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "SpeedSettingsForm";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Настройки скорости";
+            Text = " Настройки скорости";
             ResumeLayout(false);
             PerformLayout();
         }

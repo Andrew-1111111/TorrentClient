@@ -73,7 +73,7 @@ namespace TorrentClient.Protocol
         private readonly SemaphoreSlim _sendSemaphore = new(1, 1);
         private CancellationTokenSource? _cancellationTokenSource;
         internal PeerExchange? _peerExchange;
-        private Task? _readTask; // КРИТИЧНО: Отслеживаем задачу чтения для предотвращения утечки памяти
+        private Task? _readTask;
         private byte[]? _remoteReservedBytes; // Reserved bytes от пира для проверки поддержки расширений
 
         // Внутренние поля для доступа из статического метода
@@ -87,8 +87,8 @@ namespace TorrentClient.Protocol
         public bool IsChoked => _isChoked;
         public bool PeerChoked => _peerChoked;
         public bool PeerInterested => _peerInterested;
-        public long DownloadSpeed { get; private set; }
-        public long UploadSpeed { get; private set; }
+        public long DownloadSpeed { get; internal set; }
+        public long UploadSpeed { get; internal set; }
         public BitField? PeerBitField => _peerBitField; // Доступ к bitfield пира для определения доступных кусков
 
         public class PieceDataEventArgs : EventArgs
@@ -1018,7 +1018,6 @@ namespace TorrentClient.Protocol
             _isConnected = false;
             _cancellationTokenSource?.Cancel();
             
-            // КРИТИЧНО: Ожидаем завершения задачи чтения для предотвращения утечки памяти
             if (_readTask != null)
             {
                 try
@@ -1092,7 +1091,6 @@ namespace TorrentClient.Protocol
             _isConnected = false;
             _cancellationTokenSource?.Cancel();
 
-            // КРИТИЧНО: Ожидаем завершения задачи чтения для предотвращения утечки памяти
             if (_readTask != null)
             {
                 try

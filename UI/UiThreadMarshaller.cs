@@ -16,7 +16,6 @@ namespace TorrentClient.UI
             if (control == null || action == null)
                 return;
 
-            // КРИТИЧНО: Проверяем, не disposed ли Control для предотвращения утечки памяти
             if (control.IsDisposed || !control.IsHandleCreated)
                 return;
 
@@ -49,7 +48,6 @@ namespace TorrentClient.UI
             if (control == null || action == null)
                 return;
 
-            // КРИТИЧНО: Проверяем, не disposed ли Control для предотвращения утечки памяти
             if (control.IsDisposed || !control.IsHandleCreated)
                 return;
 
@@ -82,7 +80,6 @@ namespace TorrentClient.UI
             if (control == null || action == null)
                 return;
 
-            // КРИТИЧНО: Проверяем, не disposed ли Control для предотвращения утечки памяти
             if (control.IsDisposed || !control.IsHandleCreated)
             {
                 // Очищаем ключ из pendingKeys, если Control disposed

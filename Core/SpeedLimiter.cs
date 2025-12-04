@@ -5,16 +5,29 @@ using System.Threading.Tasks;
 namespace TorrentClient.Core
 {
     /// <summary>
-    /// Ограничитель скорости передачи данных
+    /// Ограничитель скорости передачи данных (индивидуальное ограничение для торрента)
     /// </summary>
-    public class SpeedLimiter(long? maxBytesPerSecond) : IDisposable
+    public class SpeedLimiter : IDisposable
     {
         #region Поля
 
-        private readonly long? _maxBytesPerSecond = maxBytesPerSecond;
+        private long? _maxBytesPerSecond;
         private readonly SemaphoreSlim _lock = new(1, 1);
         private long _bytesTransferred;
         private DateTime _lastResetTime = DateTime.Now;
+
+        #endregion
+
+        #region Конструктор
+
+        /// <summary>
+        /// Создает новый экземпляр ограничителя скорости
+        /// </summary>
+        /// <param name="maxBytesPerSecond">Максимальная скорость в байтах в секунду (null = без ограничений)</param>
+        public SpeedLimiter(long? maxBytesPerSecond)
+        {
+            _maxBytesPerSecond = maxBytesPerSecond;
+        }
 
         #endregion
 
@@ -72,6 +85,25 @@ namespace TorrentClient.Core
             try
             {
                 _bytesTransferred = 0;
+                _lastResetTime = DateTime.Now;
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Обновляет лимит скорости (индивидуальное ограничение для торрента)
+        /// </summary>
+        /// <param name="newMaxBytesPerSecond">Новый лимит скорости в байтах в секунду (null = без ограничений)</param>
+        public void UpdateLimit(long? newMaxBytesPerSecond)
+        {
+            _lock.Wait();
+            try
+            {
+                _maxBytesPerSecond = newMaxBytesPerSecond;
+                _bytesTransferred = 0; // Сбрасываем счетчик при изменении лимита
                 _lastResetTime = DateTime.Now;
             }
             finally

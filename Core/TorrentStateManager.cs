@@ -28,8 +28,31 @@ namespace TorrentClient.Core
 
         public TorrentStateManager(string statePath)
         {
-            _statePath = statePath;
-            Directory.CreateDirectory(_statePath);
+            if (string.IsNullOrWhiteSpace(statePath))
+                throw new ArgumentException("Путь к директории состояний не может быть пустым", nameof(statePath));
+            
+            _statePath = Path.GetFullPath(statePath);
+            
+            try
+            {
+                // Создаем папку, если её нет
+                if (!Directory.Exists(_statePath))
+                {
+                    Directory.CreateDirectory(_statePath);
+                }
+                
+                // Проверяем, что папка действительно создана
+                if (!Directory.Exists(_statePath))
+                {
+                    throw new InvalidOperationException($"Не удалось создать директорию состояний: {_statePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Логируем ошибку, но не прерываем выполнение
+                System.Diagnostics.Debug.WriteLine($"Ошибка создания директории состояний: {_statePath}, Ошибка: {ex.Message}");
+                throw;
+            }
         }
 
         #endregion

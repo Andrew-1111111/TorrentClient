@@ -25,7 +25,6 @@ namespace TorrentClient.Engine
             var callbacks = _callbacksField?.GetValue(_client) as ITorrentClientCallbacks;
             if (callbacks != null)
             {
-                // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                 SafeTaskRunner.RunSafe(async () => await callbacks.OnTorrentProgressAsync(torrent).ConfigureAwait(false));
             }
             return Task.CompletedTask;
@@ -37,7 +36,6 @@ namespace TorrentClient.Engine
             var callbacks = _callbacksField?.GetValue(_client) as ITorrentClientCallbacks;
             if (callbacks != null)
             {
-                // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                 SafeTaskRunner.RunSafe(async () => await callbacks.OnTorrentCompleteAsync(torrent).ConfigureAwait(false));
             }
             return Task.CompletedTask;

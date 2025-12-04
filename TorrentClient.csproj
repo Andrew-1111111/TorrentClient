@@ -10,6 +10,7 @@
     <Platforms>x64;AnyCPU</Platforms>
     <ApplicationIcon>Images\icon.ico</ApplicationIcon>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   
   <!-- Настройки только для публикации (не влияют на отладку) -->
@@ -52,6 +53,11 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="TorrentClient.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.Runtime.InteropServices" />
   </ItemGroup>
 
 </Project>

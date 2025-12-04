@@ -145,6 +145,143 @@ public class AppSettingsManagerTests : IDisposable
         Assert.NotNull(settings.DefaultDownloadPath);
     }
 
+    /// <summary>
+    /// Проверяет, что null значения для глобальных лимитов скорости корректно сохраняются и загружаются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithNullSpeedLimits_SavesAndLoadsCorrectly()
+    {
+        // Arrange
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = null,
+            GlobalMaxUploadSpeed = null
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.Null(loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Null(loadedSettings.GlobalMaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что смешанные значения (один null, другой установлен) корректно сохраняются и загружаются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithMixedSpeedLimits_SavesAndLoadsCorrectly()
+    {
+        // Arrange
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = 1024 * 1024, // 1 MB/s
+            GlobalMaxUploadSpeed = null
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.NotNull(loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Equal(1024 * 1024, loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Null(loadedSettings.GlobalMaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что большие значения для глобальных лимитов скорости корректно сохраняются и загружаются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithLargeSpeedLimits_SavesAndLoadsCorrectly()
+    {
+        // Arrange
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = 100 * 1024 * 1024, // 100 MB/s
+            GlobalMaxUploadSpeed = 50 * 1024 * 1024 // 50 MB/s
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.NotNull(loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.NotNull(loadedSettings.GlobalMaxUploadSpeed);
+        Assert.Equal(100 * 1024 * 1024, loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Equal(50 * 1024 * 1024, loadedSettings.GlobalMaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что настройки с очень большими лимитами скорости корректно сохраняются и загружаются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithVeryLargeSpeedLimits_SavesAndLoadsCorrectly()
+    {
+        // Arrange
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = 1_000_000_000, // 1 GB/s в байтах
+            GlobalMaxUploadSpeed = 500_000_000 // 500 MB/s в байтах
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.NotNull(loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.NotNull(loadedSettings.GlobalMaxUploadSpeed);
+        Assert.Equal(1_000_000_000, loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Equal(500_000_000, loadedSettings.GlobalMaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что настройки с нулевыми лимитами скорости корректно сохраняются и загружаются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithZeroSpeedLimits_SavesAndLoadsCorrectly()
+    {
+        // Arrange
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = 0,
+            GlobalMaxUploadSpeed = 0
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.Equal(0, loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Equal(0, loadedSettings.GlobalMaxUploadSpeed);
+    }
+
+    /// <summary>
+    /// Проверяет, что настройки с точными значениями лимитов скорости (125,000 байт/сек = 1 Mbps) корректно сохраняются
+    /// </summary>
+    [Fact]
+    public void SaveSettings_WithExactMbpsValues_SavesAndLoadsCorrectly()
+    {
+        // Arrange - 1 Mbps = 125,000 байт/сек, 10 Mbps = 1,250,000 байт/сек
+        var originalSettings = new AppSettings
+        {
+            GlobalMaxDownloadSpeed = 125_000, // Точное значение для 1 Mbps
+            GlobalMaxUploadSpeed = 1_250_000 // Точное значение для 10 Mbps
+        };
+
+        // Act
+        _settingsManager.SaveSettings(originalSettings);
+        var loadedSettings = _settingsManager.LoadSettings();
+
+        // Assert
+        Assert.Equal(125_000, loadedSettings.GlobalMaxDownloadSpeed);
+        Assert.Equal(1_250_000, loadedSettings.GlobalMaxUploadSpeed);
+    }
+
     public void Dispose()
     {
         try
@@ -169,7 +306,8 @@ public class AppSettingsManagerTests : IDisposable
         private readonly string _settingsFilePath;
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            WriteIndented = true
+            WriteIndented = true,
+            PropertyNameCaseInsensitive = true
         };
 
         public TestableAppSettingsManager(string settingsFilePath)
@@ -190,7 +328,7 @@ public class AppSettingsManagerTests : IDisposable
                     return GetDefaultSettings();
 
                 var json = File.ReadAllText(_settingsFilePath);
-                return JsonSerializer.Deserialize<AppSettings>(json) ?? GetDefaultSettings();
+                return JsonSerializer.Deserialize<AppSettings>(json, JsonOptions) ?? GetDefaultSettings();
             }
             catch (Exception)
             {

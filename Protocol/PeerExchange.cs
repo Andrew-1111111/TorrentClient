@@ -129,7 +129,6 @@ namespace TorrentClient.Protocol
                     if (_callbacks != null)
                     {
                         var peersCopy = peers; // Захватываем копию для лямбды
-                        // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                         SafeTaskRunner.RunSafe(async () => await _callbacks.OnPeersReceivedAsync(peersCopy).ConfigureAwait(false));
                     }
                 }

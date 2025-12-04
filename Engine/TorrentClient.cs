@@ -87,7 +87,6 @@ namespace TorrentClient.Engine
 
                 Logger.LogInfo($"[Client] Добавлен торрент: {metadata.Name}");
                 
-                // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                 // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
                 var callbacks = _callbacks;
                 if (callbacks != null)
@@ -163,7 +162,6 @@ namespace TorrentClient.Engine
 
             Logger.LogInfo($"[Client] Удалён торрент: {torrent.Metadata.Name}");
             
-            // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
             // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
             var callbacks = _callbacks;
             if (callbacks != null)
@@ -394,7 +392,6 @@ namespace TorrentClient.Engine
         private bool _initialized;
         private readonly SemaphoreSlim _initLock = new(1, 1);
         
-        // КРИТИЧНО: Сохраняем ссылки на wrappers для предотвращения утечки памяти
         private SwarmCallbacksWrapper? _swarmCallbacksWrapper;
         private TrackerManagerCallbacksWrapper? _trackerCallbacksWrapper;
 
@@ -651,7 +648,6 @@ namespace TorrentClient.Engine
                 _lastSpeedUpdate = now;
             }
 
-            // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
             // КРИТИЧНО: Захватываем ссылку в локальную переменную для предотвращения race condition
             var callbacks = _callbacks;
             if (callbacks != null)
@@ -671,7 +667,6 @@ namespace TorrentClient.Engine
         {
             if (!_initialized)
             {
-                // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                 var callbacks = _callbacks;
                 if (callbacks != null)
                 {
@@ -775,7 +770,6 @@ namespace TorrentClient.Engine
                 _trackerManager.SetCallbacks(null!);
             }
             
-            // КРИТИЧНО: Очищаем ссылки на wrappers для предотвращения утечки памяти
             _swarmCallbacksWrapper = null;
             _trackerCallbacksWrapper = null;
         }

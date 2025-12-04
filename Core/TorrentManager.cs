@@ -35,7 +35,7 @@ namespace TorrentClient.Core
         // Реализация колбэков для Client
         private readonly TorrentClientCallbacks _clientCallbacks;
         
-        /// <summary>Словарь для отслеживания инициализируемых торрентов (защита от утечки памяти)</summary>
+        /// <summary>Словарь для отслеживания инициализируемых торрентов</summary>
         private readonly HashSet<string> _initializingTorrents = [];
 
         #endregion
@@ -275,7 +275,6 @@ namespace TorrentClient.Core
                         }
                         finally
                         {
-                            // КРИТИЧНО: Освобождаем флаг инициализации для предотвращения утечки памяти
                             _initializingTorrents.Remove(uiTorrent.Id);
                         }
                     });
@@ -311,11 +310,12 @@ namespace TorrentClient.Core
                         _appSettings.MaxRequestsPerPeer);
                 }
                 
-                // Применяем сохранённые ограничения скорости
+                // Применяем сохранённые ограничения скорости (включая null для сброса ограничений)
+                activeTorrent.MaxDownloadSpeed = uiTorrent.MaxDownloadSpeed;
+                activeTorrent.MaxUploadSpeed = uiTorrent.MaxUploadSpeed;
                 if (uiTorrent.MaxDownloadSpeed.HasValue || uiTorrent.MaxUploadSpeed.HasValue)
                 {
-                    activeTorrent.MaxDownloadSpeed = uiTorrent.MaxDownloadSpeed;
-                    activeTorrent.MaxUploadSpeed = uiTorrent.MaxUploadSpeed;
+                    Logger.LogInfo($"[TorrentManager] Применены ограничения скорости для {uiTorrent.Info.Name}: загрузка={FormatSpeed(uiTorrent.MaxDownloadSpeed)}, отдача={FormatSpeed(uiTorrent.MaxUploadSpeed)}");
                 }
 
                 // Синхронизируем прогресс из Engine
@@ -559,12 +559,22 @@ namespace TorrentClient.Core
                     await activeTorrent.WaitForInitializationAsync();
                 }
                 
-                // Применяем сохранённые ограничения скорости
+                // Применяем глобальные настройки Swarm (критично для применения изменённых настроек)
+                if (_appSettings != null)
+                {
+                    activeTorrent.ApplySwarmSettings(
+                        _appSettings.MaxConnections,
+                        _appSettings.MaxHalfOpenConnections,
+                        _appSettings.MaxPiecesToRequest,
+                        _appSettings.MaxRequestsPerPeer);
+                }
+                
+                // Применяем сохранённые ограничения скорости (включая null для сброса ограничений)
+                activeTorrent.MaxDownloadSpeed = uiTorrent.MaxDownloadSpeed;
+                activeTorrent.MaxUploadSpeed = uiTorrent.MaxUploadSpeed;
                 if (uiTorrent.MaxDownloadSpeed.HasValue || uiTorrent.MaxUploadSpeed.HasValue)
                 {
-                    activeTorrent.MaxDownloadSpeed = uiTorrent.MaxDownloadSpeed;
-                    activeTorrent.MaxUploadSpeed = uiTorrent.MaxUploadSpeed;
-                    Logger.LogInfo($"[TorrentManager] Восстановлены ограничения скорости для {uiTorrent.Info.Name}");
+                    Logger.LogInfo($"[TorrentManager] Восстановлены ограничения скорости для {uiTorrent.Info.Name}: загрузка={FormatSpeed(uiTorrent.MaxDownloadSpeed)}, отдача={FormatSpeed(uiTorrent.MaxUploadSpeed)}");
                 }
                 
                 // Запускаем
@@ -692,7 +702,12 @@ namespace TorrentClient.Core
                     activeTorrent.MaxUploadSpeed = maxUpload;
                     Logger.LogInfo($"[TorrentManager] Ограничение скорости применено: загрузка={FormatSpeed(maxDownload)}, отдача={FormatSpeed(maxUpload)}");
                 }
+                else
+                {
+                    Logger.LogWarning($"[TorrentManager] Не удалось применить ограничение скорости - торрент не найден в Engine: {uiTorrent.Info.Name}");
+                }
                 
+                // Сохраняем состояние торрента с новыми лимитами
                 _stateStorage.SaveTorrentState(uiTorrent);
                 // Захватываем ссылку в локальную переменную для предотвращения race condition
                 var callbacks = _callbacks;
@@ -706,9 +721,13 @@ namespace TorrentClient.Core
         private static string FormatSpeed(long? bytesPerSecond)
         {
             if (bytesPerSecond == null) return "без ограничений";
-            var kbps = bytesPerSecond.Value / 1024;
-            if (kbps >= 1024) return $"{kbps / 1024} MB/s";
-            return $"{kbps} KB/s";
+            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
+            if (mbps >= 1.0)
+                return $"{mbps:F1} Mbps";
+            var kbps = mbps * 1000.0;
+            return $"{kbps:F1} Kbps";
         }
 
         /// <summary>
@@ -894,7 +913,6 @@ namespace TorrentClient.Core
             // Сохраняем состояние всех торрентов перед закрытием
             SaveAllTorrents();
             
-            // КРИТИЧНО: Очищаем флаги инициализации для предотвращения утечки памяти
             _initializingTorrents.Clear();
             
             _client.Dispose();
@@ -919,7 +937,6 @@ namespace TorrentClient.Core
             // Сохраняем состояние всех торрентов перед закрытием
             SaveAllTorrents();
             
-            // КРИТИЧНО: Очищаем флаги инициализации для предотвращения утечки памяти
             _initializingTorrents.Clear();
             
             await _client.DisposeAsync().ConfigureAwait(false);

@@ -26,7 +26,7 @@ namespace TorrentClient.Protocol
         /// Максимум одновременных запросов от одного пира (pipelining)
         /// Увеличенное значение критично для высокой скорости загрузки!
         /// </summary>
-        public int MaxRequestsPerPeer { get; set; } = 128;
+        public int MaxRequestsPerPeer { get; set; } = 200;
 
         #endregion
 
@@ -44,14 +44,12 @@ namespace TorrentClient.Protocol
                 var activePeerRequests = _activeRequests.Values.Count(r => r.Peer == peer);
                 if (activePeerRequests >= MaxRequestsPerPeer)
                 {
-                    Logger.LogInfo($"Достигнут лимит запросов для {peer.EndPoint}");
                     return false;
                 }
 
                 var key = $"{pieceIndex}_{begin}";
                 if (_activeRequests.ContainsKey(key))
                 {
-                    Logger.LogInfo($"Блок уже запрошен: кусок={pieceIndex}, смещение={begin}");
                     return false;
                 }
 
@@ -73,7 +71,6 @@ namespace TorrentClient.Protocol
 
                 // Отправка запроса пиру
                 await peer.SendRequestAsync(pieceIndex, begin, length);
-                Logger.LogInfo($"Запрошен блок: кусок={pieceIndex}, смещение={begin}, размер={length} от {peer.EndPoint}");
 
                 return true;
             }
@@ -117,7 +114,6 @@ namespace TorrentClient.Protocol
 
                 // Завершение задачи
                 request.CompletionSource?.TrySetResult(data);
-                Logger.LogInfo($"Получен блок: кусок={pieceIndex}, смещение={begin}, размер={data.Length} от {peer.EndPoint}");
 
                 return true;
             }
@@ -178,13 +174,50 @@ namespace TorrentClient.Protocol
             }
         }
 
+        /// <summary>
+        /// Очищает запросы, которые превысили таймаут (по умолчанию 60 секунд)
+        /// </summary>
+        public async Task CleanupTimedOutRequestsAsync(TimeSpan timeout)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                var now = DateTime.Now;
+                var timedOutRequests = _activeRequests.Values
+                    .Where(r => (now - r.RequestTime) > timeout)
+                    .ToList();
+
+                foreach (var request in timedOutRequests)
+                {
+                    var key = $"{request.PieceIndex}_{request.Begin}";
+                    _activeRequests.Remove(key);
+                    
+                    // Удаление из очереди пира
+                    if (_pendingRequests.TryGetValue(request.Peer, out var queue))
+                    {
+                        var items = queue.Where(r => r.PieceIndex != request.PieceIndex || r.Begin != request.Begin).ToList();
+                        queue.Clear();
+                        foreach (var item in items)
+                            queue.Enqueue(item);
+                    }
+                    
+                    // Отмена задачи с таймаутом
+                    request.CompletionSource?.TrySetException(new TimeoutException($"Запрос блока превысил таймаут: кусок={request.PieceIndex}, смещение={request.Begin}"));
+                    Logger.LogWarning($"Таймаут запроса: кусок={request.PieceIndex}, смещение={request.Begin}, пир={request.Peer.EndPoint}");
+                }
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
         public void Dispose()
         {
             // Очищаем словари для освобождения ссылок на PeerConnection
             _lock.Wait();
             try
             {
-                // КРИТИЧНО: Отменяем все незавершенные TaskCompletionSource для предотвращения утечки памяти
                 foreach (var request in _activeRequests.Values)
                 {
                     request.CompletionSource?.TrySetCanceled();

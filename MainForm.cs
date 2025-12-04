@@ -28,9 +28,100 @@ namespace TorrentClient
         public MainForm()
         {
             InitializeComponent();
+            InitializeDragAndDrop();
             InitializeApplication();
+            ResizeListViewColumns(); // Первоначальное растягивание колонок
         }
         
+        /// <summary>
+        /// Инициализирует поддержку drag-and-drop для .torrent файлов
+        /// </summary>
+        private void InitializeDragAndDrop()
+        {
+            AllowDrop = true;
+            DragEnter += MainForm_DragEnter;
+            DragDrop += MainForm_DragDrop;
+        }
+
+        /// <summary>
+        /// Обработчик события DragEnter - проверяет, что перетаскивается .torrent файл
+        /// </summary>
+        private void MainForm_DragEnter(object? sender, DragEventArgs e)
+        {
+            if (e.Data == null)
+                return;
+                
+            // Проверяем, что перетаскиваются файлы
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = (string[]?)e.Data.GetData(DataFormats.FileDrop);
+                if (files != null && files.Length > 0)
+                {
+                    // Проверяем, что хотя бы один файл имеет расширение .torrent
+                    var hasTorrentFile = files.Any(f => 
+                        File.Exists(f) && 
+                        Path.GetExtension(f).Equals(".torrent", StringComparison.OrdinalIgnoreCase));
+                    
+                    if (hasTorrentFile)
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                        return;
+                    }
+                }
+            }
+            
+            e.Effect = DragDropEffects.None;
+        }
+
+        /// <summary>
+        /// Обработчик события DragDrop - добавляет перетащенные .torrent файлы
+        /// </summary>
+        private async void MainForm_DragDrop(object? sender, DragEventArgs e)
+        {
+            if (e.Data == null || !e.Data.GetDataPresent(DataFormats.FileDrop))
+                return;
+
+            var files = (string[]?)e.Data.GetData(DataFormats.FileDrop);
+            if (files == null || files.Length == 0)
+                return;
+
+            // Фильтруем только .torrent файлы
+            var torrentFiles = files
+                .Where(f => File.Exists(f) && 
+                           Path.GetExtension(f).Equals(".torrent", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            if (torrentFiles.Length == 0)
+            {
+                _statusLabel.Text = "Перетащите файлы с расширением .torrent";
+                return;
+            }
+
+            await AddTorrentsFromFilesAsync(torrentFiles);
+        }
+        
+        /// <summary>
+        /// Восстанавливает окно из системного трея
+        /// </summary>
+        private void RestoreFromTray()
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            Activate();
+            _trayIconManager?.RestoreFromTray();
+        }
+
+        /// <summary>
+        /// Завершает работу приложения
+        /// </summary>
+        private void ExitApplication()
+        {
+            UnsubscribeFromEvents();
+            _trayIconManager?.Dispose();
+            _torrentManager?.Dispose();
+            Environment.Exit(0);
+        }
+
         /// <summary>
         /// Инициализирует приложение через ApplicationInitializer (SRP)
         /// </summary>
@@ -72,7 +163,6 @@ namespace TorrentClient
 
         private void LoadSavedTorrents()
         {
-            // КРИТИЧНО: Отслеживаем задачу для предотвращения утечки памяти
             _ = Task.Run(async () =>
             {
                 try
@@ -100,7 +190,6 @@ namespace TorrentClient
                 }
             }).ContinueWith(t =>
             {
-                // КРИТИЧНО: Обрабатываем исключения для предотвращения утечки памяти
                 if (t.IsFaulted && t.Exception != null)
                 {
                     Logger.LogError("[MainForm] Необработанное исключение в LoadSavedTorrents", t.Exception);
@@ -145,6 +234,14 @@ namespace TorrentClient
             if (dialog.ShowDialog() != DialogResult.OK || dialog.FileNames.Length == 0)
                 return;
 
+            await AddTorrentsFromFilesAsync(dialog.FileNames);
+        }
+
+        /// <summary>
+        /// Добавляет торренты из указанных файлов
+        /// </summary>
+        private async Task AddTorrentsFromFilesAsync(string[] fileNames)
+        {
             string? downloadPath = _presenter?.AppSettings?.DefaultDownloadPath;
             
             // Если папка по умолчанию не задана - запрашиваем
@@ -184,7 +281,7 @@ namespace TorrentClient
             try
             {
                 var result = await _operationsService.AddTorrentsAsync(
-                    dialog.FileNames,
+                    fileNames,
                     downloadPath,
                     _presenter.AppSettings);
 
@@ -192,7 +289,7 @@ namespace TorrentClient
                 if (result.IsSuccess)
                 {
                     _statusLabel.Text = result.AddedCount == 1 
-                        ? $"Торрент добавлен: {Path.GetFileName(dialog.FileNames[0])}"
+                        ? $"Торрент добавлен: {Path.GetFileName(fileNames[0])}"
                         : $"Добавлено торрентов: {result.AddedCount}";
                 }
                 else
@@ -502,37 +599,74 @@ namespace TorrentClient
             if (_presenter?.AppSettings == null || _settingsManager == null)
                 return;
 
-            using var dialog = new GlobalSettingsForm(_presenter.AppSettings);
+            // Загружаем актуальные настройки перед открытием формы
+            var currentSettings = _settingsManager.LoadSettings();
+            using var dialog = new GlobalSettingsForm(currentSettings);
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var settings = _presenter.AppSettings;
-                settings.MaxConnections = dialog.MaxConnections;
-                settings.MaxHalfOpenConnections = dialog.MaxHalfOpenConnections;
-                settings.MaxPiecesToRequest = dialog.MaxPiecesToRequest;
-                settings.MaxRequestsPerPeer = dialog.MaxRequestsPerPeer;
-                settings.EnableLogging = dialog.EnableLogging;
-                settings.MinimizeToTrayOnClose = dialog.MinimizeToTrayOnClose;
-                settings.AutoStartOnLaunch = dialog.AutoStartOnLaunch;
-                settings.AutoStartOnAdd = dialog.AutoStartOnAdd;
-                settings.CopyTorrentFileToDownloadFolder = dialog.CopyTorrentFileToDownloadFolder;
-                settings.GlobalMaxDownloadSpeed = dialog.GlobalMaxDownloadSpeed;
-                settings.GlobalMaxUploadSpeed = dialog.GlobalMaxUploadSpeed;
-                _settingsManager.SaveSettings(settings);
+                // Обновляем настройки из формы
+                currentSettings.MaxConnections = dialog.MaxConnections;
+                currentSettings.MaxHalfOpenConnections = dialog.MaxHalfOpenConnections;
+                currentSettings.MaxPiecesToRequest = dialog.MaxPiecesToRequest;
+                currentSettings.MaxRequestsPerPeer = dialog.MaxRequestsPerPeer;
+                currentSettings.EnableLogging = dialog.EnableLogging;
+                currentSettings.MinimizeToTrayOnClose = dialog.MinimizeToTrayOnClose;
+                currentSettings.AutoStartOnLaunch = dialog.AutoStartOnLaunch;
+                currentSettings.AutoStartOnAdd = dialog.AutoStartOnAdd;
+                currentSettings.CopyTorrentFileToDownloadFolder = dialog.CopyTorrentFileToDownloadFolder;
                 
-                ApplySettingsToTorrents(settings);
-                Logger.SetEnabled(settings.EnableLogging);
+                // Получаем значения из формы
+                var globalDownloadSpeed = dialog.GlobalMaxDownloadSpeed;
+                var globalUploadSpeed = dialog.GlobalMaxUploadSpeed;
+                
+                // Логируем значения из формы для отладки
+                Logger.LogInfo($"[MainForm] Значения из формы: загрузка={FormatSpeed(globalDownloadSpeed)}, отдача={FormatSpeed(globalUploadSpeed)}");
+                
+                // Применяем значения к настройкам
+                currentSettings.GlobalMaxDownloadSpeed = globalDownloadSpeed;
+                currentSettings.GlobalMaxUploadSpeed = globalUploadSpeed;
+                
+                // Логируем значения перед сохранением в файл
+                Logger.LogInfo($"[MainForm] Значения перед сохранением: загрузка={FormatSpeed(currentSettings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(currentSettings.GlobalMaxUploadSpeed)}");
+                
+                // Сохраняем настройки в файл
+                _settingsManager.SaveSettings(currentSettings);
+                
+                // Проверяем, что настройки действительно сохранились (загружаем заново)
+                var verifySettings = _settingsManager.LoadSettings();
+                Logger.LogInfo($"[MainForm] Проверка после сохранения: загрузка={FormatSpeed(verifySettings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(verifySettings.GlobalMaxUploadSpeed)}");
+                
+                // Обновляем настройки в presenter из проверенных настроек
+                _presenter.AppSettings = verifySettings;
+                
+                // Применяем настройки (используем проверенные настройки)
+                ApplySettingsToTorrents(verifySettings);
+                Logger.SetEnabled(verifySettings.EnableLogging);
+                
+                // Применяем глобальные лимиты скорости (используем проверенные настройки)
                 GlobalSpeedLimiter.Instance.UpdateLimits(
-                    settings.GlobalMaxDownloadSpeed,
-                    settings.GlobalMaxUploadSpeed);
+                    verifySettings.GlobalMaxDownloadSpeed,
+                    verifySettings.GlobalMaxUploadSpeed);
+                
+                Logger.LogInfo($"[MainForm] Глобальные лимиты скорости обновлены: загрузка={FormatSpeed(verifySettings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(verifySettings.GlobalMaxUploadSpeed)}");
                 
                 _torrentManager?.ApplyGlobalSettings(
-                    settings.MaxConnections,
-                    settings.MaxHalfOpenConnections,
-                    settings.MaxPiecesToRequest,
-                    settings.MaxRequestsPerPeer);
+                    verifySettings.MaxConnections,
+                    verifySettings.MaxHalfOpenConnections,
+                    verifySettings.MaxPiecesToRequest,
+                    verifySettings.MaxRequestsPerPeer);
                 
-                _statusLabel.Text = $"Настройки сохранены: {settings.MaxConnections} соед., {settings.MaxPiecesToRequest} кусков";
+                _statusLabel.Text = $"Настройки сохранены: {verifySettings.MaxConnections} соед., {verifySettings.MaxPiecesToRequest} кусков";
             }
+        }
+        
+        private static string FormatSpeed(long? bytesPerSecond)
+        {
+            if (bytesPerSecond == null) return "без ограничений";
+            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
+            return $"{mbps:F1} Mbps";
         }
         
         private void ApplySettingsToTorrents(AppSettings settings)
@@ -564,6 +698,66 @@ namespace TorrentClient
             {
                 _trayIconManager?.MinimizeToTray();
             }
+            else
+            {
+                ResizeListViewColumns();
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ResizeListViewColumns(); // Растягиваем колонки при загрузке формы
+        }
+
+        /// <summary>
+        /// Растягивает колонки ListView по ширине окна
+        /// </summary>
+        private void ResizeListViewColumns()
+        {
+            if (_torrentListView == null || _torrentListView.Columns.Count == 0)
+                return;
+
+            // Получаем доступную ширину (ширина ListView минус ширина вертикальной полосы прокрутки)
+            var availableWidth = _torrentListView.ClientSize.Width;
+            if (_torrentListView.Items.Count > 0 && _torrentListView.GetItemRect(0).Height * _torrentListView.Items.Count > _torrentListView.ClientSize.Height)
+            {
+                // Если есть вертикальная прокрутка, вычитаем её ширину
+                availableWidth -= SystemInformation.VerticalScrollBarWidth;
+            }
+
+            if (availableWidth <= 0)
+                return;
+
+            // Пропорции колонок (сумма = 100)
+            var columnProportions = new[]
+            {
+                2.0,   // № (40px -> 2%)
+                28.0,  // Название (460px -> 28%, уменьшено для освобождения места)
+                11.5,  // Размер (200px -> 11.5%)
+                7.5,   // Прогресс (120px -> 7.5%)
+                23.0,  // Скорость (увеличено до 23% для отображения лимитов: "50 Mbps [↓100.0 Mbps, ↑50.0 Mbps]")
+                10.5,  // Загружено (170px -> 10.5%)
+                7.5,   // Пиры (130px -> 7.5%)
+                10.0   // Статус (160px -> 10%)
+            };
+
+            var totalProportion = columnProportions.Sum();
+            
+            for (int i = 0; i < _torrentListView.Columns.Count && i < columnProportions.Length; i++)
+            {
+                var width = (int)(availableWidth * columnProportions[i] / totalProportion);
+                _torrentListView.Columns[i].Width = Math.Max(width, 30); // Минимум 30px
+            }
+        }
+
+        /// <summary>
+        /// Обработчик изменения ширины колонки - предотвращает ручное изменение
+        /// </summary>
+        private void TorrentListView_ColumnWidthChanging(object? sender, ColumnWidthChangingEventArgs e)
+        {
+            // Разрешаем изменение ширины колонок пользователем
+            // Автоматическое растягивание будет применено при изменении размера окна
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -587,22 +781,6 @@ namespace TorrentClient
         {
             _trayIconManager?.MinimizeToTray();
         }
-        
-        private void RestoreFromTray()
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
-            Activate();
-            _trayIconManager?.RestoreFromTray();
-        }
-        
-        private void ExitApplication()
-        {
-            UnsubscribeFromEvents();
-            _trayIconManager?.Dispose();
-            _torrentManager?.Dispose();
-            Environment.Exit(0);
-        }
 
         private void UnsubscribeFromEvents()
         {
@@ -612,7 +790,6 @@ namespace TorrentClient
             {
                 _updateTimer.Stop();
                 _updateTimer.Tick -= UpdateTimer_Tick;
-                // КРИТИЧНО: Dispose таймера для предотвращения утечки памяти
                 _updateTimer.Dispose();
                 _updateTimer = null;
             }

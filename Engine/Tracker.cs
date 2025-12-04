@@ -653,7 +653,6 @@ namespace TorrentClient.Engine
                     {
                         if (_disposed) return;
                         
-                        // Ограничение размера коллекции для предотвращения утечки памяти
                         if (_seenPeers.Count >= MaxSeenPeers)
                         {
                             // Удаляем случайные старые записи, оставляя место для новых

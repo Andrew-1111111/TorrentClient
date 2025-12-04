@@ -30,16 +30,89 @@ namespace TorrentClient.Core
                 appSettings.GlobalMaxDownloadSpeed,
                 appSettings.GlobalMaxUploadSpeed);
             
-            // Определение путей
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var downloadPath = appSettings.DefaultDownloadPath ?? 
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "Torrents");
-            var statePath = appSettings.StatePath ?? 
-                Path.Combine(baseDirectory, "States");
+            // Определение путей - все папки внутри папки приложения
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            System.Diagnostics.Debug.WriteLine($"Папка приложения: {appDirectory}");
             
-            // Создание директорий
-            Directory.CreateDirectory(downloadPath);
-            Directory.CreateDirectory(statePath);
+            var downloadPath = !string.IsNullOrWhiteSpace(appSettings.DefaultDownloadPath)
+                ? appSettings.DefaultDownloadPath
+                : Path.Combine(appDirectory, "Downloads");
+            
+            // Используем путь из настроек или папку приложения
+            var statePath = !string.IsNullOrWhiteSpace(appSettings.StatePath)
+                ? appSettings.StatePath
+                : Path.Combine(appDirectory, "States");
+            
+            // Нормализуем пути (GetFullPath работает даже для несуществующих путей)
+            try
+            {
+                downloadPath = Path.GetFullPath(downloadPath);
+                statePath = Path.GetFullPath(statePath);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка нормализации путей. DownloadPath: {downloadPath}, StatePath: {statePath}, Ошибка: {ex.Message}");
+                // Продолжаем с исходными путями
+            }
+            
+            System.Diagnostics.Debug.WriteLine($"Создание папок. DownloadPath: {downloadPath}, StatePath: {statePath}");
+            
+            // Создание директорий (CreateDirectory создает все необходимые поддиректории)
+            // Создаем папку загрузок
+            try
+            {
+                if (!Directory.Exists(downloadPath))
+                {
+                    Directory.CreateDirectory(downloadPath);
+                    System.Diagnostics.Debug.WriteLine($"Попытка создания папки загрузок: {downloadPath}");
+                }
+                
+                if (!Directory.Exists(downloadPath))
+                {
+                    var error = $"Не удалось создать директорию загрузок: {downloadPath}";
+                    System.Diagnostics.Debug.WriteLine(error);
+                    throw new InvalidOperationException(error);
+                }
+                System.Diagnostics.Debug.WriteLine($"Папка загрузок создана/существует: {downloadPath}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ОШИБКА создания папки загрузок: {downloadPath}, Ошибка: {ex.Message}, StackTrace: {ex.StackTrace}");
+                throw;
+            }
+            
+            // Создаем папку состояний
+            try
+            {
+                if (!Directory.Exists(statePath))
+                {
+                    Directory.CreateDirectory(statePath);
+                    System.Diagnostics.Debug.WriteLine($"Попытка создания папки состояний: {statePath}");
+                }
+                
+                if (!Directory.Exists(statePath))
+                {
+                    var error = $"Не удалось создать директорию состояний: {statePath}";
+                    System.Diagnostics.Debug.WriteLine(error);
+                    throw new InvalidOperationException(error);
+                }
+                System.Diagnostics.Debug.WriteLine($"Папка состояний создана/существует: {statePath}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ОШИБКА создания папки состояний: {statePath}, Ошибка: {ex.Message}, StackTrace: {ex.StackTrace}");
+                throw;
+            }
+            
+            // Логируем успешное создание (если Logger инициализирован)
+            try
+            {
+                Logger.LogInfo($"Директории созданы. DownloadPath: {downloadPath}, StatePath: {statePath}");
+            }
+            catch
+            {
+                // Logger может быть не инициализирован, игнорируем
+            }
             
             // Создание опций трекера
             var trackerOptions = new TrackerClientOptions(

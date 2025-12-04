@@ -1,4 +1,4 @@
-namespace TorrentClient
+﻿namespace TorrentClient
 {
     /// <summary>
     /// Форма глобальных настроек приложения
@@ -18,28 +18,80 @@ namespace TorrentClient
         public bool CopyTorrentFileToDownloadFolder => _copyTorrentFileCheckBox.Checked;
         
         /// <summary>Глобальный лимит скорости загрузки (байт/сек, null = без ограничений)</summary>
-        public long? GlobalMaxDownloadSpeed => _globalDownloadLimitCheckBox.Checked 
-            ? (long)(GetMbpsFromComboBox(_globalDownloadLimitComboBox) * 1024 * 1024 / 8) // Mbps -> bytes/sec
-            : null;
+        public long? GlobalMaxDownloadSpeed
+        {
+            get
+            {
+                if (!_globalDownloadLimitCheckBox.Checked)
+                    return null;
+                
+                int mbps = GetMbpsFromComboBox(_globalDownloadLimitComboBox);
+                // Конвертируем Mbps в bytes/sec: mbps * 1,000,000 / 8
+                // 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+                return (long)(mbps * 1_000_000.0 / 8.0);
+            }
+        }
         
         /// <summary>Глобальный лимит скорости отдачи (байт/сек, null = без ограничений)</summary>
-        public long? GlobalMaxUploadSpeed => _globalUploadLimitCheckBox.Checked 
-            ? (long)(GetMbpsFromComboBox(_globalUploadLimitComboBox) * 1024 * 1024 / 8) // Mbps -> bytes/sec
-            : null;
+        public long? GlobalMaxUploadSpeed
+        {
+            get
+            {
+                if (!_globalUploadLimitCheckBox.Checked)
+                    return null;
+                
+                int mbps = GetMbpsFromComboBox(_globalUploadLimitComboBox);
+                // Конвертируем Mbps в bytes/sec: mbps * 1,000,000 / 8
+                // 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+                return (long)(mbps * 1_000_000.0 / 8.0);
+            }
+        }
         
         private static int GetMbpsFromComboBox(ComboBox comboBox)
         {
-            // Пробуем распарсить введённое значение
+            // Сначала проверяем, выбрано ли значение из списка
+            if (comboBox.SelectedIndex >= 0 && comboBox.SelectedIndex < comboBox.Items.Count)
+            {
+                var selectedItem = comboBox.Items[comboBox.SelectedIndex]?.ToString();
+                if (!string.IsNullOrEmpty(selectedItem) && int.TryParse(selectedItem, out int selectedValue) && selectedValue > 0)
+                {
+                    return Math.Min(selectedValue, 10000);
+                }
+            }
+            
+            // Если ничего не выбрано, пробуем распарсить введённое значение
             var text = comboBox.Text.Trim();
             if (int.TryParse(text, out int value) && value > 0)
                 return Math.Min(value, 10000); // Ограничиваем максимум 10000 Mbps
+            
             return 100; // default
         }
         
         private static void SetComboBoxFromMbps(ComboBox comboBox, int mbps)
         {
-            // Устанавливаем текст напрямую - если значение есть в списке, оно будет выбрано
-            comboBox.Text = mbps.ToString();
+            // Сначала пытаемся найти значение в списке Items
+            var mbpsString = mbps.ToString();
+            var foundIndex = -1;
+            
+            for (int i = 0; i < comboBox.Items.Count; i++)
+            {
+                if (comboBox.Items[i]?.ToString() == mbpsString)
+                {
+                    foundIndex = i;
+                    break;
+                }
+            }
+            
+            if (foundIndex >= 0)
+            {
+                // Если значение найдено в списке, выбираем его
+                comboBox.SelectedIndex = foundIndex;
+            }
+            else
+            {
+                // Если значение не найдено, устанавливаем текст напрямую
+                comboBox.Text = mbpsString;
+            }
         }
 
         public GlobalSettingsForm(AppSettings settings)
@@ -65,25 +117,34 @@ namespace TorrentClient
             _globalDownloadLimitCheckBox.Checked = _settings.GlobalMaxDownloadSpeed.HasValue;
             _globalUploadLimitCheckBox.Checked = _settings.GlobalMaxUploadSpeed.HasValue;
             
-            // Установить значения для ComboBox
+            // Установить значения для ComboBox загрузки
             if (_settings.GlobalMaxDownloadSpeed.HasValue)
             {
-                int mbps = (int)(_settings.GlobalMaxDownloadSpeed.Value * 8 / 1024 / 1024);
+                // Конвертируем bytes/sec в Mbps: bytes * 8 / 1,000,000
+                // 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+                int mbps = (int)Math.Round(_settings.GlobalMaxDownloadSpeed.Value * 8.0 / 1_000_000.0);
+                mbps = Math.Max(1, Math.Min(mbps, 10000)); // Ограничиваем диапазон
                 SetComboBoxFromMbps(_globalDownloadLimitComboBox, mbps);
             }
             else
             {
-                _globalDownloadLimitComboBox.Text = "100"; // default
+                // Если лимит не установлен, устанавливаем значение по умолчанию (100 Mbps)
+                SetComboBoxFromMbps(_globalDownloadLimitComboBox, 100);
             }
             
+            // Установить значения для ComboBox отдачи
             if (_settings.GlobalMaxUploadSpeed.HasValue)
             {
-                int mbps = (int)(_settings.GlobalMaxUploadSpeed.Value * 8 / 1024 / 1024);
+                // Конвертируем bytes/sec в Mbps: bytes * 8 / 1,000,000
+                // 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+                int mbps = (int)Math.Round(_settings.GlobalMaxUploadSpeed.Value * 8.0 / 1_000_000.0);
+                mbps = Math.Max(1, Math.Min(mbps, 10000)); // Ограничиваем диапазон
                 SetComboBoxFromMbps(_globalUploadLimitComboBox, mbps);
             }
             else
             {
-                _globalUploadLimitComboBox.Text = "100"; // default
+                // Если лимит не установлен, устанавливаем значение по умолчанию (100 Mbps)
+                SetComboBoxFromMbps(_globalUploadLimitComboBox, 100);
             }
         }
     }

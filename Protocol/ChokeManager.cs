@@ -7,9 +7,9 @@
     {
         #region Константы
 
-        private const int ChokeInterval = 10;           // Интервал проверки (сек)
-        private const int OptimisticUnchokeSlots = 1;   // Слоты оптимистичной разблокировки
-        private const int MaxUnchoked = 4;              // Максимум разблокированных пиров
+        private const int ChokeInterval = 5;            // Уменьшено для более быстрой переоценки пиров
+        private const int OptimisticUnchokeSlots = 8;   // Увеличено для быстрого разгона скорости
+        private const int MaxUnchoked = 30;             // Увеличено для максимальной скорости (особенно для одного торрента)
 
         #endregion
 
@@ -35,9 +35,11 @@
         /// </summary>
         public void Stop()
         {
-            _cts.Cancel();
+            if (_cts != null && !_cts.IsCancellationRequested)
+            {
+                _cts.Cancel();
+            }
             _chokeTask?.Wait(TimeSpan.FromSeconds(1));
-            // КРИТИЧНО: Обнуляем задачу для предотвращения утечки памяти
             _chokeTask = null;
         }
 
@@ -79,18 +81,28 @@
             Stop();
             
             // Очищаем список пиров для освобождения ссылок
-            _lock.Wait();
             try
             {
-                _peers.Clear();
+                if (_lock != null)
+                {
+                    _lock.Wait();
+                    try
+                    {
+                        _peers.Clear();
+                    }
+                    finally
+                    {
+                        _lock.Release();
+                    }
+                }
             }
-            finally
+            catch (ObjectDisposedException)
             {
-                _lock.Release();
+                // Игнорируем, если уже disposed
             }
             
-            _cts.Dispose();
-            _lock.Dispose();
+            _cts?.Dispose();
+            _lock?.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -119,11 +131,13 @@
         {
             await _lock.WaitAsync();
             List<PeerConnection> connectedPeers;
+            int totalConnectedCount;
             try
             {
                 connectedPeers = _peers
                     .Where(p => p.IsConnected && p.PeerInterested)
                     .ToList();
+                totalConnectedCount = _peers.Count(p => p.IsConnected);
             }
             finally
             {
@@ -133,19 +147,32 @@
             if (connectedPeers.Count == 0)
                 return;
 
+            // Динамически увеличиваем MaxUnchoked в зависимости от количества соединений
+            // Это позволяет одному торренту использовать больше соединений для максимальной скорости
+            // Для одного торрента используем максимально агрессивную стратегию - разблокируем как можно больше пиров
+            var dynamicMaxUnchoked = totalConnectedCount > 50 
+                ? Math.Min(MaxUnchoked * 2, totalConnectedCount * 4 / 5) // При большом количестве соединений - используем 80%
+                : totalConnectedCount > 30
+                    ? Math.Min(MaxUnchoked, totalConnectedCount * 3 / 4) // При среднем количестве - используем 75%
+                    : totalConnectedCount > 10
+                        ? Math.Min(MaxUnchoked, totalConnectedCount) // При малом количестве - используем все доступные
+                        : Math.Min(MaxUnchoked, totalConnectedCount); // При очень малом количестве - используем все доступные
+
             // Сортировка по скорости загрузки (Tit-for-Tat)
+            // Приоритет: активные пиры с загрузкой > новые пиры > неактивные
             var sortedPeers = connectedPeers
-                .OrderByDescending(p => p.DownloadSpeed)
+                .OrderByDescending(p => p.DownloadSpeed > 0 ? 1 : 0) // Сначала активные
+                .ThenByDescending(p => p.DownloadSpeed)
                 .ToList();
 
             int unchokedCount = 0;
-            PeerConnection? optimisticUnchoke = null;
+            var optimisticUnchokes = new List<PeerConnection>();
 
             foreach (var peer in sortedPeers)
             {
-                if (unchokedCount < MaxUnchoked - OptimisticUnchokeSlots)
+                if (unchokedCount < dynamicMaxUnchoked - OptimisticUnchokeSlots)
                 {
-                    // Разблокировка на основе производительности
+                    // Разблокировка на основе производительности (для загрузки)
                     if (peer.PeerChoked)
                     {
                         await peer.SendUnchokeAsync();
@@ -153,25 +180,42 @@
                         Logger.LogInfo($"Разблокирован пир {peer.EndPoint} (скорость: {peer.DownloadSpeed} байт/с)");
                     }
                 }
-                else if (unchokedCount < MaxUnchoked && optimisticUnchoke == null)
+                else if (unchokedCount < dynamicMaxUnchoked && optimisticUnchokes.Count < OptimisticUnchokeSlots)
                 {
-                    // Оптимистичная разблокировка - шанс для нового пира
+                    // Оптимистичная разблокировка - шанс для новых пиров (увеличено количество)
                     if (peer.PeerChoked)
                     {
                         await peer.SendUnchokeAsync();
-                        optimisticUnchoke = peer;
+                        optimisticUnchokes.Add(peer);
                         unchokedCount++;
                         Logger.LogInfo($"Оптимистичная разблокировка: {peer.EndPoint}");
                     }
                 }
                 else
                 {
-                    // Блокировка остальных
-                    if (!peer.PeerChoked)
+                    // Блокировка остальных (только если они действительно неактивны)
+                    if (!peer.PeerChoked && peer.DownloadSpeed == 0)
                     {
                         await peer.SendChokeAsync();
-                        Logger.LogInfo($"Заблокирован пир {peer.EndPoint}");
+                        Logger.LogInfo($"Заблокирован неактивный пир {peer.EndPoint}");
                     }
+                }
+            }
+
+            // Управление отдачей: разблокируем пиров, которые заинтересованы в наших данных
+            // Для отдачи используем ту же логику, но проверяем IsChoked (AmChoking)
+            var peersForUpload = _peers
+                .Where(p => p.IsConnected && p.PeerInterested)
+                .ToList();
+
+            foreach (var peer in peersForUpload)
+            {
+                // Разблокируем пиров для отдачи, если они заинтересованы
+                // Используем более агрессивную стратегию для отдачи - разблокируем больше пиров
+                if (peer.IsChoked && peer.PeerInterested)
+                {
+                    await peer.SendUnchokeAsync();
+                    Logger.LogInfo($"Разблокирован пир {peer.EndPoint} для отдачи");
                 }
             }
         }

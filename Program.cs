@@ -1,6 +1,4 @@
-﻿using TorrentClient.Protocol;
-
-namespace TorrentClient
+﻿namespace TorrentClient
 {
     internal static class Program
     {
@@ -25,18 +23,18 @@ namespace TorrentClient
             catch (Exception ex)
             {
                 // Ошибка при создании Mutex - продолжаем работу
-                System.Diagnostics.Debug.WriteLine($"Ошибка создания Mutex: {ex.Message}");
+                Debug.WriteLine($"Ошибка создания Mutex: {ex.Message}");
                 createdNew = true;
             }
             
             if (!createdNew)
             {
                 // Приложение уже запущено - закрываем предыдущий экземпляр
-                System.Diagnostics.Debug.WriteLine("Обнаружен предыдущий экземпляр приложения, закрываем его...");
+                Debug.WriteLine("Обнаружен предыдущий экземпляр приложения, закрываем его...");
                 CloseExistingInstance();
                 
                 // Ждём немного, чтобы предыдущий экземпляр успел закрыться
-                System.Threading.Thread.Sleep(2000);
+                Thread.Sleep(2000);
                 
                 // Пытаемся создать Mutex снова
                 _mutex?.Dispose();
@@ -46,19 +44,39 @@ namespace TorrentClient
                     _mutex = new Mutex(true, MutexName, out createdNew);
                     if (!createdNew)
                     {
-                        System.Diagnostics.Debug.WriteLine("Предыдущий экземпляр всё ещё запущен, продолжаем работу...");
+                        Debug.WriteLine("Предыдущий экземпляр всё ещё запущен, продолжаем работу...");
                     }
                 }
                 catch (Exception ex)
                 {
                     // Ошибка - продолжаем работу
-                    System.Diagnostics.Debug.WriteLine($"Ошибка повторного создания Mutex: {ex.Message}");
+                    Debug.WriteLine($"Ошибка повторного создания Mutex: {ex.Message}");
                     createdNew = true;
                 }
             }
             
             try
             {
+                // Явно создаем папки приложения при старте
+                var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                var settingsDir = Path.Combine(appDirectory, "Settings");
+                var statesDir = Path.Combine(appDirectory, "States");
+                var downloadsDir = Path.Combine(appDirectory, "Downloads");
+                
+                try
+                {
+                    if (!Directory.Exists(settingsDir))
+                        Directory.CreateDirectory(settingsDir);
+                    if (!Directory.Exists(statesDir))
+                        Directory.CreateDirectory(statesDir);
+                    if (!Directory.Exists(downloadsDir))
+                        Directory.CreateDirectory(downloadsDir);
+                }
+                catch (Exception dirEx)
+                {
+                    Debug.WriteLine($"Предупреждение: не удалось создать папки приложения: {dirEx.Message}");
+                }
+                
                 // Загружаем настройки и применяем настройку логирования
                 var settingsManager = new AppSettingsManager();
                 var settings = settingsManager.LoadSettings();
@@ -115,9 +133,9 @@ namespace TorrentClient
         {
             try
             {
-                var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                var currentProcess = Process.GetCurrentProcess();
                 var processName = currentProcess.ProcessName;
-                var processes = System.Diagnostics.Process.GetProcessesByName(processName);
+                var processes = Process.GetProcessesByName(processName);
                 
                 bool foundExisting = false;
                 foreach (var process in processes)
@@ -208,9 +226,9 @@ namespace TorrentClient
     /// <summary>
     /// Нативные методы Windows API для работы с окнами
     /// </summary>
-    internal static class NativeMethods
+    internal static partial class NativeMethods
     {
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        [LibraryImport("user32.dll")]
+        internal static partial IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
     }
 }

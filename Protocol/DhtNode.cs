@@ -160,7 +160,6 @@ namespace TorrentClient.Protocol
                 _listenerTask = Task.Run(() => ListenAsync(_cancellationTokenSource.Token));
                 
                 // Подключаемся к bootstrap узлам
-                // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                 SafeTaskRunner.RunSafe(async () =>
                 {
                     await Task.Delay(1000, _cancellationTokenSource.Token); // Ждем немного перед подключением
@@ -325,7 +324,6 @@ namespace TorrentClient.Protocol
                         if (_callbacks != null)
                         {
                             var peersCopy = peers; // Захватываем копию для лямбды
-                            // КРИТИЧНО: Используем SafeTaskRunner для предотвращения утечки памяти через необработанные исключения
                             SafeTaskRunner.RunSafe(async () => await _callbacks.OnPeersFoundAsync(peersCopy).ConfigureAwait(false));
                         }
                     }
@@ -377,7 +375,6 @@ namespace TorrentClient.Protocol
                                 
                                 if (!_knownNodes.Any(n => n.EndPoint.Equals(node.EndPoint)))
                                 {
-                                    // Ограничение размера коллекции для предотвращения утечки памяти
                                     if (_knownNodes.Count >= MaxKnownNodes)
                                     {
                                         // Удаляем старые узлы, оставляя место для новых
@@ -495,7 +492,6 @@ namespace TorrentClient.Protocol
                 
                 var transactionIdStr = BitConverter.ToString(transactionId).Replace("-", "");
                 
-                // Ограничение размера коллекции для предотвращения утечки памяти
                 if (_pendingQueries.Count >= MaxPendingQueries)
                 {
                     // Удаляем старые запросы (старше таймаута)
@@ -744,7 +740,6 @@ namespace TorrentClient.Protocol
         {
             _cancellationTokenSource.Cancel();
             _listenerTask?.Wait(TimeSpan.FromSeconds(1));
-            // КРИТИЧНО: Обнуляем задачу для предотвращения утечки памяти
             _listenerTask = null;
             
             // Очищаем колбэки для предотвращения утечек памяти

@@ -8,7 +8,7 @@ namespace TorrentClient.UI
     public class UpdateThrottler : IUpdateThrottler
     {
         private const int MinUpdateIntervalMs = 1000;
-        private const int MaxEntries = 1000; // КРИТИЧНО: Ограничение размера словаря для предотвращения утечки памяти
+        private const int MaxEntries = 1000;
         private readonly Dictionary<string, DateTime> _lastUpdateTime = [];
 
         public bool CanUpdate(string torrentId)
@@ -30,7 +30,6 @@ namespace TorrentClient.UI
         {
             if (!string.IsNullOrEmpty(torrentId))
             {
-                // КРИТИЧНО: Ограничение размера словаря для предотвращения утечки памяти
                 if (_lastUpdateTime.Count >= MaxEntries && !_lastUpdateTime.ContainsKey(torrentId))
                 {
                     // Удаляем самые старые записи

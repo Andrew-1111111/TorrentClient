@@ -15,13 +15,11 @@
         {
             if (disposing)
             {
-                // КРИТИЧНО: Освобождаем все ресурсы для предотвращения утечки памяти
                 if (components != null)
                 {
                     components.Dispose();
                 }
                 
-                // КРИТИЧНО: Освобождаем таймер обновления UI
                 _updateTimer?.Dispose();
             }
             base.Dispose(disposing);
@@ -75,13 +73,13 @@
             _torrentListView.GridLines = true;
             _torrentListView.Location = new Point(0, 88);
             _torrentListView.Margin = new Padding(5);
-            _torrentListView.MultiSelect = true;
             _torrentListView.Name = "_torrentListView";
             _torrentListView.ShowItemToolTips = true;
             _torrentListView.Size = new Size(1543, 681);
             _torrentListView.TabIndex = 0;
             _torrentListView.UseCompatibleStateImageBehavior = false;
             _torrentListView.View = View.Details;
+            _torrentListView.ColumnWidthChanging += TorrentListView_ColumnWidthChanging;
             _torrentListView.SelectedIndexChanged += TorrentListView_SelectedIndexChanged;
             _torrentListView.KeyDown += TorrentListView_KeyDown;
             // 
@@ -108,7 +106,7 @@
             // colSpeed
             // 
             colSpeed.Text = "Скорость";
-            colSpeed.Width = 255;
+            colSpeed.Width = 275;
             // 
             // colDownloaded
             // 
@@ -123,7 +121,7 @@
             // colStatus
             // 
             colStatus.Text = "Статус";
-            colStatus.Width = 160;
+            colStatus.Width = 140;
             // 
             // _toolbarPanel
             // 
@@ -268,7 +266,7 @@
             // _statusLabel
             // 
             _statusLabel.Name = "_statusLabel";
-            _statusLabel.Size = new Size(1321, 30);
+            _statusLabel.Size = new Size(1315, 30);
             _statusLabel.Spring = true;
             _statusLabel.Text = "Готов";
             _statusLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -276,7 +274,7 @@
             // _statusSeparator
             // 
             _statusSeparator.Name = "_statusSeparator";
-            _statusSeparator.Size = new Size(6, 34);
+            _statusSeparator.Size = new Size(6, 39);
             // 
             // _downloadSpeedLabel
             // 
@@ -295,8 +293,6 @@
             // _updateTimer
             // 
             _updateTimer.Interval = 2000;
-            // Подписка на событие Tick выполняется в MainForm.cs в SetupUpdateTimer()
-            // чтобы избежать двойной подписки и утечки памяти
             // 
             // MainForm
             // 
@@ -307,11 +303,11 @@
             Controls.Add(_toolbarPanel);
             Controls.Add(_statusStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(5);
             KeyPreview = true;
+            Margin = new Padding(5);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Torrent Client";
+            Text = " Torrent Client";
             _toolbarPanel.ResumeLayout(false);
             _statusStrip.ResumeLayout(false);
             _statusStrip.PerformLayout();

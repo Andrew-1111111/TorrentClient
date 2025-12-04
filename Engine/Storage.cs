@@ -291,7 +291,6 @@ namespace TorrentClient.Engine
 
         private async Task<FileStream> GetOrOpenFileAsync(string path, FileMode mode, FileAccess access)
         {
-            // КРИТИЧНО: Очищаем неиспользуемые файлы перед открытием нового для предотвращения утечки неуправляемой памяти
             await CleanupIdleFilesAsync().ConfigureAwait(false);
             
             if (_fileStreams.TryGetValue(path, out var existing))

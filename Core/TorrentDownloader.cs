@@ -9,10 +9,10 @@ namespace TorrentClient.Core
     {
         #region Константы
 
-        private const int MaxConcurrentPieces = 1;      // Загружаем по одному куску для надежности
+        private const int MaxConcurrentPieces = 16;     // Увеличено для максимальной скорости (особенно для одного торрента)
         private const int MinConnections = 20;          // Минимум соединений
-        private const int BlockSize = 16384;            // Размер блока 16KB
-        private const int ConnectionTimeout = 10;       // Таймаут подключения (сек) - уменьшен для более быстрого переключения
+        private const int BlockSize = 65536;            // Размер блока 64KB для лучшей производительности
+        private const int ConnectionTimeout = 5;       // Таймаут подключения (сек) - уменьшен для более быстрого переключения
         private const int PexSendInterval = 60;        // Интервал отправки PEX пиров (сек)
         private DateTime _lastPexSend = DateTime.MinValue;
         private const int BlockTimeout = 60;            // Таймаут загрузки блока (сек)
@@ -60,8 +60,10 @@ namespace TorrentClient.Core
         
         // Настраиваемые лимиты (увеличены для максимальной скорости)
         private int _maxConnections = 200;
-        private int _maxConcurrentBlocks = 100;
-        private int _maxRequestsPerPeer = 128;
+        private int _maxHalfOpenConnections = 100; // Максимальное количество параллельных подключений
+        private int _maxConcurrentBlocks = 200; // Увеличено для лучшего параллелизма
+        private int _maxRequestsPerPeer = 200; // Увеличено для лучшего pipelining
+        private int _maxPiecesToRequest = 100; // Максимальное количество кусков для запроса одновременно
 
         #endregion
 
@@ -79,13 +81,21 @@ namespace TorrentClient.Core
 
         #region Конструктор
 
-        public TorrentDownloader(Torrent torrent, string downloadPath, TrackerClient trackerClient)
+        public TorrentDownloader(Torrent torrent, string downloadPath, TrackerClient trackerClient, int? maxHalfOpenConnections = null)
         {
             _torrent = torrent;
             _downloadPath = downloadPath;
             _trackerClient = trackerClient;
             _downloadLimiter = new SpeedLimiter(torrent.MaxDownloadSpeed);
             _uploadLimiter = new SpeedLimiter(torrent.MaxUploadSpeed);
+            
+            // Инициализируем значения для расчета скорости
+            _lastDownloadedBytes = _torrent.DownloadedBytes;
+            _lastUploadedBytes = _torrent.UploadedBytes;
+            
+            // Инициализируем из параметра или используем значение по умолчанию
+            if (maxHalfOpenConnections.HasValue)
+                _maxHalfOpenConnections = Math.Clamp(maxHalfOpenConnections.Value, 1, 10000);
 
             _peerId = GeneratePeerId();
             _port = FindFreePort(49152, 65535);
@@ -130,16 +140,46 @@ namespace TorrentClient.Core
         /// Обновляет настройки загрузчика
         /// </summary>
         /// <param name="maxConnections">Максимальное количество соединений</param>
+        /// <param name="maxHalfOpenConnections">Максимальное количество параллельных подключений (полуоткрытых соединений)</param>
         /// <param name="maxConcurrentBlocks">Максимальное количество одновременных блоков</param>
         /// <param name="maxRequestsPerPeer">Максимальное количество запросов на пир</param>
-        public void UpdateSettings(int maxConnections, int maxConcurrentBlocks, int maxRequestsPerPeer)
+        /// <param name="maxPiecesToRequest">Максимальное количество кусков для запроса одновременно</param>
+        public void UpdateSettings(int maxConnections, int maxHalfOpenConnections, int maxConcurrentBlocks, int maxRequestsPerPeer, int maxPiecesToRequest = 100)
         {
             _maxConnections = Math.Clamp(maxConnections, 1, 10000);
+            _maxHalfOpenConnections = Math.Clamp(maxHalfOpenConnections, 1, 10000);
             _maxConcurrentBlocks = Math.Clamp(maxConcurrentBlocks, 1, 5000);
             _maxRequestsPerPeer = Math.Clamp(maxRequestsPerPeer, 1, 2500);
+            _maxPiecesToRequest = Math.Clamp(maxPiecesToRequest, 1, 1000);
             _requestManager.MaxRequestsPerPeer = _maxRequestsPerPeer;
             
-            Logger.LogInfo($"Настройки обновлены: соединений={_maxConnections}, блоков={_maxConcurrentBlocks}, запросов/пир={_maxRequestsPerPeer}");
+            Logger.LogInfo($"Настройки обновлены: соединений={_maxConnections}, полуоткрытых={_maxHalfOpenConnections}, блоков={_maxConcurrentBlocks}, запросов/пир={_maxRequestsPerPeer}, кусков={_maxPiecesToRequest}");
+        }
+
+        /// <summary>
+        /// Обновляет лимиты скорости для этого торрента (индивидуальное ограничение)
+        /// </summary>
+        /// <param name="maxDownload">Максимальная скорость загрузки в байтах/сек (null - без ограничений)</param>
+        /// <param name="maxUpload">Максимальная скорость отдачи в байтах/сек (null - без ограничений)</param>
+        public void UpdateSpeedLimits(long? maxDownload, long? maxUpload)
+        {
+            _downloadLimiter.UpdateLimit(maxDownload);
+            _uploadLimiter.UpdateLimit(maxUpload);
+            _torrent.MaxDownloadSpeed = maxDownload;
+            _torrent.MaxUploadSpeed = maxUpload;
+            Logger.LogInfo($"[TorrentDownloader] Лимиты скорости обновлены: загрузка={FormatSpeed(maxDownload)}, отдача={FormatSpeed(maxUpload)}");
+        }
+
+        private static string FormatSpeed(long? bytesPerSecond)
+        {
+            if (bytesPerSecond == null) return "без ограничений";
+            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
+            if (mbps >= 1.0)
+                return $"{mbps:F1} Mbps";
+            var kbps = mbps * 1000.0;
+            return $"{kbps:F1} Kbps";
         }
 
         /// <summary>
@@ -284,16 +324,25 @@ namespace TorrentClient.Core
                 await ConnectToPeersAsync(ct);
                 var lastConnectTime = DateTime.Now;
                 var lastStatsTime = DateTime.Now;
+                var lastCleanupTime = DateTime.Now;
 
                 while (!ct.IsCancellationRequested && 
                        _torrent.State == TorrentState.Downloading && 
                        !_torrent.IsComplete)
                 {
-                    // Периодическое подключение к новым пирам
-                    if (DateTime.Now - lastConnectTime > TimeSpan.FromSeconds(5))
+                    // Периодическое подключение к новым пирам (уменьшено до 2 секунд для быстрого разгона)
+                    if (DateTime.Now - lastConnectTime > TimeSpan.FromSeconds(2))
                     {
                         await ConnectToPeersAsync(ct);
                         lastConnectTime = DateTime.Now;
+                    }
+
+                    // Периодическая очистка неработающих соединений и таймаутов (каждые 30 секунд)
+                    if (DateTime.Now - lastCleanupTime > TimeSpan.FromSeconds(30))
+                    {
+                        await CleanupDeadConnectionsAsync(ct);
+                        await _requestManager.CleanupTimedOutRequestsAsync(TimeSpan.FromSeconds(BlockTimeout));
+                        lastCleanupTime = DateTime.Now;
                     }
 
                     // Обновление статистики
@@ -304,7 +353,7 @@ namespace TorrentClient.Core
                     }
 
                     await DownloadPiecesAsync(ct);
-                    await Task.Delay(100, ct);
+                    // Убрана задержка для максимальной скорости - цикл будет ограничен только операциями I/O
                 }
 
                 if (_torrent.IsComplete)
@@ -364,12 +413,19 @@ namespace TorrentClient.Core
             List<IPEndPoint> peersToConnect;
             try
             {
+                var connectedCount = _connections.Count(c => c.IsConnected);
                 var connectedEndPoints = _connections.Where(c => c.IsConnected)
                     .Select(c => c.EndPoint).ToList();
                 
-                // Увеличиваем количество пиров для попытки подключения
-                // Берем больше пиров, так как многие могут не подключиться
-                var maxPeersToTry = Math.Max(100, _maxConnections * 2);
+                // Более агрессивное подключение: берем больше пиров, особенно при малом количестве соединений
+                // Для одного торрента используем максимально агрессивную стратегию
+                var neededConnections = _maxConnections - connectedCount;
+                var maxPeersToTry = neededConnections > 20 
+                    ? Math.Max(1000, _maxConnections * 6) // При малом количестве соединений - очень агрессивно
+                    : neededConnections > 10
+                        ? Math.Max(500, _maxConnections * 4) // При среднем количестве - агрессивно
+                        : Math.Max(300, _maxConnections * 3); // При достаточном количестве - стандартно
+                
                 peersToConnect = _peers
                     .Where(p => !IsSelfPeer(p))
                     .Where(p => !connectedEndPoints.Contains(p))
@@ -384,33 +440,39 @@ namespace TorrentClient.Core
             if (peersToConnect.Count == 0)
                 return;
 
-            Logger.LogInfo($"Подключение к {peersToConnect.Count} пирам (лимит соединений: {_maxConnections})");
+            Logger.LogInfo($"Подключение к {peersToConnect.Count} пирам (лимит соединений: {_maxConnections}, параллельных подключений: {_maxHalfOpenConnections})");
 
             // Параллельное подключение с ограничением по количеству одновременных подключений
-            // Подключаемся к большему количеству пиров, но ограничиваем параллельные попытки
-            var maxConcurrentConnections = Math.Min(_maxConnections, 50); // Максимум 50 параллельных подключений
+            // Используем значение из глобальных настроек (MaxHalfOpenConnections) без ограничения _maxConnections
+            // Это позволяет быстрее набирать соединения
+            var maxConcurrentConnections = _maxHalfOpenConnections;
             var connectionTasks = new List<Task>();
             var semaphore = new SemaphoreSlim(maxConcurrentConnections, maxConcurrentConnections);
             
             foreach (var peer in peersToConnect)
             {
-                // Пропускаем если уже достигли лимита подключенных пиров
-                await _lock.WaitAsync(ct);
-                try
-                {
-                    if (_connections.Count(c => c.IsConnected) >= _maxConnections)
-                        break;
-                }
-                finally
-                {
-                    _lock.Release();
-                }
-                
                 var task = Task.Run(async () =>
                 {
+                    // Проверяем лимит перед попыткой подключения (но не блокируем, если близко к лимиту)
+                    await _lock.WaitAsync(ct);
+                    int connectedCount;
+                    try
+                    {
+                        connectedCount = _connections.Count(c => c.IsConnected);
+                    }
+                    finally
+                    {
+                        _lock.Release();
+                    }
+                    
+                    // Пропускаем только если значительно превысили лимит (оставляем запас для параллельных подключений)
+                    if (connectedCount >= _maxConnections + maxConcurrentConnections)
+                        return;
+                    
                     await semaphore.WaitAsync(ct);
                     try
                     {
+                        // Проверяем лимит только перед фактическим подключением
                         await ConnectToPeerAsync(peer, ct);
                     }
                     finally
@@ -422,22 +484,24 @@ namespace TorrentClient.Core
                 connectionTasks.Add(task);
             }
             
-            // Ждем завершения всех попыток подключения с таймаутом
-            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(ConnectionTimeout));
-            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, timeoutCts.Token);
-            
-            try
+            // Не ждем завершения всех подключений - позволяем им продолжаться в фоне
+            // Это позволяет быстрее набирать соединения
+            _ = Task.Run(async () =>
             {
-                await Task.WhenAll(connectionTasks).WaitAsync(combinedCts.Token);
-            }
-            catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
-            {
-                Logger.LogInfo($"Таймаут подключения к пирам (часть подключений может продолжаться)");
-            }
-            catch (OperationCanceledException)
-            {
-                // Нормальная отмена
-            }
+                try
+                {
+                    // Ждем завершения с большим таймаутом, но не блокируем основной поток
+                    await Task.WhenAll(connectionTasks).WaitAsync(TimeSpan.FromSeconds(30), ct);
+                }
+                catch (TimeoutException)
+                {
+                    Logger.LogInfo($"Часть подключений продолжается в фоне (запущено {connectionTasks.Count} попыток)");
+                }
+                catch (OperationCanceledException)
+                {
+                    // Нормальная отмена
+                }
+            }, ct);
 
             await _lock.WaitAsync(ct);
             try
@@ -515,32 +579,58 @@ namespace TorrentClient.Core
             try
             {
                 if (await connection.ConnectAsync(ct))
-                        {
+                {
                     await _lock.WaitAsync(ct);
-                            try
+                    try
+                    {
+                        var connectedCount = _connections.Count(c => c.IsConnected);
+                        
+                        // Проверяем лимит, но с небольшим запасом для параллельных подключений
+                        // Это позволяет быстрее набирать соединения
+                        if (connectedCount >= _maxConnections)
+                        {
+                            // Если достигли лимита, проверяем, есть ли неактивные соединения для замены
+                            var inactiveConnections = _connections
+                                .Where(c => c.IsConnected && c.DownloadSpeed == 0 && c.PeerChoked)
+                                .Take(1)
+                                .ToList();
+                            
+                            if (inactiveConnections.Count == 0)
                             {
-                                _connections.Add(connection);
-                                _torrent.ConnectedPeers = _connections.Count;
-                            }
-                            finally
-                            {
-                        _lock.Release();
+                                connection.Dispose();
+                                return;
                             }
                             
-                            _chokeManager.AddPeer(connection);
-                            if (connection.PeerBitField != null)
-                                _piecePicker.UpdatePeerBitField(connection.PeerBitField);
+                            // Заменяем неактивное соединение на новое
+                            foreach (var inactive in inactiveConnections)
+                            {
+                                _connections.Remove(inactive);
+                                _ = Task.Run(async () => await RemoveConnectionAsync(inactive));
+                            }
                         }
-                        else
-                        {
-                            connection.Dispose();
-                        }
+                        
+                        _connections.Add(connection);
+                        _torrent.ConnectedPeers = _connections.Count(c => c.IsConnected);
                     }
-                    catch (Exception ex)
+                    finally
                     {
-                Logger.LogError($"Ошибка подключения к {peer}", ex);
-                        connection.Dispose();
+                        _lock.Release();
                     }
+                    
+                    _chokeManager.AddPeer(connection);
+                    if (connection.PeerBitField != null)
+                        _piecePicker.UpdatePeerBitField(connection.PeerBitField);
+                }
+                else
+                {
+                    connection.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Ошибка подключения к {peer}", ex);
+                connection.Dispose();
+            }
         }
 
         private void SetupConnectionHandlers(PeerConnection connection)
@@ -567,7 +657,7 @@ namespace TorrentClient.Core
             try
             {
                 _connections.Remove(connection);
-                _torrent.ConnectedPeers = _connections.Count;
+                _torrent.ConnectedPeers = _connections.Count(c => c.IsConnected);
             }
             finally
             {
@@ -577,6 +667,60 @@ namespace TorrentClient.Core
             await _requestManager.CancelPeerRequestsAsync(connection);
             _chokeManager.RemovePeer(connection);
             connection.Dispose();
+        }
+
+        /// <summary>
+        /// Очищает неработающие соединения - удаляет соединения с нулевой скоростью и без активности
+        /// </summary>
+        private async Task CleanupDeadConnectionsAsync(CancellationToken ct)
+        {
+            await _lock.WaitAsync(ct);
+            List<PeerConnection> deadConnections;
+            try
+            {
+                // Находим соединения, которые не работают:
+                // 1. Не подключены
+                // 2. Заблокированы пиром и имеют нулевую скорость загрузки
+                // 3. Не заблокированы, но имеют нулевую скорость и неактивны (нет активных запросов)
+                deadConnections = _connections
+                    .Where(c => 
+                        !c.IsConnected || 
+                        (c.PeerChoked && c.DownloadSpeed == 0) ||
+                        (!c.PeerChoked && c.DownloadSpeed == 0 && _requestManager.GetActiveRequestCount(c) == 0))
+                    .ToList();
+                
+                foreach (var conn in deadConnections)
+                {
+                    _connections.Remove(conn);
+                }
+                
+                _torrent.ConnectedPeers = _connections.Count(c => c.IsConnected);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+            
+            // Удаляем соединения вне блокировки
+            foreach (var conn in deadConnections)
+            {
+                try
+                {
+                    await _requestManager.CancelPeerRequestsAsync(conn);
+                    _chokeManager.RemovePeer(conn);
+                    conn.Dispose();
+                    Logger.LogInfo($"Удалено неработающее соединение: {conn.EndPoint}");
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError($"Ошибка при удалении соединения: {conn.EndPoint}", ex);
+                }
+            }
+            
+            if (deadConnections.Count > 0)
+            {
+                Logger.LogInfo($"Очищено {deadConnections.Count} неработающих соединений. Активных: {_torrent.ConnectedPeers}");
+            }
         }
 
         internal void AddPeer(IPEndPoint peer)
@@ -639,12 +783,22 @@ namespace TorrentClient.Core
             }
 
             // Выбираем куски для загрузки (Rarest First)
-            var piecesToDownload = _piecePicker.PickPieces(MaxConcurrentPieces, downloadingPieces);
+            // Динамически увеличиваем количество кусков в зависимости от доступных соединений
+            // Используем настройку MaxPiecesToRequest из глобальных настроек
+            var targetPieces = Math.Max(
+                MaxConcurrentPieces * 3, 
+                Math.Min(_maxPiecesToRequest, availableConnections.Count * 3) // Ограничиваем настройкой из AppSettings
+            );
+            var piecesToDownload = _piecePicker.PickPieces(targetPieces, downloadingPieces);
             if (piecesToDownload.Count == 0)
                 return;
 
-            Logger.LogInfo($"Выбрано {piecesToDownload.Count} кусков для загрузки");
-            await Task.WhenAll(piecesToDownload.Select(p => DownloadPieceAsync(p, ct)));
+            // Запускаем загрузку кусков параллельно, но не ждем завершения всех
+            // Это позволяет постоянно загружать новые куски
+            foreach (var pieceIndex in piecesToDownload)
+            {
+                _ = Task.Run(async () => await DownloadPieceAsync(pieceIndex, ct), ct);
+            }
             }
 
         private async Task DownloadPieceAsync(int pieceIndex, CancellationToken ct)
@@ -654,12 +808,16 @@ namespace TorrentClient.Core
 
             // Помечаем как загружаемый
             await _lock.WaitAsync(ct);
+            int availableConnectionsCount;
             try
             {
                 if (_pieceStates[pieceIndex].IsDownloaded || _pieceStates[pieceIndex].IsDownloading)
                     return;
                 _pieceStates[pieceIndex].IsDownloading = true;
                 _piecePicker.MarkDownloading(pieceIndex);
+                
+                // Получаем количество доступных соединений для расчета параллелизма
+                availableConnectionsCount = _connections.Count(c => c.IsConnected && !c.PeerChoked);
             }
             finally
             {
@@ -680,9 +838,12 @@ namespace TorrentClient.Core
 
                 while ((blockQueue.Count > 0 || activeTasks.Count > 0) && !ct.IsCancellationRequested)
                 {
-                    // Запускаем новые задачи
-                    while (blockQueue.Count > 0 && activeTasks.Count < _maxConcurrentBlocks)
-                {
+                    // Запускаем новые задачи - увеличиваем параллелизм для большей скорости
+                    // Используем больше параллельных блоков для лучшего использования всех пиров
+                    // Динамически увеличиваем количество блоков в зависимости от доступных соединений
+                    var maxBlocks = Math.Max(_maxConcurrentBlocks, Math.Max(availableConnectionsCount * 100, 300));
+                    while (blockQueue.Count > 0 && activeTasks.Count < maxBlocks)
+                    {
                         var blockIndex = blockQueue.Dequeue();
                         var begin = blockIndex * BlockSize;
                         var length = Math.Min(BlockSize, pieceLength - begin);
@@ -693,26 +854,35 @@ namespace TorrentClient.Core
                             var result = await DownloadBlockAsync(pieceIndex, begin, length, pieceData, ct);
                             return (result.success, result.length, bi);
                         }, ct);
-                }
+                    }
                 
                     if (activeTasks.Count == 0)
                         break;
                     
-                    var completed = await Task.WhenAny(activeTasks.Values);
-                    var result = await completed;
-                    activeTasks.Remove(result.Item3);
-                    
-                    if (result.Item1)
+                    // Оптимизация: обрабатываем несколько завершенных задач одновременно
+                    // Используем батчи для уменьшения overhead
+                    var completedTasks = activeTasks.Values.Where(t => t.IsCompleted).ToList();
+                    if (completedTasks.Count == 0)
                     {
-                        completedBlocks.Add(result.Item3);
-                        downloadedBytes += result.Item2;
-                        
-                        if (completedBlocks.Count % 50 == 0)
-                            Logger.LogInfo($"Кусок {pieceIndex}: {completedBlocks.Count}/{totalBlocks} блоков");
+                        // Если нет завершенных задач, ждем первую
+                        var completed = await Task.WhenAny(activeTasks.Values);
+                        completedTasks = [completed];
                     }
-                    else
+                    
+                    foreach (var completed in completedTasks)
                     {
-                        blockQueue.Enqueue(result.Item3);
+                        var result = await completed;
+                        activeTasks.Remove(result.Item3);
+                        
+                        if (result.Item1)
+                        {
+                            completedBlocks.Add(result.Item3);
+                            downloadedBytes += result.Item2;
+                        }
+                        else
+                        {
+                            blockQueue.Enqueue(result.Item3);
+                        }
                     }
                 }
                 
@@ -789,15 +959,23 @@ namespace TorrentClient.Core
             {
                 peer = SelectBestPeer(pieceIndex, ct);
                 
-                // Ожидание доступного пира
-                for (int i = 0; i < 10 && peer == null && !ct.IsCancellationRequested; i++)
-                    {
-                    await Task.Delay(1000, ct);
+                // Оптимизация: быстрое ожидание доступного пира без длительных задержек
+                // Используем короткие задержки для быстрого реагирования
+                for (int i = 0; i < 5 && peer == null && !ct.IsCancellationRequested; i++)
+                {
+                    await Task.Delay(100, ct); // Короткие задержки для быстрого реагирования
                     peer = SelectBestPeer(pieceIndex, ct);
-                    }
+                }
                     
                 if (peer == null)
-                        return (false, 0);
+                    return (false, 0);
+                
+                // Проверяем, что соединение все еще активно
+                if (!peer.IsConnected)
+                {
+                    Logger.LogWarning($"Попытка запроса блока от отключенного пира: {peer.EndPoint}");
+                    return (false, 0);
+                }
                 
                 if (!await _requestManager.RequestBlockAsync(peer, pieceIndex, begin, length, tcs))
                     return (false, 0);
@@ -812,7 +990,13 @@ namespace TorrentClient.Core
                     if (begin + blockData.Length <= pieceData.Length)
                     {
                         Array.Copy(blockData, 0, pieceData, begin, blockData.Length);
+                        
+                        // Сначала применяем общее ограничение скорости (для всех торрентов)
+                        await GlobalSpeedLimiter.Instance.WaitForDownloadTokensAsync(blockData.Length, ct);
+                        
+                        // Затем применяем индивидуальное ограничение скорости для этого торрента
                         await _downloadLimiter.WaitIfNeededAsync(blockData.Length, ct);
+                        
                         return (true, blockData.Length);
                     }
                     return (false, 0);
@@ -839,18 +1023,42 @@ namespace TorrentClient.Core
             _lock.Wait(ct);
             try
             {
-                return _connections
+                // Оптимизированный выбор пиров: распределяем нагрузку равномерно
+                // Приоритет: активные пиры с загрузкой > свободные слоты > скорость
+                var availablePeers = _connections
                     .Where(c => c.IsConnected && !c.PeerChoked)
                     .Where(c => c.PeerBitField != null && pieceIndex < c.PeerBitField.Length && c.PeerBitField[pieceIndex])
-                    .Where(c => _requestManager.GetActiveRequestCount(c) < _requestManager.MaxRequestsPerPeer)
-                    .OrderByDescending(c => c.DownloadSpeed)
-                    .ThenBy(c => _requestManager.GetActiveRequestCount(c))
-                    .FirstOrDefault();
+                    .ToList();
+                
+                if (availablePeers.Count == 0)
+                    return null;
+                
+                // Оптимизация: используем более эффективный алгоритм выбора
+                // Приоритет активным пирам с загрузкой для максимальной скорости
+                var peersWithSlots = availablePeers
+                    .Select(c => new
+                    {
+                        Peer = c,
+                        FreeSlots = _requestManager.MaxRequestsPerPeer - _requestManager.GetActiveRequestCount(c),
+                        DownloadSpeed = c.DownloadSpeed,
+                        IsActive = c.DownloadSpeed > 0
+                    })
+                    .Where(x => x.FreeSlots > 0)
+                    .OrderByDescending(x => x.IsActive) // Активные пиры в первую очередь
+                    .ThenByDescending(x => x.DownloadSpeed) // Затем по скорости
+                    .ThenByDescending(x => x.FreeSlots) // Затем по свободным слотам
+                    .ToList();
+                
+                if (peersWithSlots.Count == 0)
+                    return null;
+                
+                // Выбираем лучшего пира для максимальной скорости
+                return peersWithSlots.First().Peer;
             }
             finally
             {
                 _lock.Release();
-        }
+            }
         }
 
         #endregion
@@ -896,9 +1104,28 @@ namespace TorrentClient.Core
                 if (pieceData == null || e.Begin + e.Length > pieceData.Length)
                     return;
                 
+                // Сначала применяем общее ограничение скорости отдачи (для всех торрентов)
+                await GlobalSpeedLimiter.Instance.WaitForUploadTokensAsync(e.Length);
+                
+                // Затем применяем индивидуальное ограничение скорости отдачи для этого торрента
+                await _uploadLimiter.WaitIfNeededAsync(e.Length);
+                
                 var blockData = new byte[e.Length];
                 Array.Copy(pieceData, e.Begin, blockData, 0, e.Length);
                 await connection.SendPieceAsync(e.PieceIndex, e.Begin, blockData);
+                
+                // Обновляем статистику отдачи
+                await _lock.WaitAsync();
+                try
+                {
+                    _torrent.UploadedBytes += e.Length;
+                    // Обновляем скорость отдачи для пира (накапливаем за период)
+                    connection.UploadSpeed += e.Length;
+                }
+                finally
+                {
+                    _lock.Release();
+                }
             }
             catch (Exception ex)
             {
@@ -1096,18 +1323,39 @@ namespace TorrentClient.Core
             }
         }
 
+        private long _lastUploadedBytes;
+        private DateTime _lastUploadSpeedUpdate = DateTime.UtcNow;
+
         private void UpdateStatistics()
         {
             try
             {
                 var now = DateTime.UtcNow;
                 var elapsed = (now - _lastSpeedUpdate).TotalSeconds;
-                if (elapsed > 0)
-                                {
+                
+                // Обновление скорости загрузки (байт/сек)
+                if (elapsed > 0.1) // Минимум 0.1 секунды для точности
+                {
                     var downloaded = _torrent.DownloadedBytes - _lastDownloadedBytes;
-                    _torrent.DownloadSpeed = (long)(downloaded / elapsed);
+                    if (downloaded >= 0) // Защита от отрицательных значений
+                    {
+                        _torrent.DownloadSpeed = (long)(downloaded / elapsed);
+                    }
                     _lastDownloadedBytes = _torrent.DownloadedBytes;
                     _lastSpeedUpdate = now;
+                }
+
+                // Обновление скорости отдачи (байт/сек)
+                var uploadElapsed = (now - _lastUploadSpeedUpdate).TotalSeconds;
+                if (uploadElapsed > 0.1) // Минимум 0.1 секунды для точности
+                {
+                    var uploaded = _torrent.UploadedBytes - _lastUploadedBytes;
+                    if (uploaded >= 0) // Защита от отрицательных значений
+                    {
+                        _torrent.UploadSpeed = (long)(uploaded / uploadElapsed);
+                    }
+                    _lastUploadedBytes = _torrent.UploadedBytes;
+                    _lastUploadSpeedUpdate = now;
                 }
 
                 _lock.Wait();
@@ -1115,7 +1363,16 @@ namespace TorrentClient.Core
                 {
                     _torrent.ConnectedPeers = _connections.Count(c => c.IsConnected);
                     _torrent.TotalPeers = _peers.Count;
+                    
+                    // Сбрасываем скорость отдачи для каждого пира (накапливается за период)
+                    foreach (var conn in _connections)
+                    {
+                        if (conn.IsConnected)
+                        {
+                            conn.UploadSpeed = 0; // Сбрасываем для следующего периода
                         }
+                    }
+                }
                 finally
                 {
                     _lock.Release();
@@ -1178,7 +1435,8 @@ namespace TorrentClient.Core
 
                     if (writeLength > 0)
                     {
-                        using var fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write);
+                        // Используем буферизацию для лучшей производительности
+                        using var fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write, 65536, FileOptions.SequentialScan);
                         fs.Seek(fileOffset, SeekOrigin.Begin);
                         await TaskTimeoutHelper.TimeoutAsync(
                             fs.WriteAsync(pieceData.AsMemory(bufferOffset, writeLength)),
@@ -1293,3 +1551,4 @@ namespace TorrentClient.Core
         #endregion
     }
 }
+

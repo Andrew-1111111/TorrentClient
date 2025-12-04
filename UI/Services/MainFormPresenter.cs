@@ -25,7 +25,6 @@ namespace TorrentClient.UI.Services
         private readonly HashSet<string> _pendingUpdates = [];
         private volatile bool _isUpdating = false;
         
-        // КРИТИЧНО: Сохраняем ссылку на wrapper для предотвращения утечки памяти
         private TorrentManagerCallbacksWrapper? _callbacksWrapper;
 
         public MainFormPresenter(
@@ -316,7 +315,6 @@ namespace TorrentClient.UI.Services
             System.Windows.Forms.Button? stopButton = null, System.Windows.Forms.Button? removeButton = null,
             System.Windows.Forms.Button? settingsButton = null)
         {
-            // КРИТИЧНО: Очищаем предыдущий wrapper перед созданием нового для предотвращения утечки памяти
             if (_callbacksWrapper != null)
             {
                 torrentManager.SetCallbacks(null!);
@@ -338,7 +336,6 @@ namespace TorrentClient.UI.Services
                 _pendingUpdates.Clear();
             }
             
-            // КРИТИЧНО: Очищаем wrapper для предотвращения утечки памяти
             if (_callbacksWrapper != null)
             {
                 _torrentManager?.SetCallbacks(null!);

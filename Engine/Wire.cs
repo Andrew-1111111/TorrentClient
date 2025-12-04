@@ -765,7 +765,6 @@ namespace TorrentClient.Engine
         {
             Disconnect();
             
-            // КРИТИЧНО: Ожидаем завершения задачи чтения для предотвращения утечки памяти
             if (_readTask != null)
             {
                 try
@@ -788,7 +787,6 @@ namespace TorrentClient.Engine
         {
             _cts?.Cancel();
             
-            // КРИТИЧНО: Ожидаем завершения задачи чтения для предотвращения утечки памяти
             if (_readTask != null)
             {
                 try

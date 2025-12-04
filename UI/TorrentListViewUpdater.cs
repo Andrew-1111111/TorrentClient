@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Windows.Forms;
 using TorrentClient.UI.Interfaces;
 
@@ -71,7 +72,15 @@ namespace TorrentClient.UI
 
             // Обновляем подэлементы
             if (item.SubItems.Count > 1)
-                item.SubItems[1].Text = torrent.Info.Name; // Название
+            {
+                // Добавляем иконку ограничения скорости в название, если установлены лимиты
+                var nameText = torrent.Info.Name;
+                if (torrent.MaxDownloadSpeed.HasValue || torrent.MaxUploadSpeed.HasValue)
+                {
+                    nameText = "⚡ " + nameText;
+                }
+                item.SubItems[1].Text = nameText; // Название
+            }
             if (item.SubItems.Count > 2)
                 item.SubItems[2].Text = FormatBytes(torrent.Info.TotalSize); // Размер
             if (item.SubItems.Count > 3)
@@ -82,7 +91,20 @@ namespace TorrentClient.UI
                 item.SubItems[3].Text = $"{progress:F1}%"; // Прогресс
             }
             if (item.SubItems.Count > 4)
-                item.SubItems[4].Text = FormatSpeed(torrent.DownloadSpeed); // Скорость
+            {
+                // Показываем текущую скорость и лимиты, если они установлены
+                var speedText = FormatSpeed(torrent.DownloadSpeed);
+                if (torrent.MaxDownloadSpeed.HasValue || torrent.MaxUploadSpeed.HasValue)
+                {
+                    var limits = new List<string>();
+                    if (torrent.MaxDownloadSpeed.HasValue)
+                        limits.Add($"↓{FormatSpeedLimit(torrent.MaxDownloadSpeed.Value)}");
+                    if (torrent.MaxUploadSpeed.HasValue)
+                        limits.Add($"↑{FormatSpeedLimit(torrent.MaxUploadSpeed.Value)}");
+                    speedText += $" [{string.Join(", ", limits)}]";
+                }
+                item.SubItems[4].Text = speedText; // Скорость
+            }
             if (item.SubItems.Count > 5)
                 item.SubItems[5].Text = FormatBytes(torrent.DownloadedBytes); // Загружено
             if (item.SubItems.Count > 6)
@@ -90,13 +112,29 @@ namespace TorrentClient.UI
             if (item.SubItems.Count > 7)
                 item.SubItems[7].Text = torrent.State.ToString(); // Статус
 
-            // Обновляем подсказку
+            // Обновляем подсказку с информацией о лимитах
             var newTooltip = $"{torrent.Info.Name}\n\n" +
                 $"Размер: {FormatBytes(torrent.Info.TotalSize)}\n" +
                 $"Загружено: {FormatBytes(torrent.DownloadedBytes)} / {FormatBytes(torrent.Info.TotalSize)}\n" +
                 $"Прогресс: {(torrent.Info.TotalSize > 0 ? (double)torrent.DownloadedBytes / torrent.Info.TotalSize * 100 : 0):F1}%\n" +
-                $"Скорость: {FormatSpeed(torrent.DownloadSpeed)}\n" +
-                $"Пиры: {torrent.ActivePeers} активных / {torrent.ConnectedPeers} подключённых / {torrent.TotalPeers} всего";
+                $"Скорость загрузки: {FormatSpeed(torrent.DownloadSpeed)}\n" +
+                $"Скорость отдачи: {FormatSpeed(torrent.UploadSpeed)}\n";
+            
+            // Добавляем информацию о лимитах в tooltip
+            if (torrent.MaxDownloadSpeed.HasValue || torrent.MaxUploadSpeed.HasValue)
+            {
+                newTooltip += "\nОграничения скорости:\n";
+                if (torrent.MaxDownloadSpeed.HasValue)
+                    newTooltip += $"  Загрузка: {FormatSpeedLimit(torrent.MaxDownloadSpeed.Value)}\n";
+                else
+                    newTooltip += $"  Загрузка: без ограничений\n";
+                if (torrent.MaxUploadSpeed.HasValue)
+                    newTooltip += $"  Отдача: {FormatSpeedLimit(torrent.MaxUploadSpeed.Value)}\n";
+                else
+                    newTooltip += $"  Отдача: без ограничений\n";
+            }
+            
+            newTooltip += $"Пиры: {torrent.ActivePeers} активных / {torrent.ConnectedPeers} подключённых / {torrent.TotalPeers} всего";
             
             if (item.ToolTipText != newTooltip)
                 item.ToolTipText = newTooltip;
@@ -141,6 +179,19 @@ namespace TorrentClient.UI
                 return $"{mbps:0.##} Mbps ({mbytes:0.##} MB/s)";
             else
                 return $"{bytesPerSecond / 1024.0:0.##} KB/s";
+        }
+
+        /// <summary>
+        /// Форматирует лимит скорости для отображения (только Mbps)
+        /// </summary>
+        private static string FormatSpeedLimit(long bytesPerSecond)
+        {
+            // Конвертируем bytes/sec в Mbps: bytes * 8 / 1,000,000
+            double mbps = bytesPerSecond * 8.0 / 1_000_000.0;
+            if (mbps >= 1.0)
+                return $"{mbps:F1} Mbps";
+            var kbps = mbps * 1000.0;
+            return $"{kbps:F1} Kbps";
         }
     }
 }

@@ -103,13 +103,14 @@
             Controls.Add(_messageLabel);
             Controls.Add(_iconBox);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(5, 6, 5, 6);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "RemoveTorrentDialog";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Удаление торрента";
+            Text = " Удаление торрента";
             ((System.ComponentModel.ISupportInitialize)_iconBox).EndInit();
             ResumeLayout(false);
         }

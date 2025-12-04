@@ -63,13 +63,57 @@ namespace TorrentClient.Core
         private readonly string _settingsFilePath;
 
         /// <summary>
+        /// Получает путь к папке приложения
+        /// </summary>
+        private static string GetApplicationDirectory()
+        {
+            // Используем AppDomain.CurrentDomain.BaseDirectory - это путь к папке, где находится исполняемый файл
+            // При отладке это будет папка сборки, при запуске .exe - папка с .exe файлом
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        /// <summary>
         /// Инициализирует новый экземпляр AppSettingsManager
         /// </summary>
         public AppSettingsManager()
         {
-            var appDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings");
-            Directory.CreateDirectory(appDataPath);
-            _settingsFilePath = Path.Combine(appDataPath, "appsettings.json");
+            // Используем папку приложения для Settings
+            var appDirectory = GetApplicationDirectory();
+            var settingsPath = Path.Combine(appDirectory, "Settings");
+            
+            System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Папка приложения: {appDirectory}");
+            System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Путь к Settings: {settingsPath}");
+            
+            try
+            {
+                // Создаем папку, если её нет
+                if (!Directory.Exists(settingsPath))
+                {
+                    System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Создание папки Settings: {settingsPath}");
+                    Directory.CreateDirectory(settingsPath);
+                }
+                
+                // Проверяем, что папка действительно создана
+                if (!Directory.Exists(settingsPath))
+                {
+                    var error = $"Не удалось создать директорию настроек: {settingsPath}";
+                    System.Diagnostics.Debug.WriteLine($"AppSettingsManager: {error}");
+                    throw new InvalidOperationException(error);
+                }
+                
+                System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Папка Settings создана/существует: {settingsPath}");
+            }
+            catch (Exception ex)
+            {
+                // Логируем ошибку с полной информацией
+                System.Diagnostics.Debug.WriteLine($"AppSettingsManager: ОШИБКА создания директории настроек: {settingsPath}");
+                System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Ошибка: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"AppSettingsManager: StackTrace: {ex.StackTrace}");
+                throw;
+            }
+            
+            _settingsFilePath = Path.Combine(settingsPath, "appsettings.json");
+            System.Diagnostics.Debug.WriteLine($"AppSettingsManager: Путь к файлу настроек: {_settingsFilePath}");
         }
 
         /// <summary>
@@ -83,12 +127,31 @@ namespace TorrentClient.Core
                     return GetDefaultSettings();
 
                 var json = File.ReadAllText(_settingsFilePath);
-                return JsonSerializer.Deserialize<AppSettings>(json) ?? GetDefaultSettings();
+                var options = new JsonSerializerOptions 
+                { 
+                    PropertyNameCaseInsensitive = true
+                };
+                var settings = JsonSerializer.Deserialize<AppSettings>(json, options) ?? GetDefaultSettings();
+                
+                // Логируем загруженные глобальные лимиты для отладки
+                Logger.LogInfo($"[AppSettingsManager] Загружены глобальные лимиты: загрузка={FormatSpeed(settings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(settings.GlobalMaxUploadSpeed)}");
+                
+                return settings;
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.LogWarning($"[AppSettingsManager] Ошибка загрузки настроек: {ex.Message}");
                 return GetDefaultSettings();
             }
+        }
+        
+        private static string FormatSpeed(long? bytesPerSecond)
+        {
+            if (bytesPerSecond == null) return "без ограничений";
+            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
+            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
+            return $"{mbps:F1} Mbps";
         }
 
         /// <summary>
@@ -98,13 +161,33 @@ namespace TorrentClient.Core
         {
             try
             {
-                var options = new JsonSerializerOptions { WriteIndented = true };
+                // Убеждаемся, что директория существует перед сохранением
+                var directory = Path.GetDirectoryName(_settingsFilePath);
+                if (!string.IsNullOrEmpty(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                
+                var options = new JsonSerializerOptions 
+                { 
+                    WriteIndented = true,
+                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never,
+                    IncludeFields = false
+                };
                 var json = JsonSerializer.Serialize(settings, options);
+                
+                // Логируем JSON для отладки (первые 500 символов)
+                var jsonPreview = json.Length > 500 ? json.Substring(0, 500) + "..." : json;
+                Logger.LogInfo($"[AppSettingsManager] JSON для сохранения (первые 500 символов): {jsonPreview}");
+                
                 File.WriteAllText(_settingsFilePath, json);
+                
+                // Логируем сохраненные глобальные лимиты для отладки
+                Logger.LogInfo($"[AppSettingsManager] Сохранены глобальные лимиты: загрузка={FormatSpeed(settings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(settings.GlobalMaxUploadSpeed)}");
             }
-            catch
+            catch (Exception ex)
             {
-                // Игнорируем ошибки сохранения
+                Logger.LogError($"[AppSettingsManager] Ошибка сохранения настроек: {ex.Message}", ex);
             }
         }
 
@@ -114,12 +197,15 @@ namespace TorrentClient.Core
         /// <returns>Настройки приложения со значениями по умолчанию</returns>
         private static AppSettings GetDefaultSettings()
         {
+            // Используем папку приложения для всех папок
+            var appDirectory = GetApplicationDirectory();
+            var statesPath = Path.Combine(appDirectory, "States");
+            var downloadsPath = Path.Combine(appDirectory, "Downloads");
+            
             return new AppSettings
             {
-                DefaultDownloadPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    "Downloads", "Torrents"),
-                StatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "States"),
+                DefaultDownloadPath = downloadsPath,
+                StatePath = statesPath,
                 TrackerCookies = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
                 TrackerHeaders = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase),
                 EnableLogging = true

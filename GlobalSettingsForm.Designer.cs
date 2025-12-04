@@ -1,4 +1,4 @@
-namespace TorrentClient
+﻿namespace TorrentClient
 {
     partial class GlobalSettingsForm
     {
@@ -15,284 +15,289 @@ namespace TorrentClient
 
         private void InitializeComponent()
         {
-            this._maxConnectionsLabel = new System.Windows.Forms.Label();
-            this._maxConnectionsNumeric = new System.Windows.Forms.NumericUpDown();
-            this._maxHalfOpenLabel = new System.Windows.Forms.Label();
-            this._maxHalfOpenNumeric = new System.Windows.Forms.NumericUpDown();
-            this._maxPiecesLabel = new System.Windows.Forms.Label();
-            this._maxPiecesNumeric = new System.Windows.Forms.NumericUpDown();
-            this._maxRequestsLabel = new System.Windows.Forms.Label();
-            this._maxRequestsNumeric = new System.Windows.Forms.NumericUpDown();
-            this._globalDownloadLimitCheckBox = new System.Windows.Forms.CheckBox();
-            this._globalDownloadLimitComboBox = new System.Windows.Forms.ComboBox();
-            this._globalUploadLimitCheckBox = new System.Windows.Forms.CheckBox();
-            this._globalUploadLimitComboBox = new System.Windows.Forms.ComboBox();
-            this._enableLoggingCheckBox = new System.Windows.Forms.CheckBox();
-            this._minimizeToTrayCheckBox = new System.Windows.Forms.CheckBox();
-            this._autoStartCheckBox = new System.Windows.Forms.CheckBox();
-            this._copyTorrentFileCheckBox = new System.Windows.Forms.CheckBox();
-            this._autoStartOnAddCheckBox = new System.Windows.Forms.CheckBox();
-            this._okButton = new System.Windows.Forms.Button();
-            this._cancelButton = new System.Windows.Forms.Button();
-            this._infoLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this._maxConnectionsNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxHalfOpenNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxPiecesNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxRequestsNumeric)).BeginInit();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlobalSettingsForm));
+            _maxConnectionsLabel = new Label();
+            _maxConnectionsNumeric = new NumericUpDown();
+            _maxHalfOpenLabel = new Label();
+            _maxHalfOpenNumeric = new NumericUpDown();
+            _maxPiecesLabel = new Label();
+            _maxPiecesNumeric = new NumericUpDown();
+            _maxRequestsLabel = new Label();
+            _maxRequestsNumeric = new NumericUpDown();
+            _globalDownloadLimitCheckBox = new CheckBox();
+            _globalDownloadLimitComboBox = new ComboBox();
+            _globalUploadLimitCheckBox = new CheckBox();
+            _globalUploadLimitComboBox = new ComboBox();
+            _enableLoggingCheckBox = new CheckBox();
+            _minimizeToTrayCheckBox = new CheckBox();
+            _autoStartCheckBox = new CheckBox();
+            _copyTorrentFileCheckBox = new CheckBox();
+            _autoStartOnAddCheckBox = new CheckBox();
+            _okButton = new Button();
+            _cancelButton = new Button();
+            _infoLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)_maxConnectionsNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_maxHalfOpenNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_maxPiecesNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_maxRequestsNumeric).BeginInit();
+            SuspendLayout();
             // 
             // _maxConnectionsLabel
             // 
-            this._maxConnectionsLabel.AutoSize = true;
-            this._maxConnectionsLabel.Location = new System.Drawing.Point(20, 20);
-            this._maxConnectionsLabel.Name = "_maxConnectionsLabel";
-            this._maxConnectionsLabel.Size = new System.Drawing.Size(200, 15);
-            this._maxConnectionsLabel.TabIndex = 0;
-            this._maxConnectionsLabel.Text = "Макс. соединений с пирами:";
+            _maxConnectionsLabel.AutoSize = true;
+            _maxConnectionsLabel.Location = new Point(35, 35);
+            _maxConnectionsLabel.Margin = new Padding(5, 0, 5, 0);
+            _maxConnectionsLabel.Name = "_maxConnectionsLabel";
+            _maxConnectionsLabel.Size = new Size(290, 30);
+            _maxConnectionsLabel.TabIndex = 0;
+            _maxConnectionsLabel.Text = "Макс. соединений с пирами:";
             // 
             // _maxConnectionsNumeric
             // 
-            this._maxConnectionsNumeric.Location = new System.Drawing.Point(270, 18);
-            this._maxConnectionsNumeric.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
-            this._maxConnectionsNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._maxConnectionsNumeric.Name = "_maxConnectionsNumeric";
-            this._maxConnectionsNumeric.Size = new System.Drawing.Size(80, 23);
-            this._maxConnectionsNumeric.TabIndex = 1;
-            this._maxConnectionsNumeric.Value = new decimal(new int[] { 200, 0, 0, 0 });
+            _maxConnectionsNumeric.Location = new Point(472, 32);
+            _maxConnectionsNumeric.Margin = new Padding(5);
+            _maxConnectionsNumeric.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
+            _maxConnectionsNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            _maxConnectionsNumeric.Name = "_maxConnectionsNumeric";
+            _maxConnectionsNumeric.Size = new Size(140, 35);
+            _maxConnectionsNumeric.TabIndex = 1;
+            _maxConnectionsNumeric.Value = new decimal(new int[] { 200, 0, 0, 0 });
             // 
             // _maxHalfOpenLabel
             // 
-            this._maxHalfOpenLabel.AutoSize = true;
-            this._maxHalfOpenLabel.Location = new System.Drawing.Point(20, 55);
-            this._maxHalfOpenLabel.Name = "_maxHalfOpenLabel";
-            this._maxHalfOpenLabel.Size = new System.Drawing.Size(200, 15);
-            this._maxHalfOpenLabel.TabIndex = 2;
-            this._maxHalfOpenLabel.Text = "Макс. полуоткрытых соединений:";
+            _maxHalfOpenLabel.AutoSize = true;
+            _maxHalfOpenLabel.Location = new Point(35, 96);
+            _maxHalfOpenLabel.Margin = new Padding(5, 0, 5, 0);
+            _maxHalfOpenLabel.Name = "_maxHalfOpenLabel";
+            _maxHalfOpenLabel.Size = new Size(337, 30);
+            _maxHalfOpenLabel.TabIndex = 2;
+            _maxHalfOpenLabel.Text = "Макс. полуоткрытых соединений:";
             // 
             // _maxHalfOpenNumeric
             // 
-            this._maxHalfOpenNumeric.Location = new System.Drawing.Point(270, 53);
-            this._maxHalfOpenNumeric.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
-            this._maxHalfOpenNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._maxHalfOpenNumeric.Name = "_maxHalfOpenNumeric";
-            this._maxHalfOpenNumeric.Size = new System.Drawing.Size(80, 23);
-            this._maxHalfOpenNumeric.TabIndex = 3;
-            this._maxHalfOpenNumeric.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            _maxHalfOpenNumeric.Location = new Point(472, 93);
+            _maxHalfOpenNumeric.Margin = new Padding(5);
+            _maxHalfOpenNumeric.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            _maxHalfOpenNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            _maxHalfOpenNumeric.Name = "_maxHalfOpenNumeric";
+            _maxHalfOpenNumeric.Size = new Size(140, 35);
+            _maxHalfOpenNumeric.TabIndex = 3;
+            _maxHalfOpenNumeric.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
             // _maxPiecesLabel
             // 
-            this._maxPiecesLabel.AutoSize = true;
-            this._maxPiecesLabel.Location = new System.Drawing.Point(20, 90);
-            this._maxPiecesLabel.Name = "_maxPiecesLabel";
-            this._maxPiecesLabel.Size = new System.Drawing.Size(200, 15);
-            this._maxPiecesLabel.TabIndex = 4;
-            this._maxPiecesLabel.Text = "Кусков одновременно:";
+            _maxPiecesLabel.AutoSize = true;
+            _maxPiecesLabel.Location = new Point(35, 158);
+            _maxPiecesLabel.Margin = new Padding(5, 0, 5, 0);
+            _maxPiecesLabel.Name = "_maxPiecesLabel";
+            _maxPiecesLabel.Size = new Size(232, 30);
+            _maxPiecesLabel.TabIndex = 4;
+            _maxPiecesLabel.Text = "Кусков одновременно:";
             // 
             // _maxPiecesNumeric
             // 
-            this._maxPiecesNumeric.Location = new System.Drawing.Point(270, 88);
-            this._maxPiecesNumeric.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
-            this._maxPiecesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._maxPiecesNumeric.Name = "_maxPiecesNumeric";
-            this._maxPiecesNumeric.Size = new System.Drawing.Size(80, 23);
-            this._maxPiecesNumeric.TabIndex = 5;
-            this._maxPiecesNumeric.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            _maxPiecesNumeric.Location = new Point(472, 154);
+            _maxPiecesNumeric.Margin = new Padding(5);
+            _maxPiecesNumeric.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            _maxPiecesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            _maxPiecesNumeric.Name = "_maxPiecesNumeric";
+            _maxPiecesNumeric.Size = new Size(140, 35);
+            _maxPiecesNumeric.TabIndex = 5;
+            _maxPiecesNumeric.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // _maxRequestsLabel
             // 
-            this._maxRequestsLabel.AutoSize = true;
-            this._maxRequestsLabel.Location = new System.Drawing.Point(20, 125);
-            this._maxRequestsLabel.Name = "_maxRequestsLabel";
-            this._maxRequestsLabel.Size = new System.Drawing.Size(200, 15);
-            this._maxRequestsLabel.TabIndex = 6;
-            this._maxRequestsLabel.Text = "Запросов на соединение:";
+            _maxRequestsLabel.AutoSize = true;
+            _maxRequestsLabel.Location = new Point(35, 219);
+            _maxRequestsLabel.Margin = new Padding(5, 0, 5, 0);
+            _maxRequestsLabel.Name = "_maxRequestsLabel";
+            _maxRequestsLabel.Size = new Size(258, 30);
+            _maxRequestsLabel.TabIndex = 6;
+            _maxRequestsLabel.Text = "Запросов на соединение:";
             // 
             // _maxRequestsNumeric
             // 
-            this._maxRequestsNumeric.Location = new System.Drawing.Point(270, 123);
-            this._maxRequestsNumeric.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
-            this._maxRequestsNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this._maxRequestsNumeric.Name = "_maxRequestsNumeric";
-            this._maxRequestsNumeric.Size = new System.Drawing.Size(80, 23);
-            this._maxRequestsNumeric.TabIndex = 7;
-            this._maxRequestsNumeric.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            _maxRequestsNumeric.Location = new Point(472, 215);
+            _maxRequestsNumeric.Margin = new Padding(5);
+            _maxRequestsNumeric.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            _maxRequestsNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            _maxRequestsNumeric.Name = "_maxRequestsNumeric";
+            _maxRequestsNumeric.Size = new Size(140, 35);
+            _maxRequestsNumeric.TabIndex = 7;
+            _maxRequestsNumeric.Value = new decimal(new int[] { 16, 0, 0, 0 });
             // 
             // _globalDownloadLimitCheckBox
             // 
-            this._globalDownloadLimitCheckBox.AutoSize = true;
-            this._globalDownloadLimitCheckBox.Location = new System.Drawing.Point(20, 160);
-            this._globalDownloadLimitCheckBox.Name = "_globalDownloadLimitCheckBox";
-            this._globalDownloadLimitCheckBox.Size = new System.Drawing.Size(200, 19);
-            this._globalDownloadLimitCheckBox.TabIndex = 8;
-            this._globalDownloadLimitCheckBox.Text = "Лимит загрузки (Mbps):";
-            this._globalDownloadLimitCheckBox.UseVisualStyleBackColor = true;
+            _globalDownloadLimitCheckBox.AutoSize = true;
+            _globalDownloadLimitCheckBox.Location = new Point(35, 280);
+            _globalDownloadLimitCheckBox.Margin = new Padding(5);
+            _globalDownloadLimitCheckBox.Name = "_globalDownloadLimitCheckBox";
+            _globalDownloadLimitCheckBox.Size = new Size(360, 34);
+            _globalDownloadLimitCheckBox.TabIndex = 8;
+            _globalDownloadLimitCheckBox.Text = "Общая скорость загрузки (Mbps):";
+            _globalDownloadLimitCheckBox.UseVisualStyleBackColor = true;
             // 
             // _globalDownloadLimitComboBox
             // 
-            this._globalDownloadLimitComboBox.FormattingEnabled = true;
-            this._globalDownloadLimitComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "5",
-            "10",
-            "20",
-            "50",
-            "100",
-            "200",
-            "500",
-            "1000"});
-            this._globalDownloadLimitComboBox.Location = new System.Drawing.Point(270, 158);
-            this._globalDownloadLimitComboBox.Name = "_globalDownloadLimitComboBox";
-            this._globalDownloadLimitComboBox.Size = new System.Drawing.Size(80, 23);
-            this._globalDownloadLimitComboBox.TabIndex = 9;
+            _globalDownloadLimitComboBox.FormattingEnabled = true;
+            _globalDownloadLimitComboBox.Items.AddRange(new object[] { "1", "2", "5", "10", "20", "50", "100", "200", "500", "1000" });
+            _globalDownloadLimitComboBox.Location = new Point(472, 276);
+            _globalDownloadLimitComboBox.Margin = new Padding(5);
+            _globalDownloadLimitComboBox.Name = "_globalDownloadLimitComboBox";
+            _globalDownloadLimitComboBox.Size = new Size(137, 38);
+            _globalDownloadLimitComboBox.TabIndex = 9;
+            _globalDownloadLimitComboBox.Text = "100";
             // 
             // _globalUploadLimitCheckBox
             // 
-            this._globalUploadLimitCheckBox.AutoSize = true;
-            this._globalUploadLimitCheckBox.Location = new System.Drawing.Point(20, 190);
-            this._globalUploadLimitCheckBox.Name = "_globalUploadLimitCheckBox";
-            this._globalUploadLimitCheckBox.Size = new System.Drawing.Size(200, 19);
-            this._globalUploadLimitCheckBox.TabIndex = 10;
-            this._globalUploadLimitCheckBox.Text = "Лимит отдачи (Mbps):";
-            this._globalUploadLimitCheckBox.UseVisualStyleBackColor = true;
+            _globalUploadLimitCheckBox.AutoSize = true;
+            _globalUploadLimitCheckBox.Location = new Point(35, 332);
+            _globalUploadLimitCheckBox.Margin = new Padding(5);
+            _globalUploadLimitCheckBox.Name = "_globalUploadLimitCheckBox";
+            _globalUploadLimitCheckBox.Size = new Size(346, 34);
+            _globalUploadLimitCheckBox.TabIndex = 10;
+            _globalUploadLimitCheckBox.Text = "Общая скорость отдачи (Mbps):";
+            _globalUploadLimitCheckBox.UseVisualStyleBackColor = true;
             // 
             // _globalUploadLimitComboBox
             // 
-            this._globalUploadLimitComboBox.FormattingEnabled = true;
-            this._globalUploadLimitComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "5",
-            "10",
-            "20",
-            "50",
-            "100",
-            "200",
-            "500",
-            "1000"});
-            this._globalUploadLimitComboBox.Location = new System.Drawing.Point(270, 188);
-            this._globalUploadLimitComboBox.Name = "_globalUploadLimitComboBox";
-            this._globalUploadLimitComboBox.Size = new System.Drawing.Size(80, 23);
-            this._globalUploadLimitComboBox.TabIndex = 11;
+            _globalUploadLimitComboBox.FormattingEnabled = true;
+            _globalUploadLimitComboBox.Items.AddRange(new object[] { "1", "2", "5", "10", "20", "50", "100", "200", "500", "1000" });
+            _globalUploadLimitComboBox.Location = new Point(472, 329);
+            _globalUploadLimitComboBox.Margin = new Padding(5);
+            _globalUploadLimitComboBox.Name = "_globalUploadLimitComboBox";
+            _globalUploadLimitComboBox.Size = new Size(137, 38);
+            _globalUploadLimitComboBox.TabIndex = 11;
+            _globalUploadLimitComboBox.Text = "100";
             // 
             // _enableLoggingCheckBox
             // 
-            this._enableLoggingCheckBox.AutoSize = true;
-            this._enableLoggingCheckBox.Location = new System.Drawing.Point(20, 220);
-            this._enableLoggingCheckBox.Name = "_enableLoggingCheckBox";
-            this._enableLoggingCheckBox.Size = new System.Drawing.Size(200, 19);
-            this._enableLoggingCheckBox.TabIndex = 12;
-            this._enableLoggingCheckBox.Text = "Включить логирование";
-            this._enableLoggingCheckBox.UseVisualStyleBackColor = true;
+            _enableLoggingCheckBox.AutoSize = true;
+            _enableLoggingCheckBox.Location = new Point(35, 385);
+            _enableLoggingCheckBox.Margin = new Padding(5);
+            _enableLoggingCheckBox.Name = "_enableLoggingCheckBox";
+            _enableLoggingCheckBox.Size = new Size(263, 34);
+            _enableLoggingCheckBox.TabIndex = 12;
+            _enableLoggingCheckBox.Text = "Включить логирование";
+            _enableLoggingCheckBox.UseVisualStyleBackColor = true;
             // 
             // _minimizeToTrayCheckBox
             // 
-            this._minimizeToTrayCheckBox.AutoSize = true;
-            this._minimizeToTrayCheckBox.Location = new System.Drawing.Point(20, 245);
-            this._minimizeToTrayCheckBox.Name = "_minimizeToTrayCheckBox";
-            this._minimizeToTrayCheckBox.Size = new System.Drawing.Size(280, 19);
-            this._minimizeToTrayCheckBox.TabIndex = 13;
-            this._minimizeToTrayCheckBox.Text = "Сворачивать в трей при закрытии окна";
-            this._minimizeToTrayCheckBox.UseVisualStyleBackColor = true;
+            _minimizeToTrayCheckBox.AutoSize = true;
+            _minimizeToTrayCheckBox.Location = new Point(35, 429);
+            _minimizeToTrayCheckBox.Margin = new Padding(5);
+            _minimizeToTrayCheckBox.Name = "_minimizeToTrayCheckBox";
+            _minimizeToTrayCheckBox.Size = new Size(420, 34);
+            _minimizeToTrayCheckBox.TabIndex = 13;
+            _minimizeToTrayCheckBox.Text = "Сворачивать в трей при закрытии окна";
+            _minimizeToTrayCheckBox.UseVisualStyleBackColor = true;
             // 
             // _autoStartCheckBox
             // 
-            this._autoStartCheckBox.AutoSize = true;
-            this._autoStartCheckBox.Location = new System.Drawing.Point(20, 270);
-            this._autoStartCheckBox.Name = "_autoStartCheckBox";
-            this._autoStartCheckBox.Size = new System.Drawing.Size(310, 19);
-            this._autoStartCheckBox.TabIndex = 14;
-            this._autoStartCheckBox.Text = "Автозапуск торрентов при открытии приложения";
-            this._autoStartCheckBox.UseVisualStyleBackColor = true;
+            _autoStartCheckBox.AutoSize = true;
+            _autoStartCheckBox.Location = new Point(35, 472);
+            _autoStartCheckBox.Margin = new Padding(5);
+            _autoStartCheckBox.Name = "_autoStartCheckBox";
+            _autoStartCheckBox.Size = new Size(519, 34);
+            _autoStartCheckBox.TabIndex = 14;
+            _autoStartCheckBox.Text = "Автозапуск торрентов при открытии приложения";
+            _autoStartCheckBox.UseVisualStyleBackColor = true;
             // 
             // _copyTorrentFileCheckBox
             // 
-            this._copyTorrentFileCheckBox.AutoSize = true;
-            this._copyTorrentFileCheckBox.Location = new System.Drawing.Point(20, 295);
-            this._copyTorrentFileCheckBox.Name = "_copyTorrentFileCheckBox";
-            this._copyTorrentFileCheckBox.Size = new System.Drawing.Size(320, 19);
-            this._copyTorrentFileCheckBox.TabIndex = 15;
-            this._copyTorrentFileCheckBox.Text = "Копировать .torrent файл в папку загрузки";
-            this._copyTorrentFileCheckBox.UseVisualStyleBackColor = true;
+            _copyTorrentFileCheckBox.AutoSize = true;
+            _copyTorrentFileCheckBox.Location = new Point(35, 516);
+            _copyTorrentFileCheckBox.Margin = new Padding(5);
+            _copyTorrentFileCheckBox.Name = "_copyTorrentFileCheckBox";
+            _copyTorrentFileCheckBox.Size = new Size(446, 34);
+            _copyTorrentFileCheckBox.TabIndex = 15;
+            _copyTorrentFileCheckBox.Text = "Копировать .torrent файл в папку загрузки";
+            _copyTorrentFileCheckBox.UseVisualStyleBackColor = true;
             // 
             // _autoStartOnAddCheckBox
             // 
-            this._autoStartOnAddCheckBox.AutoSize = true;
-            this._autoStartOnAddCheckBox.Location = new System.Drawing.Point(20, 320);
-            this._autoStartOnAddCheckBox.Name = "_autoStartOnAddCheckBox";
-            this._autoStartOnAddCheckBox.Size = new System.Drawing.Size(320, 19);
-            this._autoStartOnAddCheckBox.TabIndex = 16;
-            this._autoStartOnAddCheckBox.Text = "Автоматически запускать торрент при добавлении";
-            this._autoStartOnAddCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // _infoLabel
-            // 
-            this._infoLabel.ForeColor = System.Drawing.Color.Gray;
-            this._infoLabel.Location = new System.Drawing.Point(20, 350);
-            this._infoLabel.Name = "_infoLabel";
-            this._infoLabel.Size = new System.Drawing.Size(330, 35);
-            this._infoLabel.TabIndex = 17;
-            this._infoLabel.Text = "Увеличение параллелизма может повысить скорость, но создаёт больше нагрузки на систему.";
+            _autoStartOnAddCheckBox.AutoSize = true;
+            _autoStartOnAddCheckBox.Location = new Point(35, 560);
+            _autoStartOnAddCheckBox.Margin = new Padding(5);
+            _autoStartOnAddCheckBox.Name = "_autoStartOnAddCheckBox";
+            _autoStartOnAddCheckBox.Size = new Size(532, 34);
+            _autoStartOnAddCheckBox.TabIndex = 16;
+            _autoStartOnAddCheckBox.Text = "Автоматически запускать торрент при добавлении";
+            _autoStartOnAddCheckBox.UseVisualStyleBackColor = true;
             // 
             // _okButton
             // 
-            this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._okButton.Location = new System.Drawing.Point(155, 395);
-            this._okButton.Name = "_okButton";
-            this._okButton.Size = new System.Drawing.Size(90, 30);
-            this._okButton.TabIndex = 18;
-            this._okButton.Text = "Сохранить";
-            this._okButton.UseVisualStyleBackColor = true;
+            _okButton.DialogResult = DialogResult.OK;
+            _okButton.Location = new Point(271, 691);
+            _okButton.Margin = new Padding(5);
+            _okButton.Name = "_okButton";
+            _okButton.Size = new Size(158, 52);
+            _okButton.TabIndex = 18;
+            _okButton.Text = "Сохранить";
+            _okButton.UseVisualStyleBackColor = true;
             // 
             // _cancelButton
             // 
-            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(255, 395);
-            this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(90, 30);
-            this._cancelButton.TabIndex = 19;
-            this._cancelButton.Text = "Отмена";
-            this._cancelButton.UseVisualStyleBackColor = true;
+            _cancelButton.DialogResult = DialogResult.Cancel;
+            _cancelButton.Location = new Point(446, 691);
+            _cancelButton.Margin = new Padding(5);
+            _cancelButton.Name = "_cancelButton";
+            _cancelButton.Size = new Size(158, 52);
+            _cancelButton.TabIndex = 19;
+            _cancelButton.Text = "Отмена";
+            _cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // _infoLabel
+            // 
+            _infoLabel.ForeColor = Color.Gray;
+            _infoLabel.Location = new Point(35, 612);
+            _infoLabel.Margin = new Padding(5, 0, 5, 0);
+            _infoLabel.Name = "_infoLabel";
+            _infoLabel.Size = new Size(578, 61);
+            _infoLabel.TabIndex = 17;
+            _infoLabel.Text = "Увеличение параллелизма может повысить скорость, но создаёт больше нагрузки на систему.";
             // 
             // GlobalSettingsForm
             // 
-            this.AcceptButton = this._okButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(370, 440);
-            this.Controls.Add(this._cancelButton);
-            this.Controls.Add(this._okButton);
-            this.Controls.Add(this._infoLabel);
-            this.Controls.Add(this._autoStartOnAddCheckBox);
-            this.Controls.Add(this._copyTorrentFileCheckBox);
-            this.Controls.Add(this._autoStartCheckBox);
-            this.Controls.Add(this._minimizeToTrayCheckBox);
-            this.Controls.Add(this._enableLoggingCheckBox);
-            this.Controls.Add(this._globalUploadLimitComboBox);
-            this.Controls.Add(this._globalUploadLimitCheckBox);
-            this.Controls.Add(this._globalDownloadLimitComboBox);
-            this.Controls.Add(this._globalDownloadLimitCheckBox);
-            this.Controls.Add(this._maxRequestsNumeric);
-            this.Controls.Add(this._maxRequestsLabel);
-            this.Controls.Add(this._maxPiecesNumeric);
-            this.Controls.Add(this._maxPiecesLabel);
-            this.Controls.Add(this._maxHalfOpenNumeric);
-            this.Controls.Add(this._maxHalfOpenLabel);
-            this.Controls.Add(this._maxConnectionsNumeric);
-            this.Controls.Add(this._maxConnectionsLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "GlobalSettingsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Глобальные настройки";
-            ((System.ComponentModel.ISupportInitialize)(this._maxConnectionsNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxHalfOpenNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxPiecesNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._maxRequestsNumeric)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AcceptButton = _okButton;
+            AutoScaleDimensions = new SizeF(168F, 168F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            CancelButton = _cancelButton;
+            ClientSize = new Size(648, 770);
+            Controls.Add(_cancelButton);
+            Controls.Add(_okButton);
+            Controls.Add(_infoLabel);
+            Controls.Add(_autoStartOnAddCheckBox);
+            Controls.Add(_copyTorrentFileCheckBox);
+            Controls.Add(_autoStartCheckBox);
+            Controls.Add(_minimizeToTrayCheckBox);
+            Controls.Add(_enableLoggingCheckBox);
+            Controls.Add(_globalUploadLimitComboBox);
+            Controls.Add(_globalUploadLimitCheckBox);
+            Controls.Add(_globalDownloadLimitComboBox);
+            Controls.Add(_globalDownloadLimitCheckBox);
+            Controls.Add(_maxRequestsNumeric);
+            Controls.Add(_maxRequestsLabel);
+            Controls.Add(_maxPiecesNumeric);
+            Controls.Add(_maxPiecesLabel);
+            Controls.Add(_maxHalfOpenNumeric);
+            Controls.Add(_maxHalfOpenLabel);
+            Controls.Add(_maxConnectionsNumeric);
+            Controls.Add(_maxConnectionsLabel);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(5);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "GlobalSettingsForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = " Глобальные настройки";
+            ((System.ComponentModel.ISupportInitialize)_maxConnectionsNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_maxHalfOpenNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_maxPiecesNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_maxRequestsNumeric).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

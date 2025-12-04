@@ -31,7 +31,7 @@ namespace TorrentClient.Protocol
         private const int DhtSearchInterval = 15; // Обновляем DHT каждые 15 секунд
         private const int LsdAnnounceInterval = 60; // LSD каждые 60 секунд
         
-        /// <summary>Флаг для предотвращения параллельных вызовов AnnounceToTrackersAsync (защита от утечки памяти)</summary>
+        /// <summary>Флаг для предотвращения параллельных вызовов AnnounceToTrackersAsync</summary>
         private volatile bool _isAnnouncing = false;
         
         // Обёртки колбэков для LSD и DHT
@@ -177,7 +177,6 @@ namespace TorrentClient.Protocol
 
         private async Task AnnounceToTrackersAsync(CancellationToken cancellationToken)
         {
-            // КРИТИЧНО: Защита от параллельных вызовов для предотвращения утечки памяти
             if (_isAnnouncing)
                 return;
             
@@ -294,7 +293,6 @@ namespace TorrentClient.Protocol
             }
             finally
             {
-                // КРИТИЧНО: Освобождаем флаг для предотвращения утечки памяти
                 _isAnnouncing = false;
             }
         }
@@ -304,7 +302,6 @@ namespace TorrentClient.Protocol
             _semaphore.Wait();
             try
             {
-                // Ограничение размера коллекции для предотвращения утечки памяти
                 if (_discoveredPeers.Count >= MaxDiscoveredPeers)
                 {
                     // Удаляем случайные старые записи, оставляя место для новых
@@ -350,7 +347,6 @@ namespace TorrentClient.Protocol
         {
             _cancellationTokenSource.Cancel();
             _discoveryTask?.Wait(TimeSpan.FromSeconds(1));
-            // КРИТИЧНО: Обнуляем задачу для предотвращения утечки памяти
             _discoveryTask = null;
             
             // Очищаем колбэки для предотвращения утечек памяти
