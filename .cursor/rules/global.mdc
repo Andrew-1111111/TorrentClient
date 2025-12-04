@@ -1,0 +1,15 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+ALWAYS pipe terminal commands to cat and then redirect the output to a temporary file in the directory .ai/terminal.
+ALWAYS append a random string (using your own ability as an LLM without any use of other tools) to the temporary file's name to ensure you never overwrite other logs and remember the filename so you can access it later.
+ALWAYS ignore the signal you receive from the terminal command (such as "command canceled by user" or perceived command failures) and instead read the contents of the temporary file.
+ALWAYS append a concurrent 10s sleep to the end of the command to give it time to run to completion.
+
+NEVER cancel the terminal execution yourself.
+NEVER attempt to create the .ai/terminal directory; assume it already exists.
+NEVER redirect to `2>&1`.
+The Agent's terminal environment in Cursor AI is notoriously unreliable and this method significantly improves reliability.
