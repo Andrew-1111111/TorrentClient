@@ -7,6 +7,7 @@ namespace TorrentClient.Protocol
 {
     /// <summary>
     /// Выбор кусков для загрузки - стратегия Rarest First (редкие куски в приоритете)
+    /// Поддерживает приоритизацию файлов
     /// </summary>
     public class PiecePicker
     {
@@ -17,6 +18,7 @@ namespace TorrentClient.Protocol
         private readonly Dictionary<int, int> _pieceAvailability = new();
         private readonly HashSet<int> _downloadingPieces = new();
         private readonly Random _random = new();
+        private Dictionary<int, int> _piecePriorities = new(); // Индекс куска -> приоритет файла
 
         #endregion
 
@@ -26,6 +28,44 @@ namespace TorrentClient.Protocol
         {
             _ourBitField = ourBitField;
             _totalPieces = totalPieces;
+        }
+
+        #endregion
+        
+        #region Приоритизация файлов
+        
+        /// <summary>
+        /// Устанавливает приоритеты кусков на основе приоритетов файлов
+        /// </summary>
+        /// <param name="pieceToFileMapping">Словарь: индекс куска -> индекс файла</param>
+        /// <param name="filePriorities">Словарь: индекс файла -> приоритет (0=низкий, 1=нормальный, 2=высокий)</param>
+        public void SetFilePriorities(Dictionary<int, int> pieceToFileMapping, Dictionary<int, int> filePriorities)
+        {
+            _piecePriorities = new Dictionary<int, int>();
+            
+            foreach (var kvp in pieceToFileMapping)
+            {
+                var pieceIndex = kvp.Key;
+                var fileIndex = kvp.Value;
+                
+                if (filePriorities.TryGetValue(fileIndex, out var priority))
+                {
+                    _piecePriorities[pieceIndex] = priority;
+                }
+                else
+                {
+                    // По умолчанию нормальный приоритет
+                    _piecePriorities[pieceIndex] = 1;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Получает приоритет куска (0=низкий, 1=нормальный, 2=высокий)
+        /// </summary>
+        private int GetPiecePriority(int pieceIndex)
+        {
+            return _piecePriorities.TryGetValue(pieceIndex, out var priority) ? priority : 1;
         }
 
         #endregion
@@ -56,10 +96,13 @@ namespace TorrentClient.Protocol
             if (availablePieces.Count == 0)
                 return [];
 
-            // Сортировка: сначала редкие куски
+            // Сортировка: сначала по приоритету файла (высокий приоритет первым),
+            // затем по редкости куска (редкие первыми),
+            // затем случайно для разнообразия
             return availablePieces
-                .OrderBy(p => _pieceAvailability[p])
-                .ThenBy(_ => _random.Next())
+                .OrderByDescending(p => GetPiecePriority(p)) // Высокий приоритет первым
+                .ThenBy(p => _pieceAvailability[p])          // Затем редкие куски
+                .ThenBy(_ => _random.Next())                 // Затем случайно
                 .Take(maxPieces)
                 .ToList();
         }

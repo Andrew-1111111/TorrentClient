@@ -8,16 +8,16 @@
 
 ```powershell
 # Сборка всех версий
-.\build-all.ps1
+.\Build\build-all.ps1
 
 # Сборка одной версии
-.\build.ps1 -Platform win-x64 -SelfContained
+.\Build\build.ps1 -Platform win-x64 -SelfContained
 ```
 
 Если выполнение скриптов запрещено, используйте batch файл:
 
 ```cmd
-build.bat win-x64
+Build\build.bat win-x64
 ```
 
 ### Ручная сборка через dotnet CLI
@@ -60,7 +60,7 @@ dotnet publish -c Release -r win-arm64 -o publish/win-arm64-self-contained -p:Pu
 
 ## Разрешение выполнения PowerShell скриптов
 
-Если при выполнении `.\build.ps1` вы получаете ошибку о политике выполнения:
+Если при выполнении `.\Build\build.ps1` вы получаете ошибку о политике выполнения:
 
 ```powershell
 # Проверить текущую политику
@@ -158,4 +158,3 @@ dotnet build
 ```bash
 dotnet test
 ```
-

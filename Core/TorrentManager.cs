@@ -1,4 +1,4 @@
-﻿using TorrentClient.Core.Interfaces;
+using TorrentClient.Core.Interfaces;
 using TorrentClient.Engine.Interfaces;
 using TorrentClient.Utilities;
 
@@ -69,7 +69,7 @@ namespace TorrentClient.Core
         public TorrentManager(string downloadPath, string statePath, 
             ITorrentStateStorage stateStorage,
             ITorrentClient? torrentClient = null,
-            TrackerClientOptions? trackerOptions = null, AppSettings? appSettings = null)
+            TrackerClientOptions? _ = null, AppSettings? appSettings = null)
         {
             Logger.Initialize();
             Logger.LogInfo($"Инициализация TorrentManager. Путь загрузки: {downloadPath}, Путь состояний: {statePath}");
@@ -164,7 +164,7 @@ namespace TorrentClient.Core
                 List<Torrent> torrents;
                 using (_torrentsLock.EnterScope())
                 {
-                    torrents = _uiTorrents.Values.ToList();
+                    torrents = [.. _uiTorrents.Values];
                 }
                 
                 foreach (var uiTorrent in torrents)
@@ -256,7 +256,7 @@ namespace TorrentClient.Core
                 List<Torrent> allTorrents;
                 using (_torrentsLock.EnterScope())
                 {
-                    allTorrents = _uiTorrents.Values.ToList();
+                    allTorrents = [.. _uiTorrents.Values];
                 }
                 _stateStorage.SaveTorrentList(allTorrents);
                 
@@ -394,7 +394,7 @@ namespace TorrentClient.Core
             List<Torrent> allTorrents;
             using (_torrentsLock.EnterScope())
             {
-                allTorrents = _uiTorrents.Values.ToList();
+                allTorrents = [.. _uiTorrents.Values];
             }
             _stateStorage.SaveTorrentList(allTorrents);
             
@@ -496,7 +496,7 @@ namespace TorrentClient.Core
             List<Torrent> allTorrents;
             using (_torrentsLock.EnterScope())
             {
-                allTorrents = _uiTorrents.Values.ToList();
+                allTorrents = [.. _uiTorrents.Values];
             }
             _stateStorage.SaveTorrentList(allTorrents);
             
@@ -688,12 +688,12 @@ namespace TorrentClient.Core
             {
                 _uiTorrents.TryGetValue(torrentId, out uiTorrent);
             }
-            
+
             if (uiTorrent != null)
             {
                 uiTorrent.MaxDownloadSpeed = maxDownload;
                 uiTorrent.MaxUploadSpeed = maxUpload;
-                
+
                 // Применяем ограничение к Engine
                 var activeTorrent = _client.GetTorrent(uiTorrent.Info.InfoHash);
                 if (activeTorrent != null)
@@ -706,23 +706,57 @@ namespace TorrentClient.Core
                 {
                     Logger.LogWarning($"[TorrentManager] Не удалось применить ограничение скорости - торрент не найден в Engine: {uiTorrent.Info.Name}");
                 }
-                
+
                 // Сохраняем состояние торрента с новыми лимитами
                 _stateStorage.SaveTorrentState(uiTorrent);
-                // Захватываем ссылку в локальную переменную для предотвращения race condition
-                var callbacks = _callbacks;
-                if (callbacks != null)
-                {
-                    SafeTaskRunner.RunSafe(async () => await callbacks.OnTorrentUpdatedAsync(uiTorrent).ConfigureAwait(false));
-                }
             }
         }
-        
+
+        /// <summary>
+        /// Устанавливает приоритет файла в торренте
+        /// </summary>
+        /// <param name="torrentId">Идентификатор торрента</param>
+        /// <param name="filePath">Путь к файлу относительно корня торрента</param>
+        /// <param name="priority">Приоритет (0=низкий, 1=нормальный, 2=высокий)</param>
+        public void SetFilePriority(string torrentId, string filePath, int priority)
+        {
+            Torrent? uiTorrent;
+            using (_torrentsLock.EnterScope())
+            {
+                _uiTorrents.TryGetValue(torrentId, out uiTorrent);
+            }
+
+            if (uiTorrent == null)
+                return;
+
+            // Находим файл и устанавливаем приоритет
+            var fileInfo = uiTorrent.FileInfos.FirstOrDefault(f => f.Path == filePath);
+            if (fileInfo != null)
+            {
+                fileInfo.Priority = Math.Clamp(priority, 0, 2);
+                Logger.LogInfo($"[TorrentManager] Приоритет файла установлен: {filePath} = {priority}");
+
+                // Сохраняем состояние торрента
+                _stateStorage.SaveTorrentState(uiTorrent);
+
+                // TODO: Обновить PiecePicker в TorrentDownloader при следующем запуске/перезапуске
+                // Это требует доступа к TorrentDownloader, который находится в Engine
+            }
+            
+            // Захватываем ссылку в локальную переменную для предотвращения race condition
+            // uiTorrent гарантированно не null здесь, так как мы вернулись раньше если он null
+            var callbacks = _callbacks;
+            if (callbacks != null)
+            {
+                SafeTaskRunner.RunSafe(async () => await callbacks.OnTorrentUpdatedAsync(uiTorrent).ConfigureAwait(false));
+            }
+        }
+
         private static string FormatSpeed(long? bytesPerSecond)
         {
             if (bytesPerSecond == null) return "без ограничений";
-            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
-            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            // Конвертация согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+            // 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
             var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
             if (mbps >= 1.0)
                 return $"{mbps:F1} Mbps";
@@ -780,7 +814,7 @@ namespace TorrentClient.Core
         {
             using (_torrentsLock.EnterScope())
             {
-                return _uiTorrents.Values.ToList();
+                return [.. _uiTorrents.Values];
             }
         }
 
@@ -805,7 +839,7 @@ namespace TorrentClient.Core
             List<Torrent> torrents;
             using (_torrentsLock.EnterScope())
             {
-                torrents = _uiTorrents.Values.ToList();
+                torrents = [.. _uiTorrents.Values];
             }
             
             foreach (var uiTorrent in torrents)
@@ -866,7 +900,7 @@ namespace TorrentClient.Core
                 List<Torrent> allTorrents;
                 using (_torrentsLock.EnterScope())
                 {
-                    allTorrents = _uiTorrents.Values.ToList();
+                    allTorrents = [.. _uiTorrents.Values];
                 }
                 
                 // Синхронизируем состояние с Engine перед сохранением

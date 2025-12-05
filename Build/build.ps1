@@ -1,12 +1,12 @@
 # Script to build TorrentClient for different platforms
-# Usage: .\build.ps1 [--all] [--platform win-x64|win-x86|win-arm64] [--self-contained|--framework-dependent]
+# Usage: .\Build\build.ps1 [--all] [--platform win-x64|win-x86|win-arm64] [--self-contained|--framework-dependent]
 
 param(
     [switch]$All,
     [string]$Platform = "win-x64",
     [switch]$SelfContained,
     [switch]$FrameworkDependent,
-    [string]$OutputDir = ".\publish"
+    [string]$OutputDir = "..\publish"
 )
 
 $ErrorActionPreference = "Stop"
@@ -53,7 +53,7 @@ function Build-Platform {
     
     $publishArgs = @(
         "publish",
-        "TorrentClient.csproj",
+        "..\TorrentClient.csproj",
         "-c", "Release",
         "-r", $Rid,
         "-o", $outputPath,
@@ -167,4 +167,3 @@ if ($successCount -eq $totalCount) {
     Write-Error "`n[FAILURE] Some builds failed"
     exit 1
 }
-

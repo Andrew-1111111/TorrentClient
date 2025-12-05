@@ -119,6 +119,9 @@ namespace TorrentClient.UI.Services
                     }
 
                     UpdateSpeedLabels(downloadSpeedLabel, uploadSpeedLabel, totalDownloadSpeed, totalUploadSpeed);
+                    
+                    // Обновляем информацию о скорости в трее
+                    _trayIconManager.UpdateSpeedInfo(totalDownloadSpeed, totalUploadSpeed);
                 }, _pendingUpdates);
             }
             catch (Exception ex)
@@ -208,17 +211,32 @@ namespace TorrentClient.UI.Services
 
         private static string FormatSpeed(long bytesPerSecond)
         {
+            // Конвертация согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+            // 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
+            // 1 MB/s = 1,000,000 bytes/s = 8,000,000 bits/s
             double mbps = (bytesPerSecond * 8.0) / 1_000_000.0;
-            double mbytes = bytesPerSecond / 1_048_576.0;
+            double mbytes = bytesPerSecond / 1_000_000.0;
 
             if (mbps >= 1000)
-                return $"{mbps / 1000:0.##} Gbps ({mbytes / 1024:0.##} GB/s)";
+            {
+                double gbps = mbps / 1000.0;
+                double gbytes = bytesPerSecond / 1_000_000_000.0;
+                return $"{gbps:0.##} Gbps ({gbytes:0.##} GB/s)";
+            }
             else if (mbps >= 1)
+            {
                 return $"{mbps:0.##} Mbps ({mbytes:0.##} MB/s)";
+            }
             else if (mbps >= 0.001)
-                return $"{mbps * 1000:0.#} Kbps ({mbytes * 1024:0.#} KB/s)";
+            {
+                double kbps = mbps * 1000.0;
+                double kbytes = bytesPerSecond / 1_000.0;
+                return $"{kbps:0.#} Kbps ({kbytes:0.#} KB/s)";
+            }
             else
+            {
                 return "0 Mbps (0 MB/s)";
+            }
         }
 
         /// <summary>

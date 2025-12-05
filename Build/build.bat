@@ -1,6 +1,6 @@
 @echo off
 REM Simple batch file to build a single version
-REM Usage: build.bat [win-x64|win-x86|win-arm64]
+REM Usage: Build\build.bat [win-x64|win-x86|win-arm64]
 
 set PLATFORM=%1
 if "%PLATFORM%"=="" set PLATFORM=win-x64
@@ -14,13 +14,17 @@ echo.
 
 REM Cleanup
 echo Cleaning previous builds...
+cd ..
 dotnet clean -c Release
 if exist publish rmdir /s /q publish
+cd Build
 
 REM Build
 echo.
 echo Building %PLATFORM% (self-contained)...
+cd ..
 dotnet publish -c Release -r %PLATFORM% -o publish\%PLATFORM%-self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:SelfContained=true -p:DebugType=none -p:DebugSymbols=false
+cd Build
 
 if %ERRORLEVEL% EQU 0 (
     echo.
@@ -37,4 +41,3 @@ if %ERRORLEVEL% EQU 0 (
 )
 
 pause
-

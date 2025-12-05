@@ -82,6 +82,7 @@
             _torrentListView.ColumnWidthChanging += TorrentListView_ColumnWidthChanging;
             _torrentListView.SelectedIndexChanged += TorrentListView_SelectedIndexChanged;
             _torrentListView.KeyDown += TorrentListView_KeyDown;
+            _torrentListView.MouseClick += TorrentListView_MouseClick;
             // 
             // colNumber
             // 

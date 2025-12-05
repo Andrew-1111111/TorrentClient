@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using TorrentClient.Models;
 
@@ -38,19 +38,21 @@ namespace TorrentClient
         
         private void SetupComboBoxes()
         {
-            // Настройка ComboBox для загрузки (только Mbps)
+            // Настройка ComboBox для загрузки (Mbps или MB/s)
             _downloadSpeedComboBox.Items.AddRange(SpeedPresets);
             _downloadUnitComboBox.Items.Clear();
             _downloadUnitComboBox.Items.Add("Mbps");
+            _downloadUnitComboBox.Items.Add("MB/s");
             _downloadUnitComboBox.SelectedIndex = 0;
-            _downloadUnitComboBox.Enabled = false; // Только Mbps, не редактируется
+            _downloadUnitComboBox.Enabled = true;
             
-            // Настройка ComboBox для отдачи (только Mbps)
+            // Настройка ComboBox для отдачи (Mbps или MB/s)
             _uploadSpeedComboBox.Items.AddRange(SpeedPresets);
             _uploadUnitComboBox.Items.Clear();
             _uploadUnitComboBox.Items.Add("Mbps");
+            _uploadUnitComboBox.Items.Add("MB/s");
             _uploadUnitComboBox.SelectedIndex = 0;
-            _uploadUnitComboBox.Enabled = false; // Только Mbps, не редактируется
+            _uploadUnitComboBox.Enabled = true;
         }
 
         private void LoadSettings()
@@ -80,30 +82,47 @@ namespace TorrentClient
         
         private void LoadSpeedValue(long bytesPerSecond, ComboBox speedCombo, ComboBox unitCombo, TextBox customTextBox)
         {
-            // Конвертируем байты/сек в Mbps (обратная конвертация)
-            // 1 байт/сек = 8 бит/сек
+            // Конвертируем байты/сек в Mbps и MB/s
             // 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
-            // Формула: Mbps = (bytesPerSecond * 8) / 1,000,000
+            // 1 MB/s = 1,000,000 байт/сек
             double bitsPerSecond = bytesPerSecond * 8.0;
             double mbps = bitsPerSecond / 1_000_000.0;
+            double mbytes = bytesPerSecond / 1_000_000.0;
             
-            // Округляем до ближайшего целого для отображения
-            int mbpsInt = (int)Math.Round(mbps);
+            // Определяем, в каких единицах лучше отобразить (если < 1 Mbps, используем MB/s)
+            bool useMBs = mbps < 1.0;
             
-            var mbpsStr = mbpsInt.ToString();
-            
-            int presetIndex = Array.FindIndex(SpeedPresets, s => s == mbpsStr);
-            if (presetIndex >= 0)
+            if (useMBs)
             {
-                speedCombo.SelectedIndex = presetIndex;
-                customTextBox.Enabled = false;
-                customTextBox.Text = string.Empty;
+                // Используем MB/s
+                unitCombo.SelectedIndex = 1; // MB/s
+                double mbytesRounded = Math.Round(mbytes, 2);
+                
+                // Для малых значений всегда используем "Другое..." с точным значением в MB/s
+                speedCombo.SelectedIndex = SpeedPresets.Length - 1; // Другое...
+                customTextBox.Text = mbytesRounded.ToString("F2");
+                customTextBox.Enabled = true;
             }
             else
             {
-                speedCombo.SelectedIndex = SpeedPresets.Length - 1; // Другое...
-                customTextBox.Text = mbpsInt.ToString();
-                customTextBox.Enabled = true;
+                // Используем Mbps
+                unitCombo.SelectedIndex = 0; // Mbps
+                int mbpsInt = (int)Math.Round(mbps);
+                var mbpsStr = mbpsInt.ToString();
+                
+                int presetIndex = Array.FindIndex(SpeedPresets, s => s == mbpsStr);
+                if (presetIndex >= 0)
+                {
+                    speedCombo.SelectedIndex = presetIndex;
+                    customTextBox.Enabled = false;
+                    customTextBox.Text = string.Empty;
+                }
+                else
+                {
+                    speedCombo.SelectedIndex = SpeedPresets.Length - 1; // Другое...
+                    customTextBox.Text = mbpsInt.ToString();
+                    customTextBox.Enabled = true;
+                }
             }
         }
 
@@ -164,15 +183,26 @@ namespace TorrentClient
                 valueStr = SpeedPresets[speedCombo.SelectedIndex];
             }
             
-            if (int.TryParse(valueStr, out int mbpsValue) && mbpsValue > 0)
+            if (double.TryParse(valueStr, out double value) && value > 0)
             {
-                // Конвертируем Mbps в байты/сек (точная конвертация)
-                // 1 Mbps = 1,000,000 бит/сек = 1,000,000 / 8 = 125,000 байт/сек
-                // Примеры:
-                //   1 Mbps = 125,000 байт/сек
-                //   10 Mbps = 1,250,000 байт/сек
-                //   100 Mbps = 12,500,000 байт/сек
-                return (long)(mbpsValue * 1_000_000.0 / 8.0);
+                bool isMBs = unitCombo.SelectedIndex == 1; // MB/s
+                
+                if (isMBs)
+                {
+                    // Конвертируем MB/s в байты/сек
+                    // 1 MB/s = 1,000,000 байт/сек
+                    return (long)(value * 1_000_000.0);
+                }
+                else
+                {
+                    // Конвертируем Mbps в байты/сек (точная конвертация)
+                    // 1 Mbps = 1,000,000 бит/сек = 1,000,000 / 8 = 125,000 байт/сек
+                    // Примеры:
+                    //   1 Mbps = 125,000 байт/сек
+                    //   10 Mbps = 1,250,000 байт/сек
+                    //   100 Mbps = 12,500,000 байт/сек
+                    return (long)(value * 1_000_000.0 / 8.0);
+                }
             }
             
             return null;

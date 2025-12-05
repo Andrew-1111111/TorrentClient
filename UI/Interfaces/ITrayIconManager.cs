@@ -14,6 +14,9 @@ namespace TorrentClient.UI.Interfaces
         /// <summary>Показывает уведомление в трее</summary>
         void ShowBalloonTip(int timeout, string title, string text, ToolTipIcon icon);
         
+        /// <summary>Обновляет текст иконки в трее с информацией о скорости</summary>
+        void UpdateSpeedInfo(long downloadSpeed, long uploadSpeed);
+        
         /// <summary>Видимость иконки</summary>
         bool Visible { get; set; }
     }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Windows.Forms;
 using TorrentClient.UI.Interfaces;
 
 namespace TorrentClient.UI
@@ -7,24 +5,18 @@ namespace TorrentClient.UI
     /// <summary>
     /// Обновление списка торрентов в UI (SRP)
     /// </summary>
-    public class TorrentListViewUpdater : ITorrentListViewUpdater
+    public class TorrentListViewUpdater(IUpdateThrottler throttler) : ITorrentListViewUpdater
     {
         private const int MinUpdateIntervalMs = 1000;
         private readonly Dictionary<string, DateTime> _lastUpdateTime = [];
-        private readonly IUpdateThrottler _throttler;
+        private readonly IUpdateThrottler _throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
 
-        public TorrentListViewUpdater(IUpdateThrottler throttler)
-        {
-            _throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
-        }
-
-        public void UpdateTorrentsList(ListView listView, List<Models.Torrent> torrents, 
+        public void UpdateTorrentsList(ListView listView, List<Torrent> torrents, 
             out long totalDownloadSpeed, out long totalUploadSpeed)
         {
             totalDownloadSpeed = 0;
             totalUploadSpeed = 0;
             
-            var now = DateTime.UtcNow;
             foreach (var torrent in torrents)
             {
                 // Проверяем троттлинг
@@ -58,7 +50,7 @@ namespace TorrentClient.UI
             }
         }
 
-        public void UpdateTorrentItem(ListViewItem item, Models.Torrent torrent)
+        public void UpdateTorrentItem(ListViewItem item, Torrent torrent)
         {
             if (item == null || torrent == null || item.SubItems.Count < 8) return;
 
@@ -134,10 +126,13 @@ namespace TorrentClient.UI
                     newTooltip += $"  Отдача: без ограничений\n";
             }
             
-            newTooltip += $"Пиры: {torrent.ActivePeers} активных / {torrent.ConnectedPeers} подключённых / {torrent.TotalPeers} всего";
+            newTooltip += $"\nПиры: {torrent.ActivePeers} активных / {torrent.ConnectedPeers} подключённых / {torrent.TotalPeers} всего";
             
             if (item.ToolTipText != newTooltip)
                 item.ToolTipText = newTooltip;
+            
+            // Добавляем отдельные tooltips для колонок Скорость и Пиры
+            UpdateColumnTooltips(item, torrent);
         }
 
         public void CleanupStaleUpdateTimes(ListView listView)
@@ -170,28 +165,106 @@ namespace TorrentClient.UI
 
         private static string FormatSpeed(long bytesPerSecond)
         {
+            // Конвертация согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+            // 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
+            // 1 MB/s = 1,000,000 bytes/s = 8,000,000 bits/s
             double mbps = (bytesPerSecond * 8.0) / 1_000_000.0;
-            double mbytes = bytesPerSecond / 1_048_576.0;
+            double mbytes = bytesPerSecond / 1_000_000.0;
             
             if (mbps >= 1000)
-                return $"{mbps / 1000:0.##} Gbps ({mbytes / 1024:0.##} GB/s)";
+            {
+                double gbps = mbps / 1000.0;
+                double gbytes = bytesPerSecond / 1_000_000_000.0;
+                return $"{gbps:0.##} Gbps ({gbytes:0.##} GB/s)";
+            }
             else if (mbps >= 1)
+            {
                 return $"{mbps:0.##} Mbps ({mbytes:0.##} MB/s)";
+            }
+            else if (mbps >= 0.001)
+            {
+                double kbps = mbps * 1000.0;
+                double kbytes = bytesPerSecond / 1_000.0;
+                return $"{kbps:0.#} Kbps ({kbytes:0.#} KB/s)";
+            }
             else
-                return $"{bytesPerSecond / 1024.0:0.##} KB/s";
+            {
+                return "0 Mbps (0 MB/s)";
+            }
         }
 
         /// <summary>
-        /// Форматирует лимит скорости для отображения (только Mbps)
+        /// Форматирует лимит скорости для отображения (Mbps или MB/s)
         /// </summary>
+        /// <remarks>
+        /// Согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+        /// 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
+        /// 1 MB/s = 1,000,000 bytes/s = 8,000,000 bits/s
+        /// </remarks>
         private static string FormatSpeedLimit(long bytesPerSecond)
         {
             // Конвертируем bytes/sec в Mbps: bytes * 8 / 1,000,000
             double mbps = bytesPerSecond * 8.0 / 1_000_000.0;
             if (mbps >= 1.0)
                 return $"{mbps:F1} Mbps";
-            var kbps = mbps * 1000.0;
-            return $"{kbps:F1} Kbps";
+            
+            // Для малых значений показываем в MB/s (байты/сек / 1,000,000)
+            double mbytes = bytesPerSecond / 1_000_000.0;
+            return $"{mbytes:F2} MB/s";
+        }
+        
+        /// <summary>
+        /// Обновляет tooltips для отдельных колонок (Скорость и Пиры)
+        /// </summary>
+        private static void UpdateColumnTooltips(ListViewItem item, Models.Torrent torrent)
+        {
+            if (item.ListView == null)
+                return;
+                
+            // Tooltip для колонки Скорость (индекс 4)
+            if (item.SubItems.Count > 4)
+            {
+                var speedTooltip = $"Текущая скорость загрузки: {FormatSpeed(torrent.DownloadSpeed)}\n" +
+                    $"Текущая скорость отдачи: {FormatSpeed(torrent.UploadSpeed)}\n\n";
+                
+                if (torrent.MaxDownloadSpeed.HasValue || torrent.MaxUploadSpeed.HasValue)
+                {
+                    speedTooltip += "Ограничения скорости:\n";
+                    if (torrent.MaxDownloadSpeed.HasValue)
+                        speedTooltip += $"  Загрузка: {FormatSpeedLimit(torrent.MaxDownloadSpeed.Value)}\n";
+                    else
+                        speedTooltip += $"  Загрузка: без ограничений\n";
+                    if (torrent.MaxUploadSpeed.HasValue)
+                        speedTooltip += $"  Отдача: {FormatSpeedLimit(torrent.MaxUploadSpeed.Value)}\n";
+                    else
+                        speedTooltip += $"  Отдача: без ограничений\n";
+                }
+                else
+                {
+                    speedTooltip += "Ограничения скорости: не установлены";
+                }
+                
+                // Сохраняем tooltip в Tag подэлемента (ListView не поддерживает tooltips для подэлементов напрямую)
+                // Используем специальный формат в Tag для идентификации
+                var currentSpeedTag = item.SubItems[4].Tag?.ToString();
+                if (currentSpeedTag != speedTooltip)
+                    item.SubItems[4].Tag = speedTooltip;
+            }
+            
+            // Tooltip для колонки Пиры (индекс 6)
+            if (item.SubItems.Count > 6)
+            {
+                var peersTooltip = $"Активные пиры: {torrent.ActivePeers}\n" +
+                    $"  Пиры, которые разблокированы и могут отправлять данные\n\n" +
+                    $"Подключённые пиры: {torrent.ConnectedPeers}\n" +
+                    $"  Пиры, с которыми установлено соединение\n\n" +
+                    $"Всего пиров: {torrent.TotalPeers}\n" +
+                    $"  Общее количество известных пиров (включая неактивных)";
+                
+                var currentPeersTag = item.SubItems[6].Tag?.ToString();
+                if (currentPeersTag != peersTooltip)
+                    item.SubItems[6].Tag = peersTooltip;
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ namespace TorrentClient
         private MainFormPresenter? _presenter;
         private ITorrentOperationsService? _operationsService;
         private DateTime _lastCleanupTime = DateTime.UtcNow;
+        private ToolTip? _columnToolTip;
         
         #endregion
         
@@ -29,8 +30,62 @@ namespace TorrentClient
         {
             InitializeComponent();
             InitializeDragAndDrop();
+            InitializeColumnTooltips();
             InitializeApplication();
             ResizeListViewColumns(); // Первоначальное растягивание колонок
+        }
+        
+        /// <summary>
+        /// Инициализирует tooltips для колонок ListView
+        /// </summary>
+        private void InitializeColumnTooltips()
+        {
+            _columnToolTip = new ToolTip
+            {
+                IsBalloon = false,
+                ShowAlways = true,
+                AutoPopDelay = 5000,
+                InitialDelay = 500,
+                ReshowDelay = 100
+            };
+            
+            _torrentListView.MouseMove += TorrentListView_MouseMove;
+            _torrentListView.MouseLeave += (s, e) => _columnToolTip.Hide(_torrentListView);
+        }
+        
+        /// <summary>
+        /// Обработчик движения мыши для показа tooltips колонок
+        /// </summary>
+        private void TorrentListView_MouseMove(object? sender, MouseEventArgs e)
+        {
+            if (_torrentListView == null || _columnToolTip == null)
+                return;
+                
+            var info = _torrentListView.HitTest(e.Location);
+            if (info.Item == null || info.SubItem == null)
+            {
+                _columnToolTip.Hide(_torrentListView);
+                return;
+            }
+            
+            // Проверяем, что это колонка Скорость (индекс 4) или Пиры (индекс 6)
+            var subItemIndex = info.Item.SubItems.IndexOf(info.SubItem);
+            if (subItemIndex == 4 || subItemIndex == 6)
+            {
+                var tooltipText = info.SubItem.Tag?.ToString();
+                if (!string.IsNullOrEmpty(tooltipText))
+                {
+                    _columnToolTip.SetToolTip(_torrentListView, tooltipText);
+                }
+                else
+                {
+                    _columnToolTip.Hide(_torrentListView);
+                }
+            }
+            else
+            {
+                _columnToolTip.Hide(_torrentListView);
+            }
         }
         
         /// <summary>
@@ -572,6 +627,118 @@ namespace TorrentClient
                 RemoveTorrentButton_Click(sender, e);
             }
         }
+        
+        /// <summary>
+        /// Обработчик клика мыши для показа контекстного меню
+        /// </summary>
+        private void TorrentListView_MouseClick(object? sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right)
+                return;
+                
+            var info = _torrentListView.HitTest(e.Location);
+            if (info.Item == null)
+                return;
+                
+            // Выделяем элемент, если он не был выделен
+            if (!info.Item.Selected)
+            {
+                _torrentListView.SelectedItems.Clear();
+                info.Item.Selected = true;
+            }
+            
+            ShowTorrentContextMenu(e.Location);
+        }
+        
+        /// <summary>
+        /// Показывает контекстное меню для выбранных торрентов
+        /// </summary>
+        private void ShowTorrentContextMenu(Point location)
+        {
+            var selectedItems = _torrentListView.SelectedItems.Cast<ListViewItem>().ToList();
+            if (selectedItems.Count == 0)
+                return;
+                
+            var contextMenu = new ContextMenuStrip();
+            
+            // Определяем состояние выбранных торрентов
+            bool canStart = false;
+            bool canPause = false;
+            bool canStop = false;
+            bool canSetSpeed = false;
+            
+            foreach (var item in selectedItems)
+            {
+                var id = item.Tag?.ToString();
+                if (string.IsNullOrEmpty(id) || _torrentManager == null)
+                    continue;
+                    
+                var torrent = _torrentManager.GetTorrent(id);
+                if (torrent == null)
+                    continue;
+                    
+                if (torrent.State == TorrentState.Stopped ||
+                    torrent.State == TorrentState.Paused ||
+                    torrent.State == TorrentState.Error)
+                {
+                    canStart = true;
+                }
+                
+                if (torrent.State == TorrentState.Downloading)
+                {
+                    canPause = true;
+                }
+                
+                if (torrent.State == TorrentState.Downloading ||
+                    torrent.State == TorrentState.Paused ||
+                    torrent.State == TorrentState.Seeding)
+                {
+                    canStop = true;
+                }
+            }
+            
+            // Только для одного торрента можно установить скорость
+            if (selectedItems.Count == 1 && _torrentManager != null)
+            {
+                var id = selectedItems[0].Tag?.ToString();
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var torrent = _torrentManager.GetTorrent(id);
+                    if (torrent != null)
+                    {
+                        canSetSpeed = true;
+                    }
+                }
+            }
+            
+            // Добавляем пункты меню
+            if (canStart)
+            {
+                contextMenu.Items.Add("Запустить", null, (s, e) => StartButton_Click(s, e));
+            }
+            
+            if (canPause)
+            {
+                contextMenu.Items.Add("Пауза", null, (s, e) => PauseButton_Click(s, e));
+            }
+            
+            if (canStop)
+            {
+                contextMenu.Items.Add("Остановить", null, (s, e) => StopButton_Click(s, e));
+            }
+            
+            if (canSetSpeed)
+            {
+                contextMenu.Items.Add(new ToolStripSeparator());
+                contextMenu.Items.Add("Ограничение скорости...", null, (s, e) => SettingsButton_Click(s, e));
+            }
+            
+            contextMenu.Items.Add(new ToolStripSeparator());
+            contextMenu.Items.Add("Удалить", null, (s, e) => RemoveTorrentButton_Click(s, e));
+            
+            // Показываем меню
+            contextMenu.Show(_torrentListView, location);
+        }
 
 
         private void SelectDownloadFolderButton_Click(object? sender, EventArgs e)
@@ -663,8 +830,8 @@ namespace TorrentClient
         private static string FormatSpeed(long? bytesPerSecond)
         {
             if (bytesPerSecond == null) return "без ограничений";
-            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
-            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            // Конвертация согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+            // 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
             var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
             return $"{mbps:F1} Mbps";
         }
@@ -798,7 +965,10 @@ namespace TorrentClient
             {
                 _torrentListView.SelectedIndexChanged -= TorrentListView_SelectedIndexChanged;
                 _torrentListView.KeyDown -= TorrentListView_KeyDown;
+                _torrentListView.MouseMove -= TorrentListView_MouseMove;
             }
+            
+            _columnToolTip?.Dispose();
             
             if (_addTorrentButton != null)
             {
@@ -882,22 +1052,17 @@ namespace TorrentClient
                     
                     // Принудительно завершаем приложение через небольшую задержку
                     await Task.Delay(100).ConfigureAwait(false);
+
                     Environment.Exit(0);
                 }
                 catch (Exception ex)
                 {
                     Logger.LogError("[MainForm] Ошибка при асинхронном закрытии формы", ex);
+
                     // В случае ошибки все равно закрываем приложение
                     try
                     {
-                        if (InvokeRequired)
-                        {
-                            Invoke(new Action(() => Environment.Exit(0)));
-                        }
-                        else
-                        {
-                            Environment.Exit(0);
-                        }
+                        Environment.Exit(0);
                     }
                     catch { }
                 }

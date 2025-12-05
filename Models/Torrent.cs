@@ -89,6 +89,22 @@ namespace TorrentClient.Models
         
         /// <summary>Выбран ли файл для загрузки</summary>
         public bool IsSelected { get; set; } = true;
+        
+        /// <summary>Приоритет файла (0 = низкий, 1 = нормальный, 2 = высокий)</summary>
+        public int Priority { get; set; } = 1;
+    }
+    
+    /// <summary>
+    /// Уровни приоритета файлов
+    /// </summary>
+    public enum FilePriority
+    {
+        /// <summary>Низкий приоритет - загружается последним</summary>
+        Low = 0,
+        /// <summary>Нормальный приоритет - загружается в обычном порядке</summary>
+        Normal = 1,
+        /// <summary>Высокий приоритет - загружается первым</summary>
+        High = 2
     }
 
     /// <summary>

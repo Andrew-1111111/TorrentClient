@@ -1,4 +1,4 @@
-﻿using TorrentClient.Core.Interfaces;
+using TorrentClient.Core.Interfaces;
 
 namespace TorrentClient.Core
 {
@@ -173,8 +173,8 @@ namespace TorrentClient.Core
         private static string FormatSpeed(long? bytesPerSecond)
         {
             if (bytesPerSecond == null) return "без ограничений";
-            // Правильная конвертация: 1 Mbps = 1,000,000 бит/сек = 125,000 байт/сек
-            // Mbps = (bytesPerSecond * 8) / 1,000,000
+            // Конвертация согласно стандарту: https://en.wikipedia.org/wiki/Data-rate_units
+            // 1 Mbps = 1,000,000 bits/s = 125,000 bytes/s
             var mbps = bytesPerSecond.Value * 8.0 / 1_000_000.0;
             if (mbps >= 1.0)
                 return $"{mbps:F1} Mbps";

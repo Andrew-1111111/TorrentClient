@@ -218,6 +218,90 @@ public class SpeedConversionTests
         // Проверка
         Assert.Equal(0.0, mbps);
     }
+
+    /// <summary>
+    /// Проверяет, что конвертация 1,000,000 байт/сек в MB/s дает 1 MB/s (десятичная система)
+    /// </summary>
+    [Fact]
+    public void BytesPerSecondToMBs_1000000Bytes_Returns1MBs()
+    {
+        // Подготовка
+        long bytesPerSecond = 1_000_000;
+        
+        // Действие
+        double mbytes = bytesPerSecond / 1_000_000.0;
+        
+        // Проверка
+        Assert.Equal(1.0, mbytes, 1);
+    }
+
+    /// <summary>
+    /// Проверяет, что конвертация 1,000 байт/сек в KB/s дает 1 KB/s (десятичная система)
+    /// </summary>
+    [Fact]
+    public void BytesPerSecondToKBs_1000Bytes_Returns1KBs()
+    {
+        // Подготовка
+        long bytesPerSecond = 1_000;
+        
+        // Действие
+        double kbytes = bytesPerSecond / 1_000.0;
+        
+        // Проверка
+        Assert.Equal(1.0, kbytes, 1);
+    }
+
+    /// <summary>
+    /// Проверяет, что конвертация 125,000 байт/сек дает 1 Mbps и 0.125 MB/s
+    /// </summary>
+    [Fact]
+    public void BytesPerSecond_125000Bytes_Returns1MbpsAnd0125MBs()
+    {
+        // Подготовка
+        long bytesPerSecond = 125_000;
+        
+        // Действие
+        double mbps = bytesPerSecond * 8.0 / 1_000_000.0;
+        double mbytes = bytesPerSecond / 1_000_000.0;
+        
+        // Проверка
+        Assert.Equal(1.0, mbps, 1);
+        Assert.Equal(0.125, mbytes, 3);
+    }
+
+    /// <summary>
+    /// Проверяет, что конвертация 1,000,000,000 байт/сек дает 8 Gbps и 1 GB/s
+    /// </summary>
+    [Fact]
+    public void BytesPerSecond_1000000000Bytes_Returns8GbpsAnd1GBs()
+    {
+        // Подготовка
+        long bytesPerSecond = 1_000_000_000;
+        
+        // Действие
+        double gbps = (bytesPerSecond * 8.0) / 1_000_000_000.0;
+        double gbytes = bytesPerSecond / 1_000_000_000.0;
+        
+        // Проверка
+        Assert.Equal(8.0, gbps, 1);
+        Assert.Equal(1.0, gbytes, 1);
+    }
+
+    /// <summary>
+    /// Проверяет, что конвертация 125,000 байт/сек в MB/s дает 0.125 MB/s
+    /// </summary>
+    [Fact]
+    public void BytesPerSecondToMBs_125000Bytes_Returns0125MBs()
+    {
+        // Подготовка
+        long bytesPerSecond = 125_000;
+        
+        // Действие
+        double mbytes = bytesPerSecond / 1_000_000.0;
+        
+        // Проверка
+        Assert.Equal(0.125, mbytes, 3);
+    }
 }
 
 
