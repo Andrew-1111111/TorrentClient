@@ -601,6 +601,27 @@ namespace TorrentClient
                     dialog.MaxDownloadSpeed, dialog.MaxUploadSpeed);
             }
         }
+        
+        /// <summary>
+        /// Устанавливает приоритет выбранным торрентам
+        /// </summary>
+        private void SetTorrentPriority(int priority)
+        {
+            if (_torrentManager == null || _torrentListView.SelectedItems.Count == 0)
+                return;
+            
+            var selectedIds = _torrentListView.SelectedItems
+                .Cast<ListViewItem>()
+                .Select(item => item.Tag?.ToString())
+                .Where(id => !string.IsNullOrEmpty(id))
+                .Cast<string>()
+                .ToList();
+            
+            foreach (var torrentId in selectedIds)
+            {
+                _torrentManager.SetTorrentPriority(torrentId, priority);
+            }
+        }
 
         private void TorrentListView_SelectedIndexChanged(object? sender, EventArgs e)
         {
@@ -732,6 +753,14 @@ namespace TorrentClient
                 contextMenu.Items.Add(new ToolStripSeparator());
                 contextMenu.Items.Add("Ограничение скорости...", null, (s, e) => SettingsButton_Click(s, e));
             }
+            
+            // Меню приоритета
+            contextMenu.Items.Add(new ToolStripSeparator());
+            var priorityMenu = new ToolStripMenuItem("Приоритет");
+            priorityMenu.DropDownItems.Add("Высокий", null, (s, e) => SetTorrentPriority(2));
+            priorityMenu.DropDownItems.Add("Нормальный", null, (s, e) => SetTorrentPriority(1));
+            priorityMenu.DropDownItems.Add("Низкий", null, (s, e) => SetTorrentPriority(0));
+            contextMenu.Items.Add(priorityMenu);
             
             contextMenu.Items.Add(new ToolStripSeparator());
             contextMenu.Items.Add("Удалить", null, (s, e) => RemoveTorrentButton_Click(s, e));
@@ -900,12 +929,13 @@ namespace TorrentClient
             var columnProportions = new[]
             {
                 2.0,   // № (40px -> 2%)
-                28.0,  // Название (460px -> 28%, уменьшено для освобождения места)
-                11.5,  // Размер (200px -> 11.5%)
-                7.5,   // Прогресс (120px -> 7.5%)
-                23.0,  // Скорость (увеличено до 23% для отображения лимитов: "50 Mbps [↓100.0 Mbps, ↑50.0 Mbps]")
-                10.5,  // Загружено (170px -> 10.5%)
-                7.5,   // Пиры (130px -> 7.5%)
+                26.0,  // Название (уменьшено для приоритета)
+                10.5,  // Размер (200px -> 10.5%)
+                7.0,   // Прогресс (120px -> 7%)
+                21.0,  // Скорость (уменьшено для приоритета)
+                9.5,   // Загружено (170px -> 9.5%)
+                7.0,   // Пиры (130px -> 7%)
+                7.0,   // Приоритет (100px -> 7%)
                 10.0   // Статус (160px -> 10%)
             };
 

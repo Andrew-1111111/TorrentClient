@@ -68,6 +68,9 @@ namespace TorrentClient.Models
         
         /// <summary>Показывает, завершена ли загрузка торрента</summary>
         public bool IsComplete => DownloadedBytes >= Info.TotalSize;
+        
+        /// <summary>Приоритет торрента (0 = низкий, 1 = нормальный, 2 = высокий)</summary>
+        public int Priority { get; set; } = 1;
     }
 
     /// <summary>
@@ -98,6 +101,19 @@ namespace TorrentClient.Models
     /// Уровни приоритета файлов
     /// </summary>
     public enum FilePriority
+    {
+        /// <summary>Низкий приоритет - загружается последним</summary>
+        Low = 0,
+        /// <summary>Нормальный приоритет - загружается в обычном порядке</summary>
+        Normal = 1,
+        /// <summary>Высокий приоритет - загружается первым</summary>
+        High = 2
+    }
+    
+    /// <summary>
+    /// Уровни приоритета торрентов
+    /// </summary>
+    public enum TorrentPriority
     {
         /// <summary>Низкий приоритет - загружается последним</summary>
         Low = 0,

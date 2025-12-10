@@ -52,7 +52,7 @@ namespace TorrentClient.UI
 
         public void UpdateTorrentItem(ListViewItem item, Torrent torrent)
         {
-            if (item == null || torrent == null || item.SubItems.Count < 8) return;
+            if (item == null || torrent == null || item.SubItems.Count < 9) return;
 
             // Обновляем номер (если изменился порядок)
             if (item.ListView != null)
@@ -102,7 +102,19 @@ namespace TorrentClient.UI
             if (item.SubItems.Count > 6)
                 item.SubItems[6].Text = $"{torrent.ActivePeers}/{torrent.ConnectedPeers}/{torrent.TotalPeers}"; // Пиры
             if (item.SubItems.Count > 7)
-                item.SubItems[7].Text = torrent.State.ToString(); // Статус
+            {
+                // Приоритет: 0 = Низкий, 1 = Нормальный, 2 = Высокий
+                var priorityText = torrent.Priority switch
+                {
+                    0 => "Низкий",
+                    1 => "Нормальный",
+                    2 => "Высокий",
+                    _ => "Нормальный"
+                };
+                item.SubItems[7].Text = priorityText; // Приоритет
+            }
+            if (item.SubItems.Count > 8)
+                item.SubItems[8].Text = torrent.State.ToString(); // Статус
 
             // Обновляем подсказку с информацией о лимитах
             var newTooltip = $"{torrent.Info.Name}\n\n" +

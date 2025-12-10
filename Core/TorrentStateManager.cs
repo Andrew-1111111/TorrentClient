@@ -102,7 +102,8 @@ namespace TorrentClient.Core
                     BitField = torrent.BitField?.ToByteArray(),
                     FileInfos = torrent.FileInfos,
                     MaxDownloadSpeed = torrent.MaxDownloadSpeed,
-                    MaxUploadSpeed = torrent.MaxUploadSpeed
+                    MaxUploadSpeed = torrent.MaxUploadSpeed,
+                    Priority = torrent.Priority
                 };
 
                 string json = JsonSerializer.Serialize(state, new JsonSerializerOptions { WriteIndented = true });
@@ -354,6 +355,9 @@ namespace TorrentClient.Core
             // Восстанавливаем ограничения скорости
             torrent.MaxDownloadSpeed = state.MaxDownloadSpeed;
             torrent.MaxUploadSpeed = state.MaxUploadSpeed;
+            
+            // Восстанавливаем приоритет
+            torrent.Priority = state.Priority;
         }
 
         #endregion
@@ -403,6 +407,9 @@ namespace TorrentClient.Core
 
         /// <summary>Ограничение скорости отдачи</summary>
         public long? MaxUploadSpeed { get; set; }
+        
+        /// <summary>Приоритет торрента (0 = низкий, 1 = нормальный, 2 = высокий)</summary>
+        public int Priority { get; set; } = 1;
     }
 
     /// <summary>Список торрентов для сохранения</summary>

@@ -101,6 +101,12 @@ namespace TorrentClient.UI.Services
             {
                 await Task.Run(() => _torrentManager.SyncAllTorrentsState()).ConfigureAwait(false);
                 var torrents = await Task.Run(() => _torrentManager.GetAllTorrents()).ConfigureAwait(false);
+                
+                // Сортируем торренты по приоритету (высокий -> нормальный -> низкий), затем по дате добавления
+                torrents = torrents
+                    .OrderByDescending(t => t.Priority)
+                    .ThenBy(t => t.AddedDate)
+                    .ToList();
 
                 UiThreadMarshaller.InvokeSafeWithKey(_mainForm, "UpdateTimer", () =>
                 {
@@ -257,6 +263,15 @@ namespace TorrentClient.UI.Services
                 item.SubItems.Add("0 Mbps");
                 item.SubItems.Add("0 B");
                 item.SubItems.Add("0/0/0");
+                // Приоритет: 0 = Низкий, 1 = Нормальный, 2 = Высокий
+                var priorityText = torrent.Priority switch
+                {
+                    0 => "Низкий",
+                    1 => "Нормальный",
+                    2 => "Высокий",
+                    _ => "Нормальный"
+                };
+                item.SubItems.Add(priorityText);
                 item.SubItems.Add(torrent.State.ToString());
 
                 torrentListView.Items.Add(item);

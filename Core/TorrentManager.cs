@@ -713,6 +713,36 @@ namespace TorrentClient.Core
         }
 
         /// <summary>
+        /// Устанавливает приоритет торрента
+        /// </summary>
+        /// <param name="torrentId">Идентификатор торрента</param>
+        /// <param name="priority">Приоритет (0=низкий, 1=нормальный, 2=высокий)</param>
+        public void SetTorrentPriority(string torrentId, int priority)
+        {
+            Torrent? uiTorrent;
+            using (_torrentsLock.EnterScope())
+            {
+                _uiTorrents.TryGetValue(torrentId, out uiTorrent);
+            }
+
+            if (uiTorrent == null)
+                return;
+
+            uiTorrent.Priority = Math.Clamp(priority, 0, 2);
+            Logger.LogInfo($"[TorrentManager] Приоритет торрента установлен: {uiTorrent.Info.Name} = {priority}");
+
+            // Сохраняем состояние торрента
+            _stateStorage.SaveTorrentState(uiTorrent);
+            
+            // Захватываем ссылку в локальную переменную для предотвращения race condition
+            var callbacks = _callbacks;
+            if (callbacks != null)
+            {
+                SafeTaskRunner.RunSafe(async () => await callbacks.OnTorrentUpdatedAsync(uiTorrent).ConfigureAwait(false));
+            }
+        }
+
+        /// <summary>
         /// Устанавливает приоритет файла в торренте
         /// </summary>
         /// <param name="torrentId">Идентификатор торрента</param>

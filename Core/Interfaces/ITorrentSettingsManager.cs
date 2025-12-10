@@ -9,6 +9,9 @@ namespace TorrentClient.Core.Interfaces
         /// <summary>Устанавливает лимит скорости для торрента</summary>
         void SetTorrentSpeedLimit(string torrentId, long? maxDownloadSpeed, long? maxUploadSpeed);
         
+        /// <summary>Устанавливает приоритет торрента</summary>
+        void SetTorrentPriority(string torrentId, int priority);
+        
         /// <summary>Устанавливает приоритет файла в торренте</summary>
         void SetFilePriority(string torrentId, string filePath, int priority);
         

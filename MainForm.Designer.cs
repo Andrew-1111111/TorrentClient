@@ -43,6 +43,7 @@
             colSpeed = new ColumnHeader();
             colDownloaded = new ColumnHeader();
             colPeers = new ColumnHeader();
+            colPriority = new ColumnHeader();
             colStatus = new ColumnHeader();
             _toolbarPanel = new Panel();
             _addTorrentButton = new Button();
@@ -67,7 +68,7 @@
             // 
             // _torrentListView
             // 
-            _torrentListView.Columns.AddRange(new ColumnHeader[] { colNumber, colName, colSize, colProgress, colSpeed, colDownloaded, colPeers, colStatus });
+            _torrentListView.Columns.AddRange(new ColumnHeader[] { colNumber, colName, colSize, colProgress, colSpeed, colDownloaded, colPeers, colPriority, colStatus });
             _torrentListView.Dock = DockStyle.Fill;
             _torrentListView.FullRowSelect = true;
             _torrentListView.GridLines = true;
@@ -118,6 +119,11 @@
             // 
             colPeers.Text = "Пиры";
             colPeers.Width = 130;
+            // 
+            // colPriority
+            // 
+            colPriority.Text = "Приоритет";
+            colPriority.Width = 100;
             // 
             // colStatus
             // 
@@ -327,6 +333,7 @@
         private System.Windows.Forms.ColumnHeader colSpeed;
         private System.Windows.Forms.ColumnHeader colStatus;
         private System.Windows.Forms.ColumnHeader colPeers;
+        private System.Windows.Forms.ColumnHeader colPriority;
         private System.Windows.Forms.ColumnHeader colDownloaded;
         private System.Windows.Forms.Panel _toolbarPanel;
         private System.Windows.Forms.Button _addTorrentButton;
