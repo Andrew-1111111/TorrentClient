@@ -154,11 +154,12 @@ TorrentClient/
 │       ├── TrayIconManager.cs # System tray management
 │       └── MainFormPresenter.cs # Main form presenter
 ├── Resources/               # Localization resources
-│   ├── Strings.resx        # English (default)
-│   ├── Strings.ru.resx     # Russian
-│   ├── Strings.es.resx     # Spanish
-│   ├── Strings.fr.resx     # French
-│   └── ...                 # Other languages
+│   └── Languages/          # Localization files
+│       ├── Strings.resx    # English (base)
+│       ├── Strings.ru.resx # Russian
+│       ├── Strings.es.resx # Spanish
+│       ├── Strings.fr.resx # French
+│       └── ...              # Other languages (50 total)
 ├── GlobalSettingsForm.cs   # Global settings form
 ├── SpeedSettingsForm.cs    # Torrent speed settings form
 ├── Utilities/               # Utilities
@@ -327,6 +328,30 @@ Each release includes the following builds:
 
 - Use `async/await` for asynchronous operations
 - Follow C# naming conventions
-- Add XML comments for public APIs
+- Add XML comments for public APIs (all public classes and methods must have complete XML documentation)
 - Use `using` for resource management
+- PowerShell scripts must set UTF-8 encoding for correct output
+
+### XML Documentation
+
+All public classes, methods, properties, and interfaces must have complete XML documentation:
+- `<summary>` - brief description
+- `<param>` - parameter description (for methods)
+- `<returns>` - return value description
+- `<remarks>` - additional notes (if needed)
+- `<example>` - usage examples (if needed)
+
+Example:
+```csharp
+/// <summary>
+/// Gets a localized string by key.
+/// </summary>
+/// <param name="key">The key of the localized string.</param>
+/// <param name="args">Arguments for string formatting (optional).</param>
+/// <returns>Localized string or key if string not found.</returns>
+/// <remarks>
+/// The method automatically initializes the manager if it hasn't been initialized yet.
+/// </remarks>
+public static string GetString(string key, params object[] args)
+```
 

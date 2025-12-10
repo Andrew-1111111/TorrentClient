@@ -75,6 +75,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 **Внимание**: Изменение политики выполнения требует прав администратора.
 
+## Кодировка UTF-8
+
+Все PowerShell скрипты сборки настроены на использование кодировки UTF-8 для корректного вывода:
+- `$OutputEncoding = [System.Text.Encoding]::UTF8` - для пайпов
+- `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8` - для консоли
+- `[Console]::InputEncoding = [System.Text.Encoding]::UTF8` - для ввода
+
+Это обеспечивает корректное отображение многоязычного контента в консоли.
+
 ## GitHub Actions
 
 При создании тега версии автоматически запускается сборка:

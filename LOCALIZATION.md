@@ -23,14 +23,14 @@
 ### Файлы ресурсов
 
 Все файлы ресурсов находятся в папке `Resources/Languages/`:
-- `Resources/Strings.resx` - Английский (по умолчанию, базовый файл)
+- `Resources/Languages/Strings.resx` - Английский (базовый файл)
 - `Resources/Languages/Strings.ru.resx` - Русский
 - `Resources/Languages/Strings.es.resx` - Испанский
 - `Resources/Languages/Strings.fr.resx` - Французский
 - `Resources/Languages/Strings.de.resx` - Немецкий
 - `Resources/Languages/Strings.it.resx` - Итальянский
 - `Resources/Languages/Strings.pt.resx` - Португальский
-- И другие языки по аналогии (всего 50+ языков)
+- И другие языки по аналогии (всего 50 языков)
 
 ### Класс LocalizationManager
 
@@ -84,15 +84,17 @@ var currentLang = LocalizationManager.GetCurrentLanguage();
 ## Добавление новых языков
 
 1. Создайте файл `Resources/Languages/Strings.{код_языка}.resx` (например, `Strings.it.resx` для итальянского)
-2. Скопируйте структуру из `Resources/Strings.resx` (базовый файл)
+2. Скопируйте структуру из `Resources/Languages/Strings.resx` (базовый файл)
 3. Замените значения `<value>` на переводы
 4. Добавьте язык в `LocalizationManager.GetSupportedLanguages()` если нужно
+5. Используйте PowerShell скрипт `Resources/Languages/check_translations.ps1` для проверки переводов
 
 ## Добавление новых строк
 
-1. Добавьте строку в `Resources/Strings.resx` (английский, базовый файл)
+1. Добавьте строку в `Resources/Languages/Strings.resx` (английский, базовый файл)
 2. Добавьте переводы во все языковые файлы в `Resources/Languages/`
 3. Используйте `LocalizationManager.GetString("Имя_Ключа")` в коде
+4. Используйте PowerShell скрипт `Resources/Languages/check_translations.ps1` для проверки полноты переводов
 
 ## Настройка языка в приложении
 
@@ -114,6 +116,29 @@ var currentLang = LocalizationManager.GetCurrentLanguage();
 ```bash
 dotnet test --filter "LocalizationTests"
 ```
+
+Тесты проверяют:
+- Корректную инициализацию LocalizationManager
+- Получение локализованных строк для всех поддерживаемых языков
+- Fallback механизм (использование английского при отсутствии перевода)
+- Полноту переводов для всех языков
+
+## Инструменты для работы с переводами
+
+### Проверка переводов
+
+Используйте PowerShell скрипт для проверки статуса переводов:
+```powershell
+cd Resources\Languages
+.\check_translations.ps1
+```
+
+Скрипт выводит:
+- Список полностью переведенных языков
+- Список языков, требующих переводов
+- Статистику по количеству ключей
+
+**Примечание**: Все PowerShell скрипты настроены на вывод в кодировке UTF-8 для корректного отображения многоязычного контента.
 
 ## Расширение локализации
 
