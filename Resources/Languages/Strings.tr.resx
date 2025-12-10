@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrent İstemcisi</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Torrent Ekle</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Başlat</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Duraklat</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Durdur</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Hız Limiti</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>İndirme Klasörü</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>İlerleme</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Hız</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>İndirildi</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Eşler</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Öncelik</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Başlat</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Duraklat</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Durdur</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Hız Limiti...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Öncelik</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Düşük</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Düşük</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Durduruldu</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Kontrol Ediliyor</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Duraklatıldı</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>İndiriliyor</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Paylaşılıyor</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Genel Ayarlar</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Maksimum Bağlantı Sayısı</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Maksimum Yarı Açık Bağlantı Sayısı</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>İstenen Maksimum Parça Sayısı</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Eş Başına Maksimum İstek Sayısı</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Günlük Kaydını Etkinleştir</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Kapatıldığında Sistem Tepsisine Küçült</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Açılışta Otomatik Başlat</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Eklendiğinde Otomatik Başlat</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>.torrent Dosyasını İndirme Klasörüne Kopyala</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Genel İndirme Hız Limiti</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Genel Yükleme Hız Limiti</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Sınırsız</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Bilgi</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Soru</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>.torrent dosyalarını buraya sürükleyip bırakın</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrentler yüklendi ve başlatıldı</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Kaydedilmiş torrentler yüklenirken hata</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent eklendi: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrentler eklendi: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Eklendi: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Atlandı: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Hatalar: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Torrentler eklenemedi</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>İndirme klasörü değiştirildi: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Ayarlar kaydedildi: {0} bağlantı, {1} parça</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Torrent Ekleme Sonucu</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrentler eklendi: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Yetersiz alan nedeniyle atlandı: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Hatalar: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Disk alanı uyarıları:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Hatalar:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... ve {0} hata daha</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Torrentler eklenirken hata: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Torrentler kaldırılırken hata: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Torrentler başlatılırken hata: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Torrentler duraklatılırken hata: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Torrentler durdurulurken hata: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Varsayılan Klasör</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Bu klasörü gelecekteki torrentler için varsayılan klasör olarak kaydetmek istiyor musunuz?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Kritik uygulama hatası:\n{0}\n\nAyrıntılar günlük dosyasında.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Bir hata oluştu:\n{0}\n\nAyrıntılar günlük dosyasında.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Paralellik artırılması hızı artırabilir ancak daha fazla sistem yükü oluşturur.</value>
+  </data>
+</root>

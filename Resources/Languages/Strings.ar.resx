@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>عميل التورنت</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>إضافة تورنت</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>بدء</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>إيقاف مؤقت</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>حد السرعة</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>مجلد التنزيل</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>الحجم</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>التقدم</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>السرعة</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>تم التنزيل</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>الأقران</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>الأولوية</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>بدء</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>إيقاف مؤقت</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>حد السرعة...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>الأولوية</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>عالية</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>عادية</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>منخفضة</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>عالية</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>عادية</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>منخفضة</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>متوقف</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>جارٍ التحقق</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>متوقف مؤقتاً</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>جارٍ التنزيل</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>جارٍ البذر</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>الإعدادات العامة</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>الحد الأقصى للاتصالات</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>الحد الأقصى للاتصالات نصف المفتوحة</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>الحد الأقصى للقطع المطلوبة</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>الحد الأقصى للطلبات لكل نظير</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>تفعيل التسجيل</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>تصغير إلى علبة النظام عند الإغلاق</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>بدء تلقائي عند التشغيل</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>بدء تلقائي عند الإضافة</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>نسخ ملف التورنت إلى مجلد التنزيل</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>حد سرعة التنزيل العام</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>حد سرعة الرفع العام</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>غير محدود</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>معلومات</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>تحذير</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>سؤال</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>اسحب وأفلت ملفات .torrent هنا</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>تم تحميل التورنتات وبدء تشغيلها</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>خطأ في تحميل التورنتات المحفوظة</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>تمت إضافة التورنت: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>تمت إضافة التورنتات: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>تمت الإضافة: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>تم التخطي: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>الأخطاء: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>فشل في إضافة التورنتات</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>تم تغيير مجلد التنزيل: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>تم حفظ الإعدادات: {0} اتصالات، {1} قطع</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>نتيجة إضافة التورنتات</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ تمت إضافة التورنتات: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ تم التخطي بسبب عدم كفاية المساحة: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ الأخطاء: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ تحذيرات مساحة القرص:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ الأخطاء:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... و {0} أخطاء أخرى</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>خطأ في إضافة التورنتات: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>خطأ في إزالة التورنتات: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>خطأ في بدء التورنتات: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>خطأ في إيقاف التورنتات مؤقتاً: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>خطأ في إيقاف التورنتات: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>المجلد الافتراضي</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>هل تريد حفظ هذا المجلد كمجلد افتراضي للتورنتات المستقبلية؟</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>خطأ حرج في التطبيق:\n{0}\n\nالتفاصيل في ملف السجل.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>حدث خطأ:\n{0}\n\nالتفاصيل في ملف السجل.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>زيادة التوازي قد تحسن السرعة ولكنها تخلق المزيد من عبء النظام.</value>
+  </data>
+</root>

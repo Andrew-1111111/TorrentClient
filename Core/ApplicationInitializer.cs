@@ -22,6 +22,9 @@ namespace TorrentClient.Core
             var settingsManager = new AppSettingsManager();
             var appSettings = settingsManager.LoadSettings();
             
+            // Инициализация локализации
+            LocalizationManager.Initialize(appSettings.LanguageCode);
+            
             // Настройка логирования
             Logger.SetEnabled(appSettings.EnableLogging);
             

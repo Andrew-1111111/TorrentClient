@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrent 用戶端</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>新增 Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>速度限制</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>下載資料夾</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>進度</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>已下載</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>節點</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>優先順序</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>就緒</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>速度限制...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>優先順序</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>檢查中</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>已暫停</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>下載中</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>做種中</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>全域設定</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>最大連線數</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>最大半開連線數</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>最大請求區塊數</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>每個節點最大請求數</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>啟用日誌記錄</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>關閉時最小化到系統匣</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>啟動時自動開始</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>新增時自動開始</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>將 Torrent 檔案複製到下載資料夾</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>全域下載速度限制</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>全域上傳速度限制</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>無限制</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>問題</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>將 .torrent 檔案拖放到此處</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrent 已載入並啟動</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>載入已儲存的 Torrent 時發生錯誤</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>已新增 Torrent: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>已新增 Torrent: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>已新增: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>已略過: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>錯誤: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>新增 Torrent 失敗</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>下載資料夾已變更: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>設定已儲存: {0} 個連線, {1} 個區塊</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>新增 Torrent 結果</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ 已新增 Torrent: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ 由於空間不足已略過: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ 錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ 磁碟空間警告:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ 錯誤:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... 還有 {0} 個錯誤</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>新增 Torrent 時發生錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>移除 Torrent 時發生錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>啟動 Torrent 時發生錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>暫停 Torrent 時發生錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>停止 Torrent 時發生錯誤: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>預設資料夾</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>是否將此資料夾儲存為未來 Torrent 的預設資料夾？</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>嚴重應用程式錯誤:\n{0}\n\n詳細資訊請參閱日誌檔案。</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>發生錯誤:\n{0}\n\n詳細資訊請參閱日誌檔案。</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>增加並行處理可能會提高速度，但會產生更多系統負載。</value>
+  </data>
+</root>

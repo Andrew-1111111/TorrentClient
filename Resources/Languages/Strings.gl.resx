@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Cliente Torrent</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Engadir Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Deter</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Límite de Velocidade</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Cartafol de Descarga</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Tamaño</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Progreso</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Velocidade</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Descargado</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Pares</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Listo</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Deter</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Límite de Velocidade...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Baixa</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Baixa</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Detido</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Comprobando</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>En Pausa</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Descargando</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Compartindo</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Configuración Global</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Conexións Máximas</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Conexións Semiabertas Máximas</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Pezas Máximas a Solicitar</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Solicitudes Máximas por Par</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Habilitar Rexistro</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minimizar á Bandeja ao Cerrar</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Inicio Automático ao Abrir</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Inicio Automático ao Engadir</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Copiar Ficheiro .torrent ao Cartafol de Descarga</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Límite Global de Velocidade de Descarga</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Límite Global de Velocidade de Carga</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Ilimitado</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Advertencia</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Arrastra e solta ficheiros .torrent aquí</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrents cargados e iniciados</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Erro ao cargar torrents gardados</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent engadido: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrents engadidos: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Engadidos: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Omitidos: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Erros: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Erro ao engadir torrents</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Cartafol de descarga cambiado: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Configuración gardada: {0} conexións, {1} pezas</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Resultado de Engadir Torrents</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrents engadidos: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Omitidos por espazo insuficiente: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Erros: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Advertencias de espazo en disco:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Erros:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... e {0} erros máis</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Erro ao engadir torrents: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Erro ao eliminar torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Erro ao iniciar torrents: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Erro ao pausar torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Erro ao deter torrents: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Cartafol Predeterminado</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Gardar este cartafol como o cartafol predeterminado para futuros torrents?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Erro crítico da aplicación:\n{0}\n\nDetalles no ficheiro de rexistro.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Ocorreu un erro:\n{0}\n\nDetalles no ficheiro de rexistro.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Aumentar o paralelismo pode mellorar a velocidade pero crea máis carga no sistema.</value>
+  </data>
+</root>
+
+

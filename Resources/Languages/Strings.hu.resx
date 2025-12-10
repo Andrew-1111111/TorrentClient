@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrent Kliens</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Torrent Hozzáadása</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Eltávolítás</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Indítás</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Szünet</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Leállítás</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Sebességkorlát</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Letöltési Mappa</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Előrehaladás</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Sebesség</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Letöltve</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Prioritás</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Indítás</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Szünet</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Leállítás</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Sebességkorlát...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Prioritás</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Magas</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Normál</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Alacsony</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Eltávolítás</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Magas</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normál</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Alacsony</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Leállítva</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Ellenőrzés</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Szüneteltetve</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seeding</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Globális Beállítások</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Maximális Kapcsolatok Száma</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Maximális Félig Nyitott Kapcsolatok Száma</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Kérhető Maximális Darabok Száma</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Peer-enkénti Maximális Kérések Száma</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Naplózás Engedélyezése</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minimalizálás a Tálcára Bezáráskor</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Automatikus Indítás Megnyitáskor</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Automatikus Indítás Hozzáadáskor</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>.torrent Fájl Másolása a Letöltési Mappába</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Globális Letöltési Sebességkorlát</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Globális Feltöltési Sebességkorlát</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Korlátlan</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Információ</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Figyelmeztetés</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Kérdés</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Húzza ide a .torrent fájlokat</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrentek betöltve és elindítva</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Hiba a mentett torrentek betöltésekor</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent hozzáadva: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrentek hozzáadva: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Hozzáadva: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Kihagyva: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Hibák: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Nem sikerült torrenteket hozzáadni</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Letöltési mappa megváltozott: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Beállítások mentve: {0} kapcsolat, {1} darab</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Torrentek Hozzáadásának Eredménye</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrentek hozzáadva: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Kihagyva elégtelen hely miatt: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Hibák: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Lemezhely figyelmeztetések:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Hibák:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... és {0} további hiba</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Hiba torrentek hozzáadásakor: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Hiba torrentek eltávolításakor: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Hiba torrentek indításakor: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Hiba torrentek szüneteltetésénél: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Hiba torrentek leállításakor: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Alapértelmezett Mappa</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Menti ezt a mappát alapértelmezett mappaként a jövőbeli torrentekhez?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Kritikus alkalmazáshiba:\n{0}\n\nRészletek a naplófájlban.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Hiba történt:\n{0}\n\nRészletek a naplófájlban.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>A párhuzamosság növelése javíthatja a sebességet, de több rendszerterhelést okoz.</value>
+  </data>
+</root>

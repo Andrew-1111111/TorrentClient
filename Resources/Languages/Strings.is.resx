@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrent Biðlari</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Bæta við Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Fjarlægja</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Byrja</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Gera hlé</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Stöðva</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Hraðatakmark</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Niðurhalsmappa</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Stillingar</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Nafn</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Stærð</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Framvinda</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Hraði</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Niðurhlaðið</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Jafningjar</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Forgangur</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Staða</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Tilbúið</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Byrja</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Gera hlé</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Stöðva</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Hraðatakmark...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Forgangur</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Hár</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Venjulegur</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Lágur</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Fjarlægja</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Hár</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Venjulegur</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Lágur</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Stöðvað</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Athuga</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Í hlé</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Niðurhlaða</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seeding</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Villa</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Almennar Stillingar</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Tungumál</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Hámarks Tengsl</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Hámarks Hálf-Opnuð Tengsl</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Hámarks Bitar til að Biðja um</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Hámarks Beiðnir á Jafningja</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Virkja Skráningu</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minnka í Stillingarflipa við Lokun</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Sjálfvirkur Start við Ræsingu</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Sjálfvirkur Start við Bætingu</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Afrita Torrent Skrá í Niðurhalsmöppu</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Almenn Hraðatakmark Niðurhals</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Almenn Hraðatakmark Upphals</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Ótakmarkað</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>Í lagi</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Hætta við</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Villa</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Upplýsingar</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Viðvörun</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Spurning</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Dragðu og slepptu .torrent skrár hér</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrents hlaðið inn og byrjað</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Villa við að hlaða vistaðum torrents</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent bætt við: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrents bætt við: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Bætt við: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Sleppt: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Villur: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Mistókst að bæta við torrents</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Niðurhalsmappa breytt: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Stillingar vistaðar: {0} tengsl, {1} bitar</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Niðurstaða Bætingu Torrents</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrents bætt við: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Sleppt vegna ónægs rúms: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Villur: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Viðvaranir um diskrými:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Villur:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... og {0} fleiri villur</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Villa við að bæta við torrents: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Villa við að fjarlægja torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Villa við að byrja torrents: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Villa við að gera hlé á torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Villa við að stöðva torrents: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Sjálfgefin Mappa</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Vista þessa möppu sem sjálfgefna möppu fyrir framtíðar torrents?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Villa</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Mikilvæg forritsvilla:\n{0}\n\nNánari upplýsingar í skráarskrá.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Villa</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Villa kom upp:\n{0}\n\nNánari upplýsingar í skráarskrá.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Aukning á samhliða vinnslu getur bætt hraða en skapar meiri kerfisálag.</value>
+  </data>
+</root>
+
+

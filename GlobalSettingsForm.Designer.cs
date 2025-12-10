@@ -33,6 +33,8 @@
             _autoStartCheckBox = new CheckBox();
             _copyTorrentFileCheckBox = new CheckBox();
             _autoStartOnAddCheckBox = new CheckBox();
+            _languageLabel = new Label();
+            _languageComboBox = new ComboBox();
             _okButton = new Button();
             _cancelButton = new Button();
             _infoLabel = new Label();
@@ -225,10 +227,30 @@
             _autoStartOnAddCheckBox.Text = "Автоматически запускать торрент при добавлении";
             _autoStartOnAddCheckBox.UseVisualStyleBackColor = true;
             // 
+            // _languageLabel
+            // 
+            _languageLabel.AutoSize = true;
+            _languageLabel.Location = new Point(35, 607);
+            _languageLabel.Margin = new Padding(5, 0, 5, 0);
+            _languageLabel.Name = "_languageLabel";
+            _languageLabel.Size = new Size(64, 30);
+            _languageLabel.TabIndex = 20;
+            _languageLabel.Text = "Язык:";
+            // 
+            // _languageComboBox
+            // 
+            _languageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            _languageComboBox.FormattingEnabled = true;
+            _languageComboBox.Location = new Point(309, 604);
+            _languageComboBox.Margin = new Padding(5);
+            _languageComboBox.Name = "_languageComboBox";
+            _languageComboBox.Size = new Size(300, 38);
+            _languageComboBox.TabIndex = 21;
+            // 
             // _okButton
             // 
             _okButton.DialogResult = DialogResult.OK;
-            _okButton.Location = new Point(271, 691);
+            _okButton.Location = new Point(271, 750);
             _okButton.Margin = new Padding(5);
             _okButton.Name = "_okButton";
             _okButton.Size = new Size(158, 52);
@@ -239,7 +261,7 @@
             // _cancelButton
             // 
             _cancelButton.DialogResult = DialogResult.Cancel;
-            _cancelButton.Location = new Point(446, 691);
+            _cancelButton.Location = new Point(446, 750);
             _cancelButton.Margin = new Padding(5);
             _cancelButton.Name = "_cancelButton";
             _cancelButton.Size = new Size(158, 52);
@@ -250,7 +272,7 @@
             // _infoLabel
             // 
             _infoLabel.ForeColor = Color.Gray;
-            _infoLabel.Location = new Point(35, 612);
+            _infoLabel.Location = new Point(35, 670);
             _infoLabel.Margin = new Padding(5, 0, 5, 0);
             _infoLabel.Name = "_infoLabel";
             _infoLabel.Size = new Size(578, 61);
@@ -263,10 +285,12 @@
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
             CancelButton = _cancelButton;
-            ClientSize = new Size(648, 770);
+            ClientSize = new Size(648, 830);
             Controls.Add(_cancelButton);
             Controls.Add(_okButton);
             Controls.Add(_infoLabel);
+            Controls.Add(_languageComboBox);
+            Controls.Add(_languageLabel);
             Controls.Add(_autoStartOnAddCheckBox);
             Controls.Add(_copyTorrentFileCheckBox);
             Controls.Add(_autoStartCheckBox);
@@ -319,6 +343,8 @@
         private System.Windows.Forms.CheckBox _autoStartCheckBox;
         private System.Windows.Forms.CheckBox _copyTorrentFileCheckBox;
         private System.Windows.Forms.CheckBox _autoStartOnAddCheckBox;
+        private System.Windows.Forms.Label _languageLabel;
+        private System.Windows.Forms.ComboBox _languageComboBox;
         private System.Windows.Forms.Label _infoLabel;
         private System.Windows.Forms.Button _okButton;
         private System.Windows.Forms.Button _cancelButton;

@@ -1,3 +1,4 @@
+using TorrentClient.Core;
 using TorrentClient.UI.Interfaces;
 
 namespace TorrentClient.UI
@@ -106,15 +107,28 @@ namespace TorrentClient.UI
                 // Приоритет: 0 = Низкий, 1 = Нормальный, 2 = Высокий
                 var priorityText = torrent.Priority switch
                 {
-                    0 => "Низкий",
-                    1 => "Нормальный",
-                    2 => "Высокий",
-                    _ => "Нормальный"
+                    0 => LocalizationManager.GetString("Priority_Low"),
+                    1 => LocalizationManager.GetString("Priority_Normal"),
+                    2 => LocalizationManager.GetString("Priority_High"),
+                    _ => LocalizationManager.GetString("Priority_Normal")
                 };
                 item.SubItems[7].Text = priorityText; // Приоритет
             }
             if (item.SubItems.Count > 8)
-                item.SubItems[8].Text = torrent.State.ToString(); // Статус
+            {
+                // Статус с локализацией
+                var statusText = torrent.State switch
+                {
+                    TorrentState.Stopped => LocalizationManager.GetString("Status_Stopped"),
+                    TorrentState.Checking => LocalizationManager.GetString("Status_Checking"),
+                    TorrentState.Paused => LocalizationManager.GetString("Status_Paused"),
+                    TorrentState.Downloading => LocalizationManager.GetString("Status_Downloading"),
+                    TorrentState.Seeding => LocalizationManager.GetString("Status_Seeding"),
+                    TorrentState.Error => LocalizationManager.GetString("Status_Error"),
+                    _ => torrent.State.ToString()
+                };
+                item.SubItems[8].Text = statusText; // Статус
+            }
 
             // Обновляем подсказку с информацией о лимитах
             var newTooltip = $"{torrent.Info.Name}\n\n" +

@@ -76,7 +76,7 @@
             _torrentListView.Margin = new Padding(5);
             _torrentListView.Name = "_torrentListView";
             _torrentListView.ShowItemToolTips = true;
-            _torrentListView.Size = new Size(1543, 681);
+            _torrentListView.Size = new Size(1643, 681);
             _torrentListView.TabIndex = 0;
             _torrentListView.UseCompatibleStateImageBehavior = false;
             _torrentListView.View = View.Details;
@@ -123,7 +123,7 @@
             // colPriority
             // 
             colPriority.Text = "Приоритет";
-            colPriority.Width = 100;
+            colPriority.Width = 120;
             // 
             // colStatus
             // 
@@ -147,7 +147,7 @@
             _toolbarPanel.Location = new Point(0, 0);
             _toolbarPanel.Margin = new Padding(5);
             _toolbarPanel.Name = "_toolbarPanel";
-            _toolbarPanel.Size = new Size(1543, 88);
+            _toolbarPanel.Size = new Size(1643, 88);
             _toolbarPanel.TabIndex = 1;
             // 
             // _addTorrentButton
@@ -266,14 +266,14 @@
             _statusStrip.Location = new Point(0, 769);
             _statusStrip.Name = "_statusStrip";
             _statusStrip.Padding = new Padding(2, 0, 24, 0);
-            _statusStrip.Size = new Size(1543, 39);
+            _statusStrip.Size = new Size(1643, 39);
             _statusStrip.TabIndex = 2;
             _statusStrip.Text = "statusStrip1";
             // 
             // _statusLabel
             // 
             _statusLabel.Name = "_statusLabel";
-            _statusLabel.Size = new Size(1315, 30);
+            _statusLabel.Size = new Size(1415, 30);
             _statusLabel.Spring = true;
             _statusLabel.Text = "Готов";
             _statusLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -305,7 +305,7 @@
             // 
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(1543, 808);
+            ClientSize = new Size(1643, 808);
             Controls.Add(_torrentListView);
             Controls.Add(_toolbarPanel);
             Controls.Add(_statusStrip);

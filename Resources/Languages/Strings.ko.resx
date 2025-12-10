@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>토렌트 클라이언트</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>토렌트 추가</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>일시 중지</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>중지</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>속도 제한</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>다운로드 폴더</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>진행률</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>속도</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>다운로드됨</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>피어</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>우선순위</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>준비됨</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>일시 중지</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>중지</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>속도 제한...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>우선순위</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>높음</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>낮음</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>높음</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>낮음</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>중지됨</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>확인 중</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>일시 중지됨</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>다운로드 중</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>시딩 중</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>전역 설정</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>최대 연결 수</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>최대 반열림 연결 수</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>요청할 최대 조각 수</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>피어당 최대 요청 수</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>로깅 사용</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>닫을 때 트레이로 최소화</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>시작 시 자동 시작</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>추가 시 자동 시작</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>토렌트 파일을 다운로드 폴더에 복사</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>전역 다운로드 속도 제한</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>전역 업로드 속도 제한</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>무제한</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>정보</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>경고</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>질문</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>.torrent 파일을 여기에 끌어다 놓으세요</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>토렌트가 로드되고 시작되었습니다</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>저장된 토렌트 로드 오류</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>토렌트 추가됨: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>토렌트 추가됨: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>추가됨: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>건너뜀: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>오류: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>토렌트 추가 실패</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>다운로드 폴더 변경됨: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>설정 저장됨: {0} 연결, {1} 조각</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>토렌트 추가 결과</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ 토렌트 추가됨: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ 공간 부족으로 건너뜀: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ 오류: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ 디스크 공간 경고:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ 오류:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... 및 {0}개의 추가 오류</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>토렌트 추가 오류: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>토렌트 제거 오류: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>토렌트 시작 오류: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>토렌트 일시 중지 오류: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>토렌트 중지 오류: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>기본 폴더</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>이 폴더를 향후 토렌트의 기본 폴더로 저장하시겠습니까?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>심각한 애플리케이션 오류:\n{0}\n\n자세한 내용은 로그 파일을 참조하세요.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>오류가 발생했습니다:\n{0}\n\n자세한 내용은 로그 파일을 참조하세요.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>병렬 처리 증가는 속도를 향상시킬 수 있지만 시스템 부하를 더 많이 생성합니다.</value>
+  </data>
+</root>

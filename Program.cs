@@ -81,6 +81,9 @@
                 var settingsManager = new AppSettingsManager();
                 var settings = settingsManager.LoadSettings();
                 
+                // Инициализация локализации (до инициализации Logger, чтобы логи были на правильном языке)
+                LocalizationManager.Initialize(settings.LanguageCode);
+                
                 // Инициализация логирования с учетом настроек
                 Logger.Initialize();
                 Logger.SetEnabled(settings.EnableLogging);
@@ -104,8 +107,10 @@
                 catch (Exception ex)
                 {
                     Logger.LogError("Критическая ошибка в Main", ex);
-                    MessageBox.Show($"Критическая ошибка приложения:\n{ex.Message}\n\nПодробности в лог-файле.", 
-                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        LocalizationManager.GetString("MessageBox_CriticalError_Message", ex.Message), 
+                        LocalizationManager.GetString("MessageBox_CriticalError_Title"), 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -206,8 +211,10 @@
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             Logger.LogError("Необработанное исключение в потоке UI", e.Exception);
-            MessageBox.Show($"Произошла ошибка:\n{e.Exception.Message}\n\nПодробности в лог-файле.", 
-                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                LocalizationManager.GetString("MessageBox_UnhandledError_Message", e.Exception.Message), 
+                LocalizationManager.GetString("MessageBox_UnhandledError_Title"), 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

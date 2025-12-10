@@ -1,4 +1,5 @@
-﻿using TorrentClient.Core.Interfaces;
+﻿using TorrentClient.Core;
+using TorrentClient.Core.Interfaces;
 using TorrentClient.UI;
 using TorrentClient.UI.Services;
 using TorrentClient.UI.Services.Interfaces;
@@ -33,6 +34,36 @@ namespace TorrentClient
             InitializeColumnTooltips();
             InitializeApplication();
             ResizeListViewColumns(); // Первоначальное растягивание колонок
+            ApplyLocalization();
+        }
+        
+        /// <summary>
+        /// Применяет локализацию к элементам интерфейса
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            Text = LocalizationManager.GetString("MainForm_Title");
+            _addTorrentButton.Text = LocalizationManager.GetString("MainForm_AddTorrent");
+            _removeTorrentButton.Text = LocalizationManager.GetString("MainForm_Remove");
+            _startButton.Text = LocalizationManager.GetString("MainForm_Start");
+            _pauseButton.Text = LocalizationManager.GetString("MainForm_Pause");
+            _stopButton.Text = LocalizationManager.GetString("MainForm_Stop");
+            _settingsButton.Text = LocalizationManager.GetString("MainForm_SpeedLimit");
+            _selectDownloadFolderButton.Text = LocalizationManager.GetString("MainForm_DownloadFolder");
+            _globalSettingsButton.Text = LocalizationManager.GetString("MainForm_Settings");
+            
+            // Колонки
+            colNumber.Text = LocalizationManager.GetString("MainForm_Column_Number");
+            colName.Text = LocalizationManager.GetString("MainForm_Column_Name");
+            colSize.Text = LocalizationManager.GetString("MainForm_Column_Size");
+            colProgress.Text = LocalizationManager.GetString("MainForm_Column_Progress");
+            colSpeed.Text = LocalizationManager.GetString("MainForm_Column_Speed");
+            colDownloaded.Text = LocalizationManager.GetString("MainForm_Column_Downloaded");
+            colPeers.Text = LocalizationManager.GetString("MainForm_Column_Peers");
+            colPriority.Text = LocalizationManager.GetString("MainForm_Column_Priority");
+            colStatus.Text = LocalizationManager.GetString("MainForm_Column_Status");
+            
+            _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_Ready");
         }
         
         /// <summary>
@@ -148,7 +179,7 @@ namespace TorrentClient
 
             if (torrentFiles.Length == 0)
             {
-                _statusLabel.Text = "Перетащите файлы с расширением .torrent";
+                _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_DragDrop");
                 return;
             }
 
@@ -231,7 +262,7 @@ namespace TorrentClient
                     {
                         UiThreadMarshaller.InvokeSafe(this, () =>
                         {
-                            _statusLabel.Text = "Торренты загружены и запущены";
+                            _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_TorrentsLoaded");
                         });
                     }
                 }
@@ -240,7 +271,7 @@ namespace TorrentClient
                     Logger.LogError("[MainForm] Ошибка загрузки торрентов", ex);
                     UiThreadMarshaller.InvokeSafe(this, () =>
                     {
-                        _statusLabel.Text = "Ошибка загрузки сохранённых торрентов";
+                        _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_LoadError");
                     });
                 }
             }).ContinueWith(t =>
@@ -313,8 +344,8 @@ namespace TorrentClient
                     downloadPath = folderDialog.SelectedPath;
                     
                     var saveAsDefault = MessageBox.Show(
-                        "Сохранить эту папку как папку по умолчанию для будущих торрентов?",
-                        "Папка по умолчанию",
+                        LocalizationManager.GetString("MessageBox_SaveAsDefault_Message"),
+                        LocalizationManager.GetString("MessageBox_SaveAsDefault_Title"),
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
                     
@@ -344,8 +375,8 @@ namespace TorrentClient
                 if (result.IsSuccess)
                 {
                     _statusLabel.Text = result.AddedCount == 1 
-                        ? $"Торрент добавлен: {Path.GetFileName(fileNames[0])}"
-                        : $"Добавлено торрентов: {result.AddedCount}";
+                        ? LocalizationManager.GetString("MainForm_Status_TorrentAdded", Path.GetFileName(fileNames[0]))
+                        : LocalizationManager.GetString("MainForm_Status_TorrentsAdded", result.AddedCount);
                 }
                 else
                 {
@@ -353,20 +384,20 @@ namespace TorrentClient
                     
                     // Успешно добавленные
                     if (result.AddedCount > 0)
-                        message.AppendLine($"✓ Добавлено торрентов: {result.AddedCount}");
+                        message.AppendLine(LocalizationManager.GetString("MessageBox_AddTorrentResult_Added", result.AddedCount));
                     
                     // Пропущенные из-за недостатка места
                     if (result.SkippedCount > 0)
-                        message.AppendLine($"⚠ Пропущено из-за недостатка места: {result.SkippedCount}");
+                        message.AppendLine(LocalizationManager.GetString("MessageBox_AddTorrentResult_Skipped", result.SkippedCount));
                     
                     // Ошибки
                     if (result.FailedCount > 0)
-                        message.AppendLine($"✗ Ошибок: {result.FailedCount}");
+                        message.AppendLine(LocalizationManager.GetString("MessageBox_AddTorrentResult_Failed", result.FailedCount));
                     
                     // Предупреждения о месте на диске
                     if (result.HasWarnings)
                     {
-                        message.AppendLine("\n⚠ Предупреждения о недостатке места на диске:");
+                        message.AppendLine("\n" + LocalizationManager.GetString("MessageBox_AddTorrentResult_Warnings"));
                         foreach (var warning in result.Warnings)
                         {
                             message.AppendLine($"  • {warning}");
@@ -376,39 +407,41 @@ namespace TorrentClient
                     // Детали ошибок
                     if (result.Errors.Count > 0)
                     {
-                        message.AppendLine("\n✗ Ошибки:");
+                        message.AppendLine("\n" + LocalizationManager.GetString("MessageBox_AddTorrentResult_Errors"));
                         foreach (var error in result.Errors.Take(5))
                         {
                             message.AppendLine($"  • {error}");
                         }
                         if (result.Errors.Count > 5)
-                            message.AppendLine($"  ... и еще {result.Errors.Count - 5} ошибок");
+                            message.AppendLine("  " + LocalizationManager.GetString("MessageBox_AddTorrentResult_MoreErrors", result.Errors.Count - 5));
                     }
                     
                     var icon = result.FailedCount > 0 ? MessageBoxIcon.Error : 
                                result.HasWarnings ? MessageBoxIcon.Warning : 
                                MessageBoxIcon.Information;
                     
-                    MessageBox.Show(message.ToString(), "Результат добавления торрентов", MessageBoxButtons.OK, icon);
+                    MessageBox.Show(message.ToString(), LocalizationManager.GetString("MessageBox_AddTorrentResult_Title"), MessageBoxButtons.OK, icon);
                     
                     // Обновляем статус
                     var statusParts = new List<string>();
                     if (result.AddedCount > 0)
-                        statusParts.Add($"Добавлено: {result.AddedCount}");
+                        statusParts.Add(LocalizationManager.GetString("MainForm_Status_Added", result.AddedCount));
                     if (result.SkippedCount > 0)
-                        statusParts.Add($"Пропущено: {result.SkippedCount}");
+                        statusParts.Add(LocalizationManager.GetString("MainForm_Status_Skipped", result.SkippedCount));
                     if (result.FailedCount > 0)
-                        statusParts.Add($"Ошибок: {result.FailedCount}");
+                        statusParts.Add(LocalizationManager.GetString("MainForm_Status_Errors", result.FailedCount));
                     
                     _statusLabel.Text = statusParts.Count > 0 
                         ? string.Join(", ", statusParts)
-                        : "Не удалось добавить торренты";
+                        : LocalizationManager.GetString("MainForm_Status_FailedToAdd");
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogError("[MainForm] Ошибка добавления торрентов", ex);
-                MessageBox.Show($"Ошибка добавления торрентов: {ex.Message}", "Ошибка",
+                MessageBox.Show(
+                    LocalizationManager.GetString("MessageBox_AddTorrentError", ex.Message), 
+                    LocalizationManager.GetString("MessageBox_Error"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -452,7 +485,9 @@ namespace TorrentClient
                         Logger.LogError("[MainForm] Ошибка удаления торрентов", ex);
                         UiThreadMarshaller.InvokeSafe(this, () =>
                         {
-                            MessageBox.Show($"Ошибка удаления торрентов: {ex.Message}", "Ошибка",
+                            MessageBox.Show(
+                                LocalizationManager.GetString("MessageBox_RemoveTorrentError", ex.Message), 
+                                LocalizationManager.GetString("MessageBox_Error"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         });
                     }
@@ -485,7 +520,9 @@ namespace TorrentClient
                     Logger.LogError("[MainForm] Ошибка запуска торрентов", ex);
                     UiThreadMarshaller.InvokeSafe(this, () =>
                     {
-                        MessageBox.Show($"Ошибка запуска торрентов: {ex.Message}", "Ошибка", 
+                        MessageBox.Show(
+                            LocalizationManager.GetString("MessageBox_StartTorrentError", ex.Message), 
+                            LocalizationManager.GetString("MessageBox_Error"),
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         _presenter?.UpdateButtons(_torrentListView, _startButton, _pauseButton, _stopButton, _removeTorrentButton, _settingsButton);
                     });
@@ -525,7 +562,9 @@ namespace TorrentClient
                     Logger.LogError("[MainForm] Ошибка паузы торрентов", ex);
                     UiThreadMarshaller.InvokeSafe(this, () =>
                     {
-                        MessageBox.Show($"Ошибка паузы торрентов: {ex.Message}", "Ошибка", 
+                        MessageBox.Show(
+                            LocalizationManager.GetString("MessageBox_PauseTorrentError", ex.Message), 
+                            LocalizationManager.GetString("MessageBox_Error"),
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         _presenter?.UpdateButtons(_torrentListView, _startButton, _pauseButton, _stopButton, _removeTorrentButton, _settingsButton);
                     });
@@ -570,7 +609,9 @@ namespace TorrentClient
                     Logger.LogError("[MainForm] Ошибка остановки торрентов", ex);
                     UiThreadMarshaller.InvokeSafe(this, () =>
                     {
-                        MessageBox.Show($"Ошибка остановки торрентов: {ex.Message}", "Ошибка", 
+                        MessageBox.Show(
+                            LocalizationManager.GetString("MessageBox_StopTorrentError", ex.Message), 
+                            LocalizationManager.GetString("MessageBox_Error"),
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         _presenter?.UpdateButtons(_torrentListView, _startButton, _pauseButton, _stopButton, _removeTorrentButton, _settingsButton);
                     });
@@ -735,35 +776,35 @@ namespace TorrentClient
             // Добавляем пункты меню
             if (canStart)
             {
-                contextMenu.Items.Add("Запустить", null, (s, e) => StartButton_Click(s, e));
+                contextMenu.Items.Add(LocalizationManager.GetString("MainForm_ContextMenu_Start"), null, (s, e) => StartButton_Click(s, e));
             }
             
             if (canPause)
             {
-                contextMenu.Items.Add("Пауза", null, (s, e) => PauseButton_Click(s, e));
+                contextMenu.Items.Add(LocalizationManager.GetString("MainForm_ContextMenu_Pause"), null, (s, e) => PauseButton_Click(s, e));
             }
             
             if (canStop)
             {
-                contextMenu.Items.Add("Остановить", null, (s, e) => StopButton_Click(s, e));
+                contextMenu.Items.Add(LocalizationManager.GetString("MainForm_ContextMenu_Stop"), null, (s, e) => StopButton_Click(s, e));
             }
             
             if (canSetSpeed)
             {
                 contextMenu.Items.Add(new ToolStripSeparator());
-                contextMenu.Items.Add("Ограничение скорости...", null, (s, e) => SettingsButton_Click(s, e));
+                contextMenu.Items.Add(LocalizationManager.GetString("MainForm_ContextMenu_SpeedLimit"), null, (s, e) => SettingsButton_Click(s, e));
             }
             
             // Меню приоритета
             contextMenu.Items.Add(new ToolStripSeparator());
-            var priorityMenu = new ToolStripMenuItem("Приоритет");
-            priorityMenu.DropDownItems.Add("Высокий", null, (s, e) => SetTorrentPriority(2));
-            priorityMenu.DropDownItems.Add("Нормальный", null, (s, e) => SetTorrentPriority(1));
-            priorityMenu.DropDownItems.Add("Низкий", null, (s, e) => SetTorrentPriority(0));
+            var priorityMenu = new ToolStripMenuItem(LocalizationManager.GetString("MainForm_ContextMenu_Priority"));
+            priorityMenu.DropDownItems.Add(LocalizationManager.GetString("MainForm_ContextMenu_Priority_High"), null, (s, e) => SetTorrentPriority(2));
+            priorityMenu.DropDownItems.Add(LocalizationManager.GetString("MainForm_ContextMenu_Priority_Normal"), null, (s, e) => SetTorrentPriority(1));
+            priorityMenu.DropDownItems.Add(LocalizationManager.GetString("MainForm_ContextMenu_Priority_Low"), null, (s, e) => SetTorrentPriority(0));
             contextMenu.Items.Add(priorityMenu);
             
             contextMenu.Items.Add(new ToolStripSeparator());
-            contextMenu.Items.Add("Удалить", null, (s, e) => RemoveTorrentButton_Click(s, e));
+            contextMenu.Items.Add(LocalizationManager.GetString("MainForm_ContextMenu_Remove"), null, (s, e) => RemoveTorrentButton_Click(s, e));
             
             // Показываем меню
             contextMenu.Show(_torrentListView, location);
@@ -785,7 +826,7 @@ namespace TorrentClient
                 {
                     _presenter.AppSettings.DefaultDownloadPath = dialog.SelectedPath;
                     _settingsManager.SaveSettings(_presenter.AppSettings);
-                    _statusLabel.Text = $"Папка сохранения изменена: {dialog.SelectedPath}";
+                    _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_DownloadFolderChanged", dialog.SelectedPath);
                 }
             }
         }
@@ -810,6 +851,17 @@ namespace TorrentClient
                 currentSettings.AutoStartOnLaunch = dialog.AutoStartOnLaunch;
                 currentSettings.AutoStartOnAdd = dialog.AutoStartOnAdd;
                 currentSettings.CopyTorrentFileToDownloadFolder = dialog.CopyTorrentFileToDownloadFolder;
+                
+                // Обновляем язык
+                var newLanguageCode = dialog.LanguageCode;
+                var languageChanged = currentSettings.LanguageCode != newLanguageCode;
+                if (languageChanged)
+                {
+                    currentSettings.LanguageCode = newLanguageCode;
+                    LocalizationManager.SetLanguage(newLanguageCode ?? "en");
+                    // Обновляем интерфейс главной формы после смены языка
+                    ApplyLocalization();
+                }
                 
                 // Получаем значения из формы
                 var globalDownloadSpeed = dialog.GlobalMaxDownloadSpeed;
@@ -852,7 +904,7 @@ namespace TorrentClient
                     verifySettings.MaxPiecesToRequest,
                     verifySettings.MaxRequestsPerPeer);
                 
-                _statusLabel.Text = $"Настройки сохранены: {verifySettings.MaxConnections} соед., {verifySettings.MaxPiecesToRequest} кусков";
+                _statusLabel.Text = LocalizationManager.GetString("MainForm_Status_SettingsSaved", verifySettings.MaxConnections, verifySettings.MaxPiecesToRequest);
             }
         }
         
@@ -932,11 +984,11 @@ namespace TorrentClient
                 26.0,  // Название (уменьшено для приоритета)
                 10.5,  // Размер (200px -> 10.5%)
                 7.0,   // Прогресс (120px -> 7%)
-                21.0,  // Скорость (уменьшено для приоритета)
+                20.0,  // Скорость (уменьшено для приоритета)
                 9.5,   // Загружено (170px -> 9.5%)
                 7.0,   // Пиры (130px -> 7%)
-                7.0,   // Приоритет (100px -> 7%)
-                10.0   // Статус (160px -> 10%)
+                9.0,   // Приоритет (100px -> 9%)
+                9.0   // Статус (160px -> 9%)
             };
 
             var totalProportion = columnProportions.Sum();

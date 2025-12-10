@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrentklient</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Lägg till Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Starta</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Stoppa</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Hastighetsbegränsning</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Nedladdningsmapp</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Framsteg</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Hastighet</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Nedladdad</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Starta</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Stoppa</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Hastighetsbegränsning...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Hög</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Låg</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Hög</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Låg</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Stoppad</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Kontrollerar</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Pausad</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Laddar ner</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seedar</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Globala Inställningar</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Maximalt Antal Anslutningar</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Maximalt Antal Halvöppna Anslutningar</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Maximalt Antal Bitar att Begära</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Maximalt Antal Begäranden per Peer</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Aktivera Loggning</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minimera till Systemfältet vid Stängning</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Automatisk Start vid Öppning</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Automatisk Start vid Tillägg</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Kopiera .torrent-fil till Nedladdningsmapp</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Global Nedladdningshastighetsbegränsning</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Global Uppladdningshastighetsbegränsning</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Obegränsat</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Varning</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Fråga</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Dra och släpp .torrent-filer här</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrents laddade och startade</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Fel vid laddning av sparade torrents</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent tillagd: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrents tillagda: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Tillagda: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Hoppade över: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Fel: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Misslyckades att lägga till torrents</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Nedladdningsmapp ändrad: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Inställningar sparade: {0} anslutningar, {1} bitar</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Resultat av Tillägg av Torrents</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrents tillagda: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Hoppade över på grund av otillräckligt utrymme: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Fel: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Varningar om diskutrymme:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Fel:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... och {0} fler fel</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Fel vid tillägg av torrents: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Fel vid borttagning av torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Fel vid start av torrents: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Fel vid paus av torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Fel vid stopp av torrents: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Standardmapp</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Spara denna mapp som standardmapp för framtida torrents?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Kritiskt applikationsfel:\n{0}\n\nDetaljer i loggfilen.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Ett fel uppstod:\n{0}\n\nDetaljer i loggfilen.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Ökning av parallellism kan förbättra hastigheten men skapar mer systembelastning.</value>
+  </data>
+</root>

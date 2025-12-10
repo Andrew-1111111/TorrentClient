@@ -266,13 +266,25 @@ namespace TorrentClient.UI.Services
                 // Приоритет: 0 = Низкий, 1 = Нормальный, 2 = Высокий
                 var priorityText = torrent.Priority switch
                 {
-                    0 => "Низкий",
-                    1 => "Нормальный",
-                    2 => "Высокий",
-                    _ => "Нормальный"
+                    0 => LocalizationManager.GetString("Priority_Low"),
+                    1 => LocalizationManager.GetString("Priority_Normal"),
+                    2 => LocalizationManager.GetString("Priority_High"),
+                    _ => LocalizationManager.GetString("Priority_Normal")
                 };
                 item.SubItems.Add(priorityText);
-                item.SubItems.Add(torrent.State.ToString());
+                
+                // Статус с локализацией
+                var statusText = torrent.State switch
+                {
+                    TorrentState.Stopped => LocalizationManager.GetString("Status_Stopped"),
+                    TorrentState.Checking => LocalizationManager.GetString("Status_Checking"),
+                    TorrentState.Paused => LocalizationManager.GetString("Status_Paused"),
+                    TorrentState.Downloading => LocalizationManager.GetString("Status_Downloading"),
+                    TorrentState.Seeding => LocalizationManager.GetString("Status_Seeding"),
+                    TorrentState.Error => LocalizationManager.GetString("Status_Error"),
+                    _ => torrent.State.ToString()
+                };
+                item.SubItems.Add(statusText);
 
                 torrentListView.Items.Add(item);
             }, _pendingUpdates);

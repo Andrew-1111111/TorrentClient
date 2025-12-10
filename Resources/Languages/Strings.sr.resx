@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Торент Клијент</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Додај Торент</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Уклони</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Покрени</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Заустави</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Ограничење Брзине</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Фолдер за Преузимање</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Подешавања</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Назив</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Величина</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Напредак</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Брзина</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Преузето</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Спремно</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Покрени</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Заустави</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Ограничење Брзине...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Висок</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Нормалан</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Низак</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Уклони</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Висок</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Нормалан</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Низак</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Заустављено</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Провера</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>На Паузи</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Преузима</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Дели</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Глобална Подешавања</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Језик</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Максималан Број Веза</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Максималан Број Полуотворених Веза</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Максималан Број Делова за Захтевање</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Максималан Број Захтева по Пиру</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Омогући Запис</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Минимизирај у Системску Линију при Затварању</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Аутоматско Покретање при Отварању</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Аутоматско Покретање при Додавању</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Копирај .torrent Фајл у Фолдер за Преузимање</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Глобално Ограничење Брзине Преузимања</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Глобално Ограничење Брзине Отпремања</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Неограничено</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Информација</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Упозорење</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Питање</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Превуците и отпустите .torrent фајлове овде</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Торенти учитани и покренути</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Грешка при учитавању сачуваних торента</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Торент додат: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Торенти додати: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Додато: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Прескочено: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Грешке: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Неуспешно додавање торента</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Фолдер за преузимање промењен: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Подешавања сачувана: {0} веза, {1} делова</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Резултат Додавања Торента</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Торенти додати: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Прескочено због недостатка простора: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Грешке: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Упозорења о простору на диску:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Грешке:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... и {0} још грешака</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Грешка при додавању торента: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Грешка при уклањању торента: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Грешка при покретању торента: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Грешка при паузирању торента: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Грешка при заустављању торента: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Подразумевани Фолдер</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Сачувати овај фолдер као подразумевани фолдер за будуће торенте?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Критична грешка апликације:\n{0}\n\nДетаљи у фајлу записа.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Дошло је до грешке:\n{0}\n\nДетаљи у фајлу записа.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Повећање паралелизма може побољшати брзину али ствара веће оптерећење система.</value>
+  </data>
+</root>

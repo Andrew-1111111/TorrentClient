@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>टोरेंट क्लाइंट</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>टोरेंट जोड़ें</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>हटाएं</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>शुरू करें</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>रोकें</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>बंद करें</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>गति सीमा</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>डाउनलोड फ़ोल्डर</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>सेटिंग्स</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>नाम</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>आकार</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>प्रगति</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>गति</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>डाउनलोड किया गया</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>पीयर</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>प्राथमिकता</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>तैयार</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>शुरू करें</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>रोकें</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>बंद करें</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>गति सीमा...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>प्राथमिकता</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>निम्न</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>हटाएं</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>निम्न</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>रोका गया</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>जांच कर रहा है</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>रोका गया</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>डाउनलोड हो रहा है</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>सीडिंग</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>वैश्विक सेटिंग्स</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>भाषा</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>अधिकतम कनेक्शन</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>अधिकतम अर्ध-खुले कनेक्शन</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>अनुरोध करने के लिए अधिकतम टुकड़े</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>प्रति पीयर अधिकतम अनुरोध</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>लॉगिंग सक्षम करें</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>बंद करने पर सिस्टम ट्रे में कम करें</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>लॉन्च पर स्वचालित शुरू</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>जोड़ने पर स्वचालित शुरू</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>टोरेंट फ़ाइल को डाउनलोड फ़ोल्डर में कॉपी करें</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>वैश्विक डाउनलोड गति सीमा</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>वैश्विक अपलोड गति सीमा</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>असीमित</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>ठीक है</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>जानकारी</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>चेतावनी</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>प्रश्न</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>.torrent फ़ाइलें यहां खींचें और छोड़ें</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>टोरेंट लोड किए गए और शुरू किए गए</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>सहेजे गए टोरेंट लोड करने में त्रुटि</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>टोरेंट जोड़ा गया: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>टोरेंट जोड़े गए: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>जोड़ा गया: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>छोड़ा गया: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>त्रुटियां: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>टोरेंट जोड़ने में विफल</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>डाउनलोड फ़ोल्डर बदला गया: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>सेटिंग्स सहेजी गईं: {0} कनेक्शन, {1} टुकड़े</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>टोरेंट जोड़ने का परिणाम</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ टोरेंट जोड़े गए: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ अपर्याप्त स्थान के कारण छोड़ा गया: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ त्रुटियां: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ डिस्क स्थान चेतावनियां:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ त्रुटियां:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... और {0} और त्रुटियां</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>टोरेंट जोड़ने में त्रुटि: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>टोरेंट हटाने में त्रुटि: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>टोरेंट शुरू करने में त्रुटि: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>टोरेंट रोकने में त्रुटि: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>टोरेंट बंद करने में त्रुटि: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>डिफ़ॉल्ट फ़ोल्डर</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>इस फ़ोल्डर को भविष्य के टोरेंट के लिए डिफ़ॉल्ट फ़ोल्डर के रूप में सहेजें?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>गंभीर एप्लिकेशन त्रुटि:\n{0}\n\nविवरण लॉग फ़ाइल में।</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>एक त्रुटि हुई:\n{0}\n\nविवरण लॉग फ़ाइल में।</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>समानांतरता बढ़ाने से गति में सुधार हो सकता है लेकिन अधिक सिस्टम लोड बनाता है।</value>
+  </data>
+</root>

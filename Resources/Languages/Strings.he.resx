@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>לקוח טורנט</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>הוסף טורנט</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>הסר</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>השהה</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>עצור</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>הגבלת מהירות</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>תיקיית הורדה</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>התקדמות</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>מהירות</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>הורד</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>עמיתים</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>עדיפות</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>סטטוס</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>השהה</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>עצור</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>הגבלת מהירות...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>עדיפות</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>גבוהה</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>רגילה</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>נמוכה</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>הסר</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>גבוהה</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>רגילה</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>נמוכה</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>עצור</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>בודק</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>מושהה</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>מוריד</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>מזין</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>שגיאה</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>הגדרות גלובליות</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>מספר חיבורים מקסימלי</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>מספר חיבורים חצי פתוחים מקסימלי</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>מספר חלקים מקסימלי לבקשה</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>מספר בקשות מקסימלי לכל עמית</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>הפעל רישום</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>מזער למגש המערכת בסגירה</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>התחל אוטומטית בהפעלה</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>התחל אוטומטית בהוספה</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>העתק קובץ טורנט לתיקיית הורדה</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>הגבלת מהירות הורדה גלובלית</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>הגבלת מהירות העלאה גלובלית</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>ללא הגבלה</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>שגיאה</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>מידע</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>אזהרה</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>שאלה</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>גרור ושחרר קבצי .torrent כאן</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>טורנטים נטענו והופעלו</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>שגיאה בטעינת טורנטים שמורים</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>טורנט נוסף: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>טורנטים נוספו: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>נוסף: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>דולג: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>שגיאות: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>נכשל בהוספת טורנטים</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>תיקיית הורדה שונתה: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>הגדרות נשמרו: {0} חיבורים, {1} חלקים</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>תוצאה של הוספת טורנטים</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ טורנטים נוספו: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ דולג עקב חוסר מקום: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ שגיאות: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ אזהרות מקום בדיסק:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ שגיאות:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... ועוד {0} שגיאות</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>שגיאה בהוספת טורנטים: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>שגיאה בהסרת טורנטים: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>שגיאה בהפעלת טורנטים: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>שגיאה בהשהיית טורנטים: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>שגיאה בעצירת טורנטים: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>תיקייה ברירת מחדל</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>האם לשמור את התיקייה הזו כתיקייה ברירת מחדל לטורנטים עתידיים?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>שגיאה</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>שגיאה קריטית באפליקציה:\n{0}\n\nפרטים בקובץ היומן.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>שגיאה</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>אירעה שגיאה:\n{0}\n\nפרטים בקובץ היומן.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>הגדלת המקביליות עשויה לשפר את המהירות אך יוצרת יותר עומס מערכת.</value>
+  </data>
+</root>

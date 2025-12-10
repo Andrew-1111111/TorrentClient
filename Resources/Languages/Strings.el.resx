@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Πελάτης Torrent</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Προσθήκη Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Εκκίνηση</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Παύση</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Διακοπή</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Όριο Ταχύτητας</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Φάκελος Λήψης</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Μέγεθος</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Πρόοδος</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Ταχύτητα</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Λήφθηκε</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Προτεραιότητα</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Έτοιμο</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Εκκίνηση</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Παύση</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Διακοπή</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Όριο Ταχύτητας...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Προτεραιότητα</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Υψηλή</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Κανονική</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Χαμηλή</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Υψηλή</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Κανονική</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Χαμηλή</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Διακοπή</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Έλεγχος</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Σε Παύση</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seeding</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Καθολικές Ρυθμίσεις</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Μέγιστος Αριθμός Συνδέσεων</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Μέγιστος Αριθμός Ημι-Ανοιχτών Συνδέσεων</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Μέγιστος Αριθμός Κομματιών προς Αίτηση</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Μέγιστος Αριθμός Αιτημάτων ανά Peer</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Ενεργοποίηση Καταγραφής</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Ελαχιστοποίηση στο Δίσκο κατά το Κλείσιμο</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Αυτόματη Εκκίνηση κατά το Άνοιγμα</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Αυτόματη Εκκίνηση κατά την Προσθήκη</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Αντιγραφή Αρχείου .torrent στον Φάκελο Λήψης</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Καθολικό Όριο Ταχύτητας Λήψης</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Καθολικό Όριο Ταχύτητας Αποστολής</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Απεριόριστο</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Πληροφορίες</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Ερώτηση</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Σύρετε και αφήστε αρχεία .torrent εδώ</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrents φορτώθηκαν και ξεκίνησαν</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Σφάλμα κατά τη φόρτωση αποθηκευμένων torrents</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent προστέθηκε: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrents προστέθηκαν: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Προστέθηκαν: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Παραλείφθηκαν: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Σφάλματα: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Αποτυχία προσθήκης torrents</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Φάκελος λήψης άλλαξε: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Ρυθμίσεις αποθηκεύτηκαν: {0} συνδέσεις, {1} κομμάτια</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Αποτέλεσμα Προσθήκης Torrents</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrents προστέθηκαν: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Παραλείφθηκαν λόγω ανεπαρκούς χώρου: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Σφάλματα: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Προειδοποιήσεις χώρου δίσκου:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Σφάλματα:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... και {0} ακόμη σφάλματα</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Σφάλμα κατά την προσθήκη torrents: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Σφάλμα κατά την αφαίρεση torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Σφάλμα κατά την εκκίνηση torrents: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Σφάλμα κατά την παύση torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Σφάλμα κατά τη διακοπή torrents: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Προεπιλεγμένος Φάκελος</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Αποθήκευση αυτού του φακέλου ως προεπιλεγμένου φακέλου για μελλοντικά torrents;</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Κρίσιμο σφάλμα εφαρμογής:\n{0}\n\nΛεπτομέρειες στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Παρουσιάστηκε σφάλμα:\n{0}\n\nΛεπτομέρειες στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Η αύξηση του παραλληλισμού μπορεί να βελτιώσει την ταχύτητα αλλά δημιουργεί περισσότερο φορτίο στο σύστημα.</value>
+  </data>
+</root>

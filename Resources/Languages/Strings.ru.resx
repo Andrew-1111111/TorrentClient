@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Торрент Клиент</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Добавить торрент</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Стоп</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Ограничение скорости</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Папка сохранения</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Прогресс</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Скорость</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Загружено</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Пиры</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Готов</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Ограничение скорости...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Остановлен</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Проверка</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>На паузе</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Загружается</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Раздается</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Глобальные настройки</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Макс. соединений с пирами</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Макс. полуоткрытых соединений</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Кусков одновременно</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Запросов на соединение</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Включить логирование</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Сворачивать в трей при закрытии окна</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Автозапуск торрентов при открытии приложения</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Автоматически запускать торрент при добавлении</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Копировать .torrent файл в папку загрузки</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Общая скорость загрузки (Mbps)</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Общая скорость отдачи (Mbps)</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Без ограничений</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Перетащите файлы с расширением .torrent</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Торренты загружены и запущены</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Ошибка загрузки сохранённых торрентов</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Торрент добавлен: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Добавлено торрентов: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Добавлено: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Пропущено: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Ошибок: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Не удалось добавить торренты</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Папка сохранения изменена: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Настройки сохранены: {0} соед., {1} кусков</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Результат добавления торрентов</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Добавлено торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Пропущено из-за недостатка места: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Ошибок: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Предупреждения о недостатке места на диске:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Ошибки:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... и еще {0} ошибок</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Ошибка добавления торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Ошибка удаления торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Ошибка запуска торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Ошибка паузы торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Ошибка остановки торрентов: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Папка по умолчанию</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Сохранить эту папку как папку по умолчанию для будущих торрентов?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Критическая ошибка приложения:\n{0}\n\nПодробности в лог-файле.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Произошла ошибка:\n{0}\n\nПодробности в лог-файле.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Увеличение параллелизма может повысить скорость, но создаёт больше нагрузки на систему.</value>
+  </data>
+</root>

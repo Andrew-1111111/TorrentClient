@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Torrent-asiakasohjelma</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Lisää Torrent</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Käynnistä</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Tauko</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Lopeta</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Nopeusrajoitus</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Latauskansio</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Koko</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Edistyminen</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Nopeus</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Ladattu</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Käynnistä</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Tauko</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Lopeta</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Nopeusrajoitus...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Normaali</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Matala</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normaali</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Matala</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Pysäytetty</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Tarkistetaan</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Keskeytetty</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seedaaminen</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Globaalit Asetukset</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Maksimimäärä Yhteyksiä</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Maksimimäärä Puoliavoimia Yhteyksiä</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Maksimimäärä Pyydettäviä Palasia</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Maksimimäärä Pyyntöjä per Peer</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Ota Lokitus Käyttöön</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Minimoi Tehtäväpalkkiin Suljettaessa</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Automaattinen Käynnistys Avattaessa</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Automaattinen Käynnistys Lisättäessä</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Kopioi .torrent-tiedosto Latauskansioon</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Globaali Latausnopeusrajoitus</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Globaali Lähetysnopeusrajoitus</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Rajoittamaton</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Tiedot</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Kysymys</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Vedä ja pudota .torrent-tiedostot tähän</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrentit ladattu ja käynnistetty</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Virhe tallennettujen torrentien lataamisessa</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent lisätty: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrentit lisätty: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Lisätty: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Ohitettu: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Virheet: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Torrentien lisääminen epäonnistui</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Latauskansio muutettu: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Asetukset tallennettu: {0} yhteyttä, {1} palasta</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Torrentien Lisäämisen Tulos</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrentit lisätty: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Ohitettu riittämättömän tilan vuoksi: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Virheet: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Levytilan varoitukset:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Virheet:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... ja {0} muuta virhettä</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Virhe torrentien lisäämisessä: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Virhe torrentien poistamisessa: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Virhe torrentien käynnistämisessä: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Virhe torrentien keskeyttämisessä: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Virhe torrentien pysäyttämisessä: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Oletuskansio</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Tallennetaanko tämä kansio oletuskansioksi tuleville torrenteille?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Kriittinen sovellusvirhe:\n{0}\n\nYksityiskohdat lokitiedostossa.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Tapahtui virhe:\n{0}\n\nYksityiskohdat lokitiedostossa.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>Rinnakkaisuuden lisääminen voi parantaa nopeutta, mutta luo enemmän järjestelmäkuormaa.</value>
+  </data>
+</root>

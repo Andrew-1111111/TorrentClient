@@ -1,4 +1,6 @@
-﻿namespace TorrentClient
+﻿using TorrentClient.Core;
+
+namespace TorrentClient
 {
     /// <summary>
     /// Форма глобальных настроек приложения
@@ -16,6 +18,17 @@
         public bool AutoStartOnLaunch => _autoStartCheckBox.Checked;
         public bool AutoStartOnAdd => _autoStartOnAddCheckBox.Checked;
         public bool CopyTorrentFileToDownloadFolder => _copyTorrentFileCheckBox.Checked;
+        
+        /// <summary>Код языка интерфейса (например, "en", "ru", "es")</summary>
+        public string? LanguageCode
+        {
+            get
+            {
+                if (_languageComboBox.SelectedItem is LanguageInfo langInfo)
+                    return langInfo.Code;
+                return null;
+            }
+        }
         
         /// <summary>Глобальный лимит скорости загрузки (байт/сек, null = без ограничений)</summary>
         public long? GlobalMaxDownloadSpeed
@@ -98,7 +111,40 @@
         {
             _settings = settings;
             InitializeComponent();
+            InitializeLanguageComboBox();
             LoadSettings();
+            ApplyLocalization();
+        }
+        
+        private void InitializeLanguageComboBox()
+        {
+            var languages = LocalizationManager.GetSupportedLanguages();
+            _languageComboBox.DataSource = languages;
+            _languageComboBox.DisplayMember = "NativeName";
+            _languageComboBox.ValueMember = "Code";
+        }
+        
+        /// <summary>
+        /// Применяет локализацию к элементам формы
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            Text = LocalizationManager.GetString("GlobalSettings_Title");
+            _maxConnectionsLabel.Text = LocalizationManager.GetString("GlobalSettings_MaxConnections") + ":";
+            _maxHalfOpenLabel.Text = LocalizationManager.GetString("GlobalSettings_MaxHalfOpen") + ":";
+            _maxPiecesLabel.Text = LocalizationManager.GetString("GlobalSettings_MaxPieces") + ":";
+            _maxRequestsLabel.Text = LocalizationManager.GetString("GlobalSettings_MaxRequestsPerPeer") + ":";
+            _enableLoggingCheckBox.Text = LocalizationManager.GetString("GlobalSettings_EnableLogging");
+            _minimizeToTrayCheckBox.Text = LocalizationManager.GetString("GlobalSettings_MinimizeToTray");
+            _autoStartCheckBox.Text = LocalizationManager.GetString("GlobalSettings_AutoStartOnLaunch");
+            _autoStartOnAddCheckBox.Text = LocalizationManager.GetString("GlobalSettings_AutoStartOnAdd");
+            _copyTorrentFileCheckBox.Text = LocalizationManager.GetString("GlobalSettings_CopyTorrentFile");
+            _globalDownloadLimitCheckBox.Text = LocalizationManager.GetString("GlobalSettings_GlobalDownloadSpeed") + ":";
+            _globalUploadLimitCheckBox.Text = LocalizationManager.GetString("GlobalSettings_GlobalUploadSpeed") + ":";
+            _languageLabel.Text = LocalizationManager.GetString("GlobalSettings_Language") + ":";
+            _okButton.Text = LocalizationManager.GetString("GlobalSettings_OK");
+            _cancelButton.Text = LocalizationManager.GetString("GlobalSettings_Cancel");
+            _infoLabel.Text = LocalizationManager.GetString("GlobalSettings_Info");
         }
 
         private void LoadSettings()
@@ -145,6 +191,38 @@
             {
                 // Если лимит не установлен, устанавливаем значение по умолчанию (100 Mbps)
                 SetComboBoxFromMbps(_globalUploadLimitComboBox, 100);
+            }
+            
+            // Установить выбранный язык
+            if (!string.IsNullOrEmpty(_settings.LanguageCode))
+            {
+                for (int i = 0; i < _languageComboBox.Items.Count; i++)
+                {
+                    if (_languageComboBox.Items[i] is LanguageInfo langInfo && langInfo.Code == _settings.LanguageCode)
+                    {
+                        _languageComboBox.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                // Если язык не установлен, выбираем текущий язык системы
+                var currentLang = LocalizationManager.GetCurrentLanguage();
+                for (int i = 0; i < _languageComboBox.Items.Count; i++)
+                {
+                    if (_languageComboBox.Items[i] is LanguageInfo langInfo)
+                    {
+                        // Сравниваем полный код или базовый код (например, "pt-BR" или "pt")
+                        if (langInfo.Code == currentLang || 
+                            currentLang.StartsWith(langInfo.Code + "-", StringComparison.OrdinalIgnoreCase) ||
+                            langInfo.Code.StartsWith(currentLang.Split('-')[0] + "-", StringComparison.OrdinalIgnoreCase))
+                        {
+                            _languageComboBox.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

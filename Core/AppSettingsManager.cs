@@ -53,18 +53,26 @@ namespace TorrentClient.Core
         
         /// <summary>Глобальный лимит скорости отдачи в байтах в секунду (null = без ограничений)</summary>
         public long? GlobalMaxUploadSpeed { get; set; } = null;
+        
+        /// <summary>Код языка интерфейса (например, "en", "ru", "es"). Если пусто, определяется автоматически из Windows</summary>
+        public string? LanguageCode { get; set; } = null;
     }
 
     /// <summary>
-    /// Менеджер настроек приложения
+    /// Менеджер настроек приложения.
+    /// Управляет загрузкой и сохранением настроек приложения в файл appsettings.json.
     /// </summary>
     public class AppSettingsManager : IAppSettingsManager
     {
         private readonly string _settingsFilePath;
 
         /// <summary>
-        /// Получает путь к папке приложения
+        /// Получает путь к папке приложения.
         /// </summary>
+        /// <returns>Путь к папке, где находится исполняемый файл приложения.</returns>
+        /// <remarks>
+        /// При отладке это будет папка сборки, при запуске .exe - папка с .exe файлом.
+        /// </remarks>
         private static string GetApplicationDirectory()
         {
             // Используем AppDomain.CurrentDomain.BaseDirectory - это путь к папке, где находится исполняемый файл
@@ -73,8 +81,12 @@ namespace TorrentClient.Core
         }
 
         /// <summary>
-        /// Инициализирует новый экземпляр AppSettingsManager
+        /// Инициализирует новый экземпляр AppSettingsManager.
+        /// Создает папку Settings, если она не существует.
         /// </summary>
+        /// <remarks>
+        /// Путь к файлу настроек: {папка_приложения}/Settings/appsettings.json
+        /// </remarks>
         public AppSettingsManager()
         {
             // Используем папку приложения для Settings
@@ -117,8 +129,13 @@ namespace TorrentClient.Core
         }
 
         /// <summary>
-        /// Загружает настройки из файла
+        /// Загружает настройки из файла appsettings.json.
         /// </summary>
+        /// <returns>Объект AppSettings с загруженными настройками. Если файл не существует, возвращаются настройки по умолчанию.</returns>
+        /// <remarks>
+        /// Если файл настроек не существует, возвращаются настройки по умолчанию.
+        /// При ошибке чтения файла также возвращаются настройки по умолчанию, ошибка логируется.
+        /// </remarks>
         public AppSettings LoadSettings()
         {
             try
@@ -133,8 +150,15 @@ namespace TorrentClient.Core
                 };
                 var settings = JsonSerializer.Deserialize<AppSettings>(json, options) ?? GetDefaultSettings();
                 
+                // Нормализуем LanguageCode: если пустая строка, устанавливаем null для использования языка Windows
+                if (string.IsNullOrWhiteSpace(settings.LanguageCode))
+                {
+                    settings.LanguageCode = null;
+                }
+                
                 // Логируем загруженные глобальные лимиты для отладки
                 Logger.LogInfo($"[AppSettingsManager] Загружены глобальные лимиты: загрузка={FormatSpeed(settings.GlobalMaxDownloadSpeed)}, отдача={FormatSpeed(settings.GlobalMaxUploadSpeed)}");
+                Logger.LogInfo($"[AppSettingsManager] Загружен LanguageCode: {(settings.LanguageCode ?? "null (будет использован язык Windows)")}");
                 
                 return settings;
             }
@@ -155,8 +179,13 @@ namespace TorrentClient.Core
         }
 
         /// <summary>
-        /// Сохраняет настройки в файл
+        /// Сохраняет настройки в файл appsettings.json.
         /// </summary>
+        /// <param name="settings">Объект AppSettings с настройками для сохранения.</param>
+        /// <remarks>
+        /// Если папка Settings не существует, она будет создана автоматически.
+        /// Настройки сохраняются в формате JSON с отступами для читаемости.
+        /// </remarks>
         public void SaveSettings(AppSettings settings)
         {
             try
@@ -166,6 +195,13 @@ namespace TorrentClient.Core
                 if (!string.IsNullOrEmpty(directory))
                 {
                     Directory.CreateDirectory(directory);
+                }
+                
+                // Нормализуем LanguageCode перед сохранением: если пустая строка, устанавливаем null
+                // Это гарантирует, что при следующей загрузке будет использован язык Windows
+                if (string.IsNullOrWhiteSpace(settings.LanguageCode))
+                {
+                    settings.LanguageCode = null;
                 }
                 
                 var options = new JsonSerializerOptions 
@@ -195,6 +231,10 @@ namespace TorrentClient.Core
         /// Возвращает настройки по умолчанию
         /// </summary>
         /// <returns>Настройки приложения со значениями по умолчанию</returns>
+        /// <summary>
+        /// Получает настройки приложения по умолчанию.
+        /// </summary>
+        /// <returns>Объект AppSettings с настройками по умолчанию.</returns>
         private static AppSettings GetDefaultSettings()
         {
             // Используем папку приложения для всех папок

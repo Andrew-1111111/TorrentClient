@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainForm_Title" xml:space="preserve">
+    <value>Cliant Torrent</value>
+  </data>
+  <data name="MainForm_AddTorrent" xml:space="preserve">
+    <value>Cuir Torrent Leis</value>
+  </data>
+  <data name="MainForm_Remove" xml:space="preserve">
+    <value>Bain</value>
+  </data>
+  <data name="MainForm_Start" xml:space="preserve">
+    <value>Tosaigh</value>
+  </data>
+  <data name="MainForm_Pause" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="MainForm_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="MainForm_SpeedLimit" xml:space="preserve">
+    <value>Teorainn Luas</value>
+  </data>
+  <data name="MainForm_DownloadFolder" xml:space="preserve">
+    <value>Fillteán Íoslódála</value>
+  </data>
+  <data name="MainForm_Settings" xml:space="preserve">
+    <value>Socruithe</value>
+  </data>
+  <data name="MainForm_Column_Number" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="MainForm_Column_Name" xml:space="preserve">
+    <value>Ainm</value>
+  </data>
+  <data name="MainForm_Column_Size" xml:space="preserve">
+    <value>Méid</value>
+  </data>
+  <data name="MainForm_Column_Progress" xml:space="preserve">
+    <value>Dul Chun Cinn</value>
+  </data>
+  <data name="MainForm_Column_Speed" xml:space="preserve">
+    <value>Luas</value>
+  </data>
+  <data name="MainForm_Column_Downloaded" xml:space="preserve">
+    <value>Íoslódáilte</value>
+  </data>
+  <data name="MainForm_Column_Peers" xml:space="preserve">
+    <value>Piaraí</value>
+  </data>
+  <data name="MainForm_Column_Priority" xml:space="preserve">
+    <value>Tosaíocht</value>
+  </data>
+  <data name="MainForm_Column_Status" xml:space="preserve">
+    <value>Stádas</value>
+  </data>
+  <data name="MainForm_Status_Ready" xml:space="preserve">
+    <value>Réidh</value>
+  </data>
+  <data name="MainForm_ContextMenu_Start" xml:space="preserve">
+    <value>Tosaigh</value>
+  </data>
+  <data name="MainForm_ContextMenu_Pause" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="MainForm_ContextMenu_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="MainForm_ContextMenu_SpeedLimit" xml:space="preserve">
+    <value>Teorainn Luas...</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority" xml:space="preserve">
+    <value>Tosaíocht</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_High" xml:space="preserve">
+    <value>Ard</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Normal" xml:space="preserve">
+    <value>Ghnáth</value>
+  </data>
+  <data name="MainForm_ContextMenu_Priority_Low" xml:space="preserve">
+    <value>Íseal</value>
+  </data>
+  <data name="MainForm_ContextMenu_Remove" xml:space="preserve">
+    <value>Bain</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Ard</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Ghnáth</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>Íseal</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="Status_Checking" xml:space="preserve">
+    <value>Á Sheiceáil</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Ar Sos</value>
+  </data>
+  <data name="Status_Downloading" xml:space="preserve">
+    <value>Á Íoslódáil</value>
+  </data>
+  <data name="Status_Seeding" xml:space="preserve">
+    <value>Seeding</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Earráid</value>
+  </data>
+  <data name="GlobalSettings_Title" xml:space="preserve">
+    <value>Socruithe Domhanda</value>
+  </data>
+  <data name="GlobalSettings_Language" xml:space="preserve">
+    <value>Teanga</value>
+  </data>
+  <data name="GlobalSettings_MaxConnections" xml:space="preserve">
+    <value>Nascanna Uasta</value>
+  </data>
+  <data name="GlobalSettings_MaxHalfOpen" xml:space="preserve">
+    <value>Nascanna Leath-Oscailte Uasta</value>
+  </data>
+  <data name="GlobalSettings_MaxPieces" xml:space="preserve">
+    <value>Píosaí Uasta le hIarraidh</value>
+  </data>
+  <data name="GlobalSettings_MaxRequestsPerPeer" xml:space="preserve">
+    <value>Iarratais Uasta in aghaidh an Phiara</value>
+  </data>
+  <data name="GlobalSettings_EnableLogging" xml:space="preserve">
+    <value>Cumasaigh Logáil</value>
+  </data>
+  <data name="GlobalSettings_MinimizeToTray" xml:space="preserve">
+    <value>Íoslaghdaigh go Tráidire ar Dhúnadh</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnLaunch" xml:space="preserve">
+    <value>Tosaigh go huathoibríoch ar Seoladh</value>
+  </data>
+  <data name="GlobalSettings_AutoStartOnAdd" xml:space="preserve">
+    <value>Tosaigh go huathoibríoch ar Chur Leis</value>
+  </data>
+  <data name="GlobalSettings_CopyTorrentFile" xml:space="preserve">
+    <value>Cóipeáil Comhad Torrent go Fillteán Íoslódála</value>
+  </data>
+  <data name="GlobalSettings_GlobalDownloadSpeed" xml:space="preserve">
+    <value>Teorainn Luas Íoslódála Domhanda</value>
+  </data>
+  <data name="GlobalSettings_GlobalUploadSpeed" xml:space="preserve">
+    <value>Teorainn Luas Uaslódála Domhanda</value>
+  </data>
+  <data name="GlobalSettings_Unlimited" xml:space="preserve">
+    <value>Neamhtheoranta</value>
+  </data>
+  <data name="GlobalSettings_OK" xml:space="preserve">
+    <value>Ceart go leor</value>
+  </data>
+  <data name="GlobalSettings_Cancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Earráid</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Eolas</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Rabhadh</value>
+  </data>
+  <data name="MessageBox_Question" xml:space="preserve">
+    <value>Ceist</value>
+  </data>
+  <data name="MainForm_Status_DragDrop" xml:space="preserve">
+    <value>Tarraing agus scaoil comhaid .torrent anseo</value>
+  </data>
+  <data name="MainForm_Status_TorrentsLoaded" xml:space="preserve">
+    <value>Torrents lódáilte agus tosaithe</value>
+  </data>
+  <data name="MainForm_Status_LoadError" xml:space="preserve">
+    <value>Earráid ag lódáil torrents sábhálta</value>
+  </data>
+  <data name="MainForm_Status_TorrentAdded" xml:space="preserve">
+    <value>Torrent curtha leis: {0}</value>
+  </data>
+  <data name="MainForm_Status_TorrentsAdded" xml:space="preserve">
+    <value>Torrents curtha leis: {0}</value>
+  </data>
+  <data name="MainForm_Status_Added" xml:space="preserve">
+    <value>Curtha leis: {0}</value>
+  </data>
+  <data name="MainForm_Status_Skipped" xml:space="preserve">
+    <value>Sárú: {0}</value>
+  </data>
+  <data name="MainForm_Status_Errors" xml:space="preserve">
+    <value>Earráidí: {0}</value>
+  </data>
+  <data name="MainForm_Status_FailedToAdd" xml:space="preserve">
+    <value>Theip ar torrents a chur leis</value>
+  </data>
+  <data name="MainForm_Status_DownloadFolderChanged" xml:space="preserve">
+    <value>Fillteán íoslódála athraithe: {0}</value>
+  </data>
+  <data name="MainForm_Status_SettingsSaved" xml:space="preserve">
+    <value>Socruithe sábhálta: {0} nascanna, {1} píosaí</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Title" xml:space="preserve">
+    <value>Torthaí Cur Torrents Leis</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Added" xml:space="preserve">
+    <value>✓ Torrents curtha leis: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Skipped" xml:space="preserve">
+    <value>⚠ Sárú mar gheall ar spás neamhleor: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Failed" xml:space="preserve">
+    <value>✗ Earráidí: {0}</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Warnings" xml:space="preserve">
+    <value>⚠ Rabharthaí spáis diosca:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_Errors" xml:space="preserve">
+    <value>✗ Earráidí:</value>
+  </data>
+  <data name="MessageBox_AddTorrentResult_MoreErrors" xml:space="preserve">
+    <value>... agus {0} earráidí breise</value>
+  </data>
+  <data name="MessageBox_AddTorrentError" xml:space="preserve">
+    <value>Earráid ag cur torrents leis: {0}</value>
+  </data>
+  <data name="MessageBox_RemoveTorrentError" xml:space="preserve">
+    <value>Earráid ag baint torrents: {0}</value>
+  </data>
+  <data name="MessageBox_StartTorrentError" xml:space="preserve">
+    <value>Earráid ag tosú torrents: {0}</value>
+  </data>
+  <data name="MessageBox_PauseTorrentError" xml:space="preserve">
+    <value>Earráid ag cur torrents ar sos: {0}</value>
+  </data>
+  <data name="MessageBox_StopTorrentError" xml:space="preserve">
+    <value>Earráid ag stop torrents: {0}</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Title" xml:space="preserve">
+    <value>Fillteán Réamhshocraithe</value>
+  </data>
+  <data name="MessageBox_SaveAsDefault_Message" xml:space="preserve">
+    <value>Sábháil an fillteán seo mar fhillteán réamhshocraithe do torrents amach anseo?</value>
+  </data>
+  <data name="MessageBox_CriticalError_Title" xml:space="preserve">
+    <value>Earráid</value>
+  </data>
+  <data name="MessageBox_CriticalError_Message" xml:space="preserve">
+    <value>Earráid chriticiúil feidhmchláir:\n{0}\n\nSonraí i gcomhad logála.</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Title" xml:space="preserve">
+    <value>Earráid</value>
+  </data>
+  <data name="MessageBox_UnhandledError_Message" xml:space="preserve">
+    <value>Tharla earráid:\n{0}\n\nSonraí i gcomhad logála.</value>
+  </data>
+  <data name="GlobalSettings_Info" xml:space="preserve">
+    <value>D'fhéadfadh méadú ar chomhthreomhaireacht an luas a fheabhsú ach cruthaíonn sé ualach córais níos mó.</value>
+  </data>
+</root>
+
+
