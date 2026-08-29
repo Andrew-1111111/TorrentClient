@@ -44,3 +44,40 @@ namespace TorrentClient.Engine.Interfaces
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

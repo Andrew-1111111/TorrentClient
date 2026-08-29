@@ -1,5 +1,4 @@
-﻿using TorrentClient.Core;
-using TorrentClient.Core.Interfaces;
+﻿using TorrentClient.Core.Interfaces;
 using TorrentClient.UI;
 using TorrentClient.UI.Services;
 using TorrentClient.UI.Services.Interfaces;

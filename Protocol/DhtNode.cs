@@ -112,8 +112,7 @@ namespace TorrentClient.Protocol
             ("router.utorrent.com", 6881),
             ("dht.libtorrent.org", 25401),
             ("dht.transmissionbt.com", 6881),
-            ("router.bitcomet.com", 6881),
-            ("dht.aelitis.com", 6881),
+            ("router.bitcomet.com", 6881)
         ];
         
         private void InitializeBootstrapNodes()
